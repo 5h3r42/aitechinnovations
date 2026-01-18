@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-heading: var(--font-sora), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+
+  --color-background: #0B1220;
+  --color-accent: #2D7DFF;
+  --color-highlight: #2EE6A6;
+  --color-primary-text: #F7F9FC;
+  --color-muted-text: #9CA3AF;
+  
+  --animate-fade-in: fade-in 0.5s ease-in-out forwards;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Custom Utilities if needed */
+@utility container-custom {
+  @apply max-w-[1200px] mx-auto px-6;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-background text-primary-text font-body;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-primary-text;
+  }
+
+  .site-select {
+    color: var(--color-primary-text);
+    background-color: #0b1220;
+  }
+
+  .site-select option {
+    color: var(--color-primary-text);
+    background-color: #0b1220;
+  }
+
+  .site-select option:checked,
+  .site-select option:hover {
+    background-color: #9ec3ff;
+    color: #111827;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
