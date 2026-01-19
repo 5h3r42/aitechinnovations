@@ -14,11 +14,15 @@ export function ContactForm() {
     mainGoal: "",
     notes: "",
   });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [message, setMessage] = useState("");
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -29,10 +33,16 @@ export function ContactForm() {
     setMessage("");
 
     try {
+      const payload = {
+        ...formData,
+        // Non-secret: allows the API to fallback when the host doesn't expose server env vars at runtime
+        _scriptUrl: process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "",
+      };
+
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       // Read a helpful message from the API (JSON or text)
@@ -46,12 +56,30 @@ export function ContactForm() {
 
       if (!res.ok) {
         const apiMsg = data?.error || data?.message || "Something went wrong";
-        const details = data?.details ? ` (${JSON.stringify(data.details)})` : "";
-        throw new Error(`${apiMsg}${details}`);
+        const details = data?.details
+          ? ` (${JSON.stringify(data.details)})`
+          : "";
+        const fullMsg = `${apiMsg}${details}`;
+
+        // Log full details for debugging, but show a user-friendly message
+        console.error("Lead API error:", fullMsg, { status: res.status, data });
+
+        const isConfigIssue =
+          fullMsg.includes("Missing Google Apps Script URL") ||
+          fullMsg.includes("Missing GOOGLE_SCRIPT_URL") ||
+          fullMsg.includes("GOOGLE_SCRIPT_URL");
+
+        const userMsg = isConfigIssue
+          ? "Form is temporarily unavailable. Please try again in a few minutes or email support@aitechinnovations.com."
+          : apiMsg;
+
+        throw new Error(userMsg);
       }
 
       setStatus("success");
-      setMessage("Thanks! We've received your details and will be in touch shortly.");
+      setMessage(
+        "Thanks! We've received your details and will be in touch shortly.",
+      );
       setFormData({
         name: "",
         email: "",
@@ -63,7 +91,9 @@ export function ContactForm() {
     } catch (error: any) {
       console.error("Lead submit failed:", error);
       setStatus("error");
-      setMessage(error?.message || "Something went wrong. Please try again later.");
+      setMessage(
+        error?.message || "Something went wrong. Please try again later.",
+      );
     }
   };
 
@@ -77,7 +107,10 @@ export function ContactForm() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-1 text-muted-text">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium mb-1 text-muted-text"
+                >
                   Name
                 </label>
                 <input
@@ -93,7 +126,10 @@ export function ContactForm() {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-1 text-muted-text">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium mb-1 text-muted-text"
+                >
                   Email
                 </label>
                 <input
@@ -110,7 +146,10 @@ export function ContactForm() {
             </div>
 
             <div>
-              <label htmlFor="website" className="block text-sm font-medium mb-1 text-muted-text">
+              <label
+                htmlFor="website"
+                className="block text-sm font-medium mb-1 text-muted-text"
+              >
                 Website URL
               </label>
               <input
@@ -145,7 +184,10 @@ export function ContactForm() {
             </div>
 
             <div>
-              <label htmlFor="mainGoal" className="block text-sm font-medium mb-1 text-muted-text">
+              <label
+                htmlFor="mainGoal"
+                className="block text-sm font-medium mb-1 text-muted-text"
+              >
                 Main Goal
               </label>
               <select
@@ -160,14 +202,19 @@ export function ContactForm() {
                   Select your priority
                 </option>
                 <option value="more-leads">More Leads</option>
-                <option value="better-conversion-rate">Better Conversion Rate</option>
+                <option value="better-conversion-rate">
+                  Better Conversion Rate
+                </option>
                 <option value="lead-automation">Lead Automation</option>
                 <option value="content-growth">Content &amp; Growth</option>
               </select>
             </div>
 
             <div>
-              <label htmlFor="notes" className="block text-sm font-medium mb-1 text-muted-text">
+              <label
+                htmlFor="notes"
+                className="block text-sm font-medium mb-1 text-muted-text"
+              >
                 Notes
               </label>
               <textarea
@@ -206,7 +253,9 @@ export function ContactForm() {
               </p>
             )}
 
-            <p className="text-center text-sm text-muted-text mt-4">Note: No spam. No obligation.</p>
+            <p className="text-center text-sm text-muted-text mt-4">
+              Note: No spam. No obligation.
+            </p>
           </form>
         </div>
       </Container>
