@@ -14,8 +14,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AITechInnovationsLtd | AI-Assisted Lead Generation",
-  description: "We design and build conversion-focused websites, funnels, and automation using AI.",
+  title: "AITechInnovations | AI-Assisted Lead Generation Systems",
+  description:
+    "We design and deploy AI-assisted lead generation systems that capture and qualify leads in 7-14 days.",
+  openGraph: {
+    title: "AITechInnovations | AI-Assisted Lead Generation Systems",
+    description:
+      "We design and deploy AI-assisted lead generation systems that capture and qualify leads in 7-14 days.",
+    url: "https://aitechinnovations.com",
+  },
 };
 
 export default function RootLayout({

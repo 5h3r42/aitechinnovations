@@ -18,6 +18,11 @@ export function Services() {
         "UX & trust signals",
         "Actionable priority fixes",
       ],
+      deliverables: [
+        "Conversion bottleneck review",
+        "Priority fixes list",
+        "Quick-win CTA improvements",
+      ],
       price: "£149–£399",
       cta: "Request Audit",
       action: "audit",
@@ -30,6 +35,13 @@ export function Services() {
         "Email follow-up",
         "Booking + tracking",
       ],
+      deliverables: [
+        "Conversion-focused page structure",
+        "AI-ready lead capture form",
+        "Google Sheets lead logging",
+        "Email notifications",
+        "Deployment + handover notes",
+      ],
       price: "£750–£1,500",
       cta: "Book a Call",
       action: "book_call",
@@ -39,6 +51,11 @@ export function Services() {
       title: "AI Content & Growth (Monthly)",
       description: "AI-generated content",
       features: ["Posting system", "Monthly optimisation"],
+      deliverables: [
+        "Content plan + prompts",
+        "Weekly publishing cadence",
+        "Ongoing conversion tweaks",
+      ],
       price: "£300–£900 / month",
       cta: "Discuss Retainer",
       action: "audit",
@@ -98,12 +115,29 @@ export function Services() {
                   </div>
                 )}
               </div>
+              <div className="mt-2">
+                <div className="text-xs font-semibold uppercase tracking-wider text-muted-text/80">
+                  What you get
+                </div>
+                <div className="mt-3 space-y-2">
+                  {service.deliverables.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-2 text-xs text-muted-text/80"
+                    >
+                      <span className="mt-[3px] h-1.5 w-1.5 rounded-full bg-accent/70" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
               <div className="pt-6 border-t border-muted-text/10 mt-auto">
                 <div className="text-2xl font-bold mb-4">{service.price}</div>
                 <Button
                   className="w-full"
                   variant="outline"
+                  type="button"
                   onClick={() => handleAction(service.action)}
                 >
                   {service.cta}

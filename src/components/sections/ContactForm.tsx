@@ -244,6 +244,9 @@ export function ContactForm() {
                 "Get My Free Audit"
               )}
             </Button>
+            <p className="text-center text-sm text-muted-text mt-3">
+              No spam. Every request is reviewed manually. No obligation.
+            </p>
 
             {message && (
               <p

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { SystemPreview } from "@/components/ui/SystemPreview";
 
 export function Hero() {
   return (
@@ -12,12 +13,12 @@ export function Hero() {
       <Container className="relative z-10 text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-6 tracking-tight">
           AI-Assisted Lead Generation Systems <br className="hidden md:block" />
-          for Businesses
+          for Service Businesses
         </h1>
         <p className="text-lg md:text-xl text-muted-text max-w-2xl mx-auto mb-10 leading-relaxed">
-          We design and build conversion-focused websites, funnels, and
-          automation using AI — delivered fast, structured, and without
-          freelancers.
+          We design and deploy systems that capture, qualify, and notify you of
+          new leads, delivered in 7-14 days for owners who want predictable
+          growth without hiring freelancers.
         </p>
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12">
           <Button
@@ -41,6 +42,9 @@ export function Hero() {
           >
             View Services
           </Button>
+        </div>
+        <div className="mb-10">
+          <SystemPreview />
         </div>
         <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 text-sm font-medium text-muted-text uppercase tracking-wider">
           <span>Built in the UK</span>
