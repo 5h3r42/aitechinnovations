@@ -15,7 +15,7 @@ export function Hero() {
             alt="Digital wave background for AI-assisted lead generation"
             fill
             priority
-            className="object-cover opacity-[0.22] saturate-75"
+            className="object-cover opacity-[0.3] saturate-75"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/75 via-[#0B1220]/50 to-[#020617]/65" />
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20" />
