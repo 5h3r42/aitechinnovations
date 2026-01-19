@@ -50,7 +50,7 @@ export function ContactForm() {
         throw new Error(`${apiMsg}${details}`);
       }
 
-      setStatus("idle");
+      setStatus("success");
       setMessage("Thanks! We've received your details and will be in touch shortly.");
       setFormData({
         name: "",

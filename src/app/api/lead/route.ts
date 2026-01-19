@@ -39,11 +39,17 @@ function hasAnyValue(obj: any) {
 
 export async function POST(req: Request) {
   try {
-    const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL;
+    const scriptUrl =
+      process.env.GOOGLE_SCRIPT_URL ||
+      process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
 
-    if (!GOOGLE_SCRIPT_URL) {
+    if (!scriptUrl) {
       return NextResponse.json(
-        { success: false, error: "Missing GOOGLE_SCRIPT_URL in .env.local" },
+        {
+          success: false,
+          error:
+            "Missing Google Apps Script URL. Set GOOGLE_SCRIPT_URL (server) or NEXT_PUBLIC_GOOGLE_SCRIPT_URL (client) in Hostinger environment variables.",
+        },
         { status: 500 },
       );
     }
@@ -93,13 +99,18 @@ export async function POST(req: Request) {
       businessType: toStr(body?.businessType).trim(),
       mainGoal: toStr(body?.mainGoal || body?.goal).trim(),
 
-      // ✅ CHANGED: accept multiple possible keys for notes
+      // ✅ CHANGED: accept multiple possible keys for notes (including capitalized and common alternatives)
       notes: toStr(
         body?.notes ??
+          body?.Notes ??
           body?.note ??
+          body?.Note ??
           body?.message ??
+          body?.Message ??
           body?.details ??
-          body?.comments,
+          body?.Details ??
+          body?.comments ??
+          body?.Comments,
       ).trim(),
     };
 
@@ -121,7 +132,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const r = await fetch(GOOGLE_SCRIPT_URL, {
+    const r = await fetch(scriptUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
