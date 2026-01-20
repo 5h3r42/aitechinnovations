@@ -81,9 +81,6 @@ export function Footer() {
           <div>© 2024 AITech Innovations Ltd. All rights reserved.</div>
           <div className="text-muted-text/70">Privacy · Terms</div>
         </div>
-        <div className="text-xs opacity-50 mt-4">
-          Build: {process.env.NEXT_PUBLIC_BUILD_STAMP}
-        </div>
       </Container>
     </footer>
   );
