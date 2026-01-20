@@ -27,8 +27,14 @@ export function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-text">
               Quick Links
             </h3>
-            <nav className="flex flex-col gap-2 text-sm text-muted-text" aria-label="Footer">
-              <a className="hover:text-primary-text transition" href="#services">
+            <nav
+              className="flex flex-col gap-2 text-sm text-muted-text"
+              aria-label="Footer"
+            >
+              <a
+                className="hover:text-primary-text transition"
+                href="#services"
+              >
                 Services
               </a>
               <a className="hover:text-primary-text transition" href="#process">
@@ -74,6 +80,9 @@ export function Footer() {
         <div className="mt-10 pt-6 border-t border-muted-text/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-sm text-muted-text">
           <div>© 2024 AITech Innovations Ltd. All rights reserved.</div>
           <div className="text-muted-text/70">Privacy · Terms</div>
+        </div>
+        <div className="text-xs opacity-50 mt-4">
+          Build: {process.env.NEXT_PUBLIC_BUILD_STAMP}
         </div>
       </Container>
     </footer>
