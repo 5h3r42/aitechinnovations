@@ -118,7 +118,6 @@ export function ContactForm() {
                   id="name"
                   name="name"
                   required
-                  placeholder="John Doe"
                   className="w-full rounded-xl border border-muted-text/30 bg-background/50 px-4 py-3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                   value={formData.name}
                   onChange={handleChange}
@@ -137,7 +136,6 @@ export function ContactForm() {
                   id="email"
                   name="email"
                   required
-                  placeholder="john@company.com"
                   className="w-full rounded-xl border border-muted-text/30 bg-background/50 px-4 py-3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                   value={formData.email}
                   onChange={handleChange}
@@ -156,8 +154,6 @@ export function ContactForm() {
                 type="url"
                 id="website"
                 name="website"
-                required
-                placeholder="https://example.com"
                 className="w-full rounded-xl border border-muted-text/30 bg-background/50 px-4 py-3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                 value={formData.website}
                 onChange={handleChange}
@@ -176,7 +172,6 @@ export function ContactForm() {
                 id="businessType"
                 name="businessType"
                 required
-                placeholder="e.g. B2B SaaS, Agency, Local Service"
                 className="w-full rounded-xl border border-muted-text/30 bg-background/50 px-4 py-3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                 value={formData.businessType}
                 onChange={handleChange}
@@ -199,9 +194,10 @@ export function ContactForm() {
                 onChange={handleChange}
               >
                 <option value="" disabled hidden>
-                  Select your priority
+                  {""}
                 </option>
                 <option value="more-leads">More Leads</option>
+                <option value="website">Website</option>
                 <option value="better-conversion-rate">
                   Better Conversion Rate
                 </option>
@@ -221,7 +217,6 @@ export function ContactForm() {
                 id="notes"
                 name="notes"
                 rows={4}
-                placeholder="Anything else you'd like us to know"
                 className="w-full rounded-xl border border-muted-text/30 bg-background/50 px-4 py-3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                 value={formData.notes}
                 onChange={handleChange}
@@ -255,10 +250,6 @@ export function ContactForm() {
                 {message}
               </p>
             )}
-
-            <p className="text-center text-sm text-muted-text mt-4">
-              Note: No spam. No obligation.
-            </p>
           </form>
         </div>
       </Container>

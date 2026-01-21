@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 type LeadPayload = {
   name: string;
   email: string;
-  website: string;
+  website?: string;
   businessType: string;
   mainGoal: string;
   notes?: string;
@@ -118,7 +118,6 @@ export async function POST(req: Request) {
     if (
       !payload.name ||
       !payload.email ||
-      !payload.website ||
       !payload.businessType ||
       !payload.mainGoal
     ) {
