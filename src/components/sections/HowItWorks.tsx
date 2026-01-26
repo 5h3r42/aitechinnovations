@@ -1,6 +1,10 @@
+"use client";
+
 import { Container } from "@/components/ui/Container";
+import { useReveal } from "@/hooks/useReveal";
 
 export function HowItWorks() {
+  const { ref, className } = useReveal();
   const steps = [
     {
       title: "Step 1 — Analyse",
@@ -25,7 +29,11 @@ export function HowItWorks() {
   ];
 
   return (
-    <section id="process" className="py-20 bg-background">
+    <section
+      id="process"
+      ref={ref}
+      className={`py-20 bg-background ${className}`}
+    >
       <Container>
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
