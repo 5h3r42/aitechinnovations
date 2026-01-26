@@ -3,12 +3,14 @@
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
+import { useReveal } from "@/hooks/useReveal";
 import { Check } from "lucide-react";
 
 // Google Calendar Appointment Schedule booking page (public link)
 const BOOK_CALL_URL = "https://calendar.app.google/qNhJA1tHbWnmLtB6A";
 
 export function Services() {
+  const { ref, className } = useReveal();
   const services = [
     {
       title: "Website & Funnel Audit",
@@ -71,7 +73,11 @@ export function Services() {
   };
 
   return (
-    <section id="services" className="py-20 relative overflow-hidden">
+    <section
+      id="services"
+      ref={ref}
+      className={`py-20 relative overflow-hidden ${className}`}
+    >
       <div
         className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background/90 pointer-events-none"
         aria-hidden="true"

@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { useReveal } from "@/hooks/useReveal";
 
 export function ContactForm() {
+  const { ref, className } = useReveal();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -98,7 +100,11 @@ export function ContactForm() {
   };
 
   return (
-    <section id="audit" className="py-20 bg-muted-text/5">
+    <section
+      id="audit"
+      ref={ref}
+      className={`py-20 bg-muted-text/5 ${className}`}
+    >
       <Container>
         <div className="max-w-2xl mx-auto bg-background/60 p-8 md:p-10 rounded-3xl border border-muted-text/20 shadow-xl">
           <h2 className="text-3xl md:text-4xl font-bold font-heading text-center mb-8">

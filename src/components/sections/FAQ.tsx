@@ -1,6 +1,10 @@
+"use client";
+
 import { Container } from "@/components/ui/Container";
+import { useReveal } from "@/hooks/useReveal";
 
 export function FAQ() {
+  const { ref, className } = useReveal();
   const faqs = [
     {
       q: "Do you run ads?",
@@ -21,7 +25,7 @@ export function FAQ() {
   ];
 
   return (
-    <section className="py-20 bg-background">
+    <section ref={ref} className={`py-20 bg-background ${className}`}>
       <Container>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">

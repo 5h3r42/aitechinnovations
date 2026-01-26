@@ -3,11 +3,17 @@
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SystemPreview } from "@/components/ui/SystemPreview";
+import { useReveal } from "@/hooks/useReveal";
 import Image from "next/image";
 
 export function Hero() {
+  const { ref, className } = useReveal();
+
   return (
-    <section className="relative pt-20 pb-20 md:pt-28 md:pb-32 overflow-hidden">
+    <section
+      ref={ref}
+      className={`relative pt-20 pb-20 md:pt-28 md:pb-32 overflow-hidden ${className}`}
+    >
       <div className="absolute inset-0 -z-10">
         <div className="relative w-full h-full">
           <Image
@@ -27,13 +33,12 @@ export function Hero() {
 
       <Container className="relative z-10 text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-6 tracking-tight">
-          AI-Assisted Lead Generation Systems <br className="hidden md:block" />
-          for Service Businesses
+          Turn Website Visitors Into Qualified Leads Automatically
         </h1>
         <p className="text-lg md:text-xl text-muted-text max-w-2xl mx-auto mb-10 leading-relaxed">
-          We design and deploy systems that capture, qualify, and notify you of
-          new leads, delivered in 7-14 days for owners who want predictable
-          growth without hiring freelancers.
+          We design and deploy conversion-focused websites, landing pages, and
+          AI-assisted lead systems that capture, qualify, and notify you of new
+          enquiries in 7–14 days.
         </p>
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12">
           <Button
