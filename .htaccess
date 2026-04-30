@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^aitechinnovations\.com$ [NC]
+RewriteRule ^(.*)$ https://www.aitechinnovations.com/$1 [R=301,L]

@@ -14,7 +14,6 @@
 - Review homepage copy for final pricing, scope, and turnaround wording.
 - Check privacy and terms pages against the final enquiry workflow.
 - Confirm analytics or lead tracking requirements before launch.
-- Commit the static migration and tracking files once reviewed.
 
 ## Backlog
 
@@ -27,3 +26,4 @@
 
 ## Done
 
+- Committed the static migration from Next.js to a Hostinger-ready static HTML/CSS/JavaScript site.

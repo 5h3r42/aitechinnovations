@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AITech Innovations
 
-## Getting Started
+Static website for AITech Innovations, a UK web design agency for local businesses.
 
-First, run the development server:
+## Stack
 
-```bash
+- HTML
+- CSS
+- Vanilla JavaScript
+
+The site is designed for simple Hostinger deployment to `public_html`.
+
+## Local Preview
+
+```sh
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:4173
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Static Check
 
-## Learn More
+```sh
+npm run check
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Deploy these files to Hostinger `public_html`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```text
+index.html
+styles.css
+script.js
+privacy.html
+terms.html
+assets/
+```
 
-## Deploy on Vercel
+Optional server config:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+.htaccess
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contact Settings
+
+Update the contact settings near the top of `script.js`:
+
+```js
+const CONTACT_SETTINGS = {
+  email: "support@aitechinnovations.com",
+  whatsappNumber: "",
+  phoneNumber: "",
+  bookingUrl: "",
+};
+```
