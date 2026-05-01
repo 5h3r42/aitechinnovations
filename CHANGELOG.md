@@ -13,17 +13,20 @@
 
 - Redeployed the static site to Hostinger because the live domain was still serving the old Next.js design.
 - Added no-cache headers for HTML files so future homepage HTML changes are less likely to remain stale.
+- Deployed a temporary generic Hostinger Node wrapper from an archive so the static files can be served without reintroducing Next.js or React to the repository.
 - Verified `/index.html` and cache-busted homepage URLs serve the new static website.
+- Confirmed the plain `/` URL can still return the old Next.js HTML from Hostinger CDN cache.
 
 ### Validation
 
 - `npm run check`
 - Hostinger static deployment accepted
+- Hostinger generic Node deployment completed
 - Live `/index.html` returns the new web design agency site
 
 ### Next Task
 
-Confirm the plain homepage URL has fully refreshed across Hostinger CDN edge cache.
+Purge Hostinger CDN/cache and disable the old Next.js app route in hPanel.
 
 ## 2026-04-30 - Commit static site migration
 
