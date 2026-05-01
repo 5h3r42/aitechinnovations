@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-05-01 - Refresh Hostinger static deployment
+
+### Files Changed
+
+- Updated `.htaccess`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Redeployed the static site to Hostinger because the live domain was still serving the old Next.js design.
+- Added no-cache headers for HTML files so future homepage HTML changes are less likely to remain stale.
+- Verified `/index.html` and cache-busted homepage URLs serve the new static website.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- Live `/index.html` returns the new web design agency site
+
+### Next Task
+
+Confirm the plain homepage URL has fully refreshed across Hostinger CDN edge cache.
+
 ## 2026-04-30 - Commit static site migration
 
 ### Files Changed
