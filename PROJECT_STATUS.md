@@ -8,6 +8,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Site-wide text spacing has been tightened for hero copy, section intros, cards, pricing, FAQ, footer, and legal pages.
 - Rebuilt and redeployed the clean static site package to Hostinger on 2026-05-01.
 - Plain homepage `/`, `/index.html`, CSS, and JavaScript now serve the new static web design agency site.
 - Live Hostinger deployment was refreshed with the static site files.
@@ -38,7 +39,7 @@ Launch preparation for a static Hostinger-ready agency website.
 ## Next 5 Logical Tasks
 
 1. Add the final WhatsApp number, phone number, and booking URL if those channels should be live.
-2. Complete a live desktop/mobile browser review of the deployed site.
+2. Complete a final live desktop/mobile browser review of the typography update.
 3. Confirm FormSubmit activation and test the quote form end to end.
 4. Replace demo portfolio concepts with real client screenshots when available.
 5. Verify whether the historical Hostinger Next.js deployments can be removed from hPanel.

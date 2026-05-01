@@ -3,7 +3,7 @@
 ## Today
 
 - Add final contact settings for WhatsApp, phone, and booking if available.
-- Complete a live desktop/mobile browser review of the deployed site.
+- Complete a final live desktop/mobile browser review of the typography update.
 - Test the quote form delivery path and confirm FormSubmit activation.
 
 ## This Week
@@ -26,6 +26,7 @@
 
 ## Done
 
+- Tightened site-wide text spacing for hero copy, section intros, cards, pricing, FAQ, footer, and legal pages.
 - Rebuilt and redeployed the clean static site package to Hostinger.
 - Verified the plain homepage `/`, `/index.html`, CSS, and JavaScript serve the new static site.
 - Redeployed the static site to Hostinger after the live domain served the old Next.js design.

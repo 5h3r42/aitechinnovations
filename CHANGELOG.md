@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-05-01 - Tighten site typography spacing
+
+### Files Changed
+
+- Updated `styles.css`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Tightened line-height and spacing across the site so large paragraphs, cards, pricing lists, FAQ text, footer copy, and legal text read as cleaner blocks.
+- Reduced overly loose hero paragraph spacing while keeping the layout accessible and mobile-friendly.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- Live stylesheet returns the tightened typography rules
+- Live homepage still returns the new static site markers
+
+### Next Task
+
+Complete a final live desktop/mobile browser review of the typography update.
+
 ## 2026-05-01 - Rebuild live static site
 
 ### Files Changed
