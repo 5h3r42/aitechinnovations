@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-05-01 - Rebuild live static site
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Rebuilt the Hostinger static deployment archive from the current static site files.
+- Redeployed the clean static package to `aitechinnovations.com`.
+- Confirmed the live root homepage now serves the new web design agency site rather than the old Next.js design.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- `https://www.aitechinnovations.com/` returns the new homepage marker
+- `https://www.aitechinnovations.com/index.html` returns the new homepage marker
+- `https://www.aitechinnovations.com/styles.css` returns the current static stylesheet
+
+### Next Task
+
+Complete a live desktop/mobile browser review and test the quote form.
+
 ## 2026-05-01 - Refresh Hostinger static deployment
 
 ### Files Changed

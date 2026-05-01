@@ -3,7 +3,7 @@
 ## Today
 
 - Add final contact settings for WhatsApp, phone, and booking if available.
-- Purge Hostinger CDN/cache and disable the old Next.js app route in hPanel.
+- Complete a live desktop/mobile browser review of the deployed site.
 - Test the quote form delivery path and confirm FormSubmit activation.
 
 ## This Week
@@ -26,6 +26,8 @@
 
 ## Done
 
+- Rebuilt and redeployed the clean static site package to Hostinger.
+- Verified the plain homepage `/`, `/index.html`, CSS, and JavaScript serve the new static site.
 - Redeployed the static site to Hostinger after the live domain served the old Next.js design.
 - Deployed a temporary generic Hostinger Node wrapper to serve the static files while the old Next.js route/cache remains attached.
 - Added no-cache headers for HTML files in `.htaccess`.
