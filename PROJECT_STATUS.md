@@ -8,7 +8,15 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Homepage positioning was updated for higher-value professional service businesses including clinics, solicitors, accountants, trades, estate agents, and care providers.
+- Demo work now shows clickable Private Clinic, Solicitor, and Roofing Company website concepts with unique in-page preview popups.
+- Quote form business type options were updated for the new target industries.
+- WhatsApp Click-to-Chat update was deployed to Hostinger and verified live on 2026-06-03.
+- WhatsApp Click-to-Chat links now open the final business WhatsApp quote enquiry URL without displaying the phone number publicly.
 - Site-wide text spacing has been tightened for hero copy, section intros, cards, pricing, FAQ, footer, and legal pages.
+- Microsoft Clarity `x1bt97hjsh` has been installed, deployed to Hostinger, and verified live.
+- Live browser network testing confirmed GA4 `page_view` collection requests fire for `G-LTL4JXMYP2`.
+- Google tag `G-LTL4JXMYP2` was deployed to Hostinger and verified live on 2026-06-03.
 - Google tag `G-LTL4JXMYP2` has been installed on the homepage, privacy page, and terms page.
 - Reusable `static-lead-form` Codex skill was created from the site contact form pattern on 2026-05-30.
 - Final live desktop/mobile browser review of the typography update was completed on 2026-05-01.
@@ -24,7 +32,7 @@ Launch preparation for a static Hostinger-ready agency website.
 - Homepage includes hero, services, pricing, demo work, process, proof, quote form, FAQ, and footer sections.
 - Privacy and terms pages are present.
 - Contact settings are centralized in `script.js`.
-- Quote form supports FormSubmit email delivery with email fallback and optional WhatsApp fallback.
+- Quote form supports FormSubmit email delivery with email fallback and WhatsApp fallback.
 - Mobile navigation, sticky header state, reveal animations, and current-year footer hydration are implemented.
 - Demo portfolio items are labelled as demo concepts.
 - Static validation script exists at `scripts/check-static-site.js`.
@@ -33,19 +41,19 @@ Launch preparation for a static Hostinger-ready agency website.
 ## In Progress
 
 - FormSubmit fallback needs email activation before it can be relied on.
-- Contact channels still need final business values if WhatsApp, phone, or booking should be live.
+- Booking still needs a final business URL if that channel should be live.
 - Portfolio examples are still demo concepts until real client screenshots are available.
 
 ## Known Issues
 
-- `CONTACT_SETTINGS.whatsappNumber`, `phoneNumber`, and `bookingUrl` are currently blank, so WhatsApp, call, and booking paths are limited or hidden.
+- `CONTACT_SETTINGS.bookingUrl` is currently blank, so the booking path remains hidden.
 - FormSubmit returned an activation-required response on 2026-05-01 and sent an activation email to `support@aitechinnovations.com`.
 - Hostinger still has historical Next.js deployments listed for the domain, but the live root URL now serves the static site.
 
 ## Next 5 Logical Tasks
 
 1. Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
-2. Add the final WhatsApp number, phone number, and booking URL if those channels should be live.
-3. Prepare the Hostinger `public_html` deployment package.
+2. Add the final booking URL if that channel should be live.
+3. Verify live domain, SSL, favicon, and key page routing after upload.
 4. Replace demo portfolio concepts with real client screenshots when available.
 5. Verify whether the historical Hostinger Next.js deployments can be removed from hPanel.

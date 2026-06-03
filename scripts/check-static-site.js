@@ -23,7 +23,7 @@ for (const file of requiredFiles) {
 const index = fs.readFileSync(path.join(process.cwd(), "index.html"), "utf8");
 const script = fs.readFileSync(path.join(process.cwd(), "script.js"), "utf8");
 const checks = [
-  "Websites that help local businesses get more customers.",
+  "Trust-building websites that bring in better enquiries.",
   "Starter Website",
   "Business Website",
   "Premium Website",
@@ -31,6 +31,10 @@ const checks = [
   "Send enquiry",
   "data-email-link",
   "data-whatsapp-link",
+  "Private Clinic Website",
+  "Solicitor Website",
+  "Roofing Company Website",
+  "Other professional service business",
 ];
 
 for (const text of checks) {
@@ -40,7 +44,7 @@ for (const text of checks) {
   }
 }
 
-const scriptChecks = ["CONTACT_SETTINGS", "buildWhatsAppUrl", "_honey"];
+const scriptChecks = ["CONTACT_SETTINGS", "buildWhatsAppUrl", "_honey", "openPreview", "closePreview"];
 for (const text of scriptChecks) {
   if (!script.includes(text)) {
     console.error(`Missing expected script text: ${text}`);

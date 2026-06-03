@@ -1,5 +1,142 @@
 # Changelog
 
+## 2026-06-03 - Reposition for professional service clients
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Repositioned homepage copy for dentists, private clinics, solicitors, accountants, builders, roofing companies, estate agents, and care providers.
+- Replaced old demo examples with clickable Private Clinic, Solicitor, and Roofing Company website concepts.
+- Added accessible in-page modal previews with distinct clinic, legal, and roofing visual treatments.
+- Updated the quote form business type dropdown for the new target industries.
+- Preserved centralized WhatsApp Click-to-Chat behavior and kept public phone-number text out of the page.
+
+### Validation
+
+- `npm run check`
+- Local browser verification of desktop and mobile homepage layout, demo preview open/close behavior, ESC close, outside-click close, focus return, scroll lock, dropdown options, and WhatsApp CTA URLs.
+- Searched public files for public phone-number display, `tel:` links, old demo niche copy, and WhatsApp `mailto:` misuse.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Add WhatsApp Click-to-Chat links
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `script.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added the final WhatsApp Click-to-Chat number to centralized contact settings.
+- Updated all WhatsApp CTAs to open the quote enquiry link in a new tab with the required pre-filled message.
+- Replaced public call CTAs with WhatsApp/free quote CTAs and kept the phone number out of visible page text.
+- Deployed the updated static site package to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- Searched public files for WhatsApp `mailto:` fallbacks, public phone-number text, `tel:` links, and remaining call CTA labels.
+- Local browser verification of hero, contact section, and mobile contact bar WhatsApp links.
+- Live homepage serves the updated WhatsApp CTAs with the required URL, `target`, and `rel` values.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Install Microsoft Clarity
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `privacy.html`
+- Updated `terms.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added the Microsoft Clarity tracking snippet for project ID `x1bt97hjsh`.
+- Installed the snippet in the `<head>` of the homepage, privacy page, and terms page.
+- Deployed the updated static site package to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- Live homepage, privacy page, and terms page return the Clarity snippet
+- `https://www.clarity.ms/tag/x1bt97hjsh` returns `200`
+
+### Next Task
+
+Verify live domain, SSL, favicon, and key page routing after upload.
+
+## 2026-06-03 - Verify Google tag firing
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Tested the live Google tag script directly and confirmed Google returns the configured tag JavaScript for `G-LTL4JXMYP2`.
+- Loaded the live homepage in Chromium and inspected browser network requests.
+- Confirmed GA4 `page_view` collection requests are sent for `tid=G-LTL4JXMYP2`.
+
+### Validation
+
+- Google Tag Manager script returned `200`
+- Live homepage returned the Google tag snippet
+- Browser network showed `region1.google-analytics.com/g/collect` `page_view` requests returning `204`
+
+### Next Task
+
+Verify live domain, SSL, favicon, and key page routing after upload.
+
+## 2026-06-03 - Deploy Google tag to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Built a clean static deployment archive containing only the Hostinger-ready site files.
+- Uploaded the static package to Hostinger for `aitechinnovations.com`.
+- Verified the live homepage, privacy page, and terms page serve Google tag `G-LTL4JXMYP2`.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- `https://www.aitechinnovations.com/` returns the Google tag and current static homepage marker
+- `https://www.aitechinnovations.com/privacy.html` returns the Google tag
+- `https://www.aitechinnovations.com/terms.html` returns the Google tag
+
+### Next Task
+
+Verify live domain, SSL, favicon, and key page routing after upload.
+
 ## 2026-06-03 - Install Google tag
 
 ### Files Changed

@@ -3,14 +3,12 @@
 ## Today
 
 - Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
-- Add final WhatsApp number, phone number, and booking URL when those business values are available.
+- Add the final booking URL if that channel should be live.
 
 ## This Week
 
-- Prepare the Hostinger `public_html` deployment package.
 - Verify live domain, SSL, favicon, and key page routing after upload.
 - Replace demo work with real portfolio screenshots when client work is available.
-- Review homepage copy for final pricing, scope, and turnaround wording.
 - Check privacy and terms pages against the final enquiry workflow.
 
 ## Backlog
@@ -24,6 +22,13 @@
 
 ## Done
 
+- Repositioned the homepage for higher-value professional service businesses and added clickable clinic, solicitor, and roofing demo previews.
+- Deployed the WhatsApp Click-to-Chat update to Hostinger and verified the live site serves the updated links.
+- Added the final WhatsApp Click-to-Chat link for website quote enquiries and removed public call CTAs.
+- Installed Microsoft Clarity `x1bt97hjsh`, deployed it to Hostinger, and verified the live pages serve the snippet.
+- Confirmed the live Google tag fires GA4 `page_view` collection requests for `G-LTL4JXMYP2`.
+- Deployed the Google tag update to Hostinger and verified the live pages serve `G-LTL4JXMYP2`.
+- Prepared and uploaded the Hostinger `public_html` static deployment package.
 - Installed the Google tag `G-LTL4JXMYP2` on the homepage, privacy page, and terms page.
 - Created a reusable `static-lead-form` Codex skill from the site contact form pattern.
 - Checked final contact settings; no WhatsApp number, phone number, or booking URL was available in the project files, so existing hidden/fallback behavior remains unchanged.

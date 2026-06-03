@@ -1,9 +1,10 @@
 const CONTACT_SETTINGS = {
   email: "support@aitechinnovations.com",
-  whatsappNumber: "",
-  phoneNumber: "",
+  whatsappNumber: "447882111810",
   bookingUrl: "",
 };
+const WHATSAPP_QUOTE_MESSAGE = "Hi AITech Innovations, I'd like a website quote.";
+const WHATSAPP_QUOTE_ENCODED_MESSAGE = "Hi%20AITech%20Innovations,%20I'd%20like%20a%20website%20quote.";
 
 const GOOGLE_SHEETS_ENDPOINT =
   "https://script.google.com/macros/s/AKfycbwsi2ZxS5UzS-Cioi5Ll-1IHSiU3LJGoc6HdVK_J2h3_YhWMDhKP0wUdcyCXtj5qYn0/exec";
@@ -16,13 +17,19 @@ const quoteForm = document.querySelector("[data-quote-form]");
 const formStatus = document.querySelector("[data-form-status]");
 const whatsappLinks = document.querySelectorAll("[data-whatsapp-link]");
 const emailLinks = document.querySelectorAll("[data-email-link]");
-const phoneLinks = document.querySelectorAll("[data-phone-link]");
 const bookingLinks = document.querySelectorAll("[data-booking-link]");
 const currentYearElements = document.querySelectorAll("[data-current-year]");
+const previewModal = document.querySelector("[data-preview-modal]");
+const previewDialog = document.querySelector("[data-preview-dialog]");
+const previewTriggers = document.querySelectorAll("[data-preview-trigger]");
+const previewPanels = document.querySelectorAll("[data-preview-panel]");
+let activePreviewTrigger = null;
+let previewCloseTimer = null;
 
 function buildWhatsAppUrl(message) {
   if (!CONTACT_SETTINGS.whatsappNumber) return "";
-  return `https://wa.me/${CONTACT_SETTINGS.whatsappNumber}?text=${encodeURIComponent(message)}`;
+  const encodedMessage = message === WHATSAPP_QUOTE_MESSAGE ? WHATSAPP_QUOTE_ENCODED_MESSAGE : encodeURIComponent(message);
+  return `https://wa.me/${CONTACT_SETTINGS.whatsappNumber}?text=${encodedMessage}`;
 }
 
 function buildEmailUrl(subject, message = "") {
@@ -47,7 +54,7 @@ function showAvailableLink(link) {
 }
 
 function hydrateContactLinks() {
-  const defaultMessage = "Hi AITech Innovations, I would like to ask about a website project.";
+  const defaultMessage = WHATSAPP_QUOTE_MESSAGE;
 
   emailLinks.forEach((link) => {
     link.textContent = CONTACT_SETTINGS.email;
@@ -60,20 +67,8 @@ function hydrateContactLinks() {
       showAvailableLink(link);
       link.setAttribute("href", whatsappUrl);
       link.setAttribute("target", "_blank");
-      link.setAttribute("rel", "noopener");
-    } else {
-      link.setAttribute("href", buildEmailUrl("Website project enquiry", defaultMessage));
-      if (link.dataset.optional === "true") hideUnavailableLink(link);
+      link.setAttribute("rel", "noopener noreferrer");
     }
-  });
-
-  phoneLinks.forEach((link) => {
-    if (!CONTACT_SETTINGS.phoneNumber) {
-      hideUnavailableLink(link);
-      return;
-    }
-    showAvailableLink(link);
-    link.setAttribute("href", `tel:${CONTACT_SETTINGS.phoneNumber.replace(/\s+/g, "")}`);
   });
 
   bookingLinks.forEach((link) => {
@@ -122,6 +117,60 @@ const revealObserver = new IntersectionObserver(
 );
 
 document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+
+function setActivePreview(previewName) {
+  previewPanels.forEach((panel) => {
+    const isActive = panel.getAttribute("data-preview-panel") === previewName;
+    panel.toggleAttribute("hidden", !isActive);
+  });
+}
+
+function openPreview(previewName, trigger) {
+  if (!previewModal || !previewDialog) return;
+
+  window.clearTimeout(previewCloseTimer);
+  activePreviewTrigger = trigger;
+  setActivePreview(previewName);
+  previewModal.removeAttribute("hidden");
+  document.body.classList.add("preview-open");
+  previewDialog.scrollTop = 0;
+
+  window.requestAnimationFrame(() => {
+    previewModal.classList.add("is-open");
+    previewDialog.focus({ preventScroll: true });
+  });
+}
+
+function closePreview() {
+  if (!previewModal || !previewDialog || previewModal.hasAttribute("hidden")) return;
+
+  previewModal.classList.remove("is-open");
+  document.body.classList.remove("preview-open");
+  previewCloseTimer = window.setTimeout(() => {
+    previewModal.setAttribute("hidden", "");
+    activePreviewTrigger?.focus({ preventScroll: true });
+    activePreviewTrigger = null;
+  }, 180);
+}
+
+previewTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", () => {
+    openPreview(trigger.getAttribute("data-preview-trigger"), trigger);
+  });
+});
+
+previewModal?.addEventListener("click", (event) => {
+  if (!(event.target instanceof Element)) return;
+  const closeTarget = event.target.closest("[data-preview-close]");
+  if (!closeTarget) return;
+  closePreview();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && previewModal && !previewModal.hasAttribute("hidden")) {
+    closePreview();
+  }
+});
 
 quoteForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -210,7 +259,7 @@ quoteForm?.addEventListener("submit", async (event) => {
       formStatus.textContent = "Thanks. Your enquiry has been sent.";
     } catch {
       if (whatsappUrl) {
-        window.open(whatsappUrl, "_blank", "noopener");
+        window.open(whatsappUrl, "_blank", "noopener,noreferrer");
         formStatus.textContent = "Email sending was unavailable, so your enquiry opened in WhatsApp.";
       } else {
         window.location.href = buildEmailUrl(subject, message);
