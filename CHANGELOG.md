@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-06-03 - Fix WhatsApp enquiry links
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Changed WhatsApp enquiry anchors from placeholder `#` links to the direct WhatsApp quote URL in the static HTML.
+- Kept centralized JavaScript hydration in place while making the links work even if JavaScript loads late.
+- Added a static check to prevent WhatsApp links from shipping with placeholder href values again.
+
+### Validation
+
+- `npm run check`
+- Searched public files for placeholder WhatsApp links, WhatsApp `mailto:` misuse, and `tel:` links.
+- Live browser verification confirmed the hero WhatsApp enquiry button points to the required WhatsApp URL.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
 ## 2026-06-03 - Deploy professional service repositioning
 
 ### Files Changed

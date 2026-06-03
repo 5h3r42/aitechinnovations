@@ -52,6 +52,17 @@ for (const text of scriptChecks) {
   }
 }
 
+const requiredWhatsappUrl = "https://wa.me/447882111810?text=Hi%20AITech%20Innovations,%20I'd%20like%20a%20website%20quote.";
+if (!index.includes(requiredWhatsappUrl)) {
+  console.error("Homepage WhatsApp links should include the direct WhatsApp quote URL.");
+  failed = true;
+}
+
+if (index.includes('href="#" data-whatsapp-link')) {
+  console.error("WhatsApp links should not depend on placeholder href values.");
+  failed = true;
+}
+
 if (index.includes("_next/") || index.includes("/_next")) {
   console.error("Homepage should not reference Next.js build assets.");
   failed = true;

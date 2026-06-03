@@ -8,6 +8,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- WhatsApp enquiry links were fixed on 2026-06-03 so the static HTML points directly to the WhatsApp quote URL before JavaScript hydration.
 - Professional service client repositioning update was deployed to Hostinger and verified live on 2026-06-03.
 - Homepage positioning was updated for higher-value professional service businesses including clinics, solicitors, accountants, trades, estate agents, and care providers.
 - Demo work now shows clickable Private Clinic, Solicitor, and Roofing Company website concepts with unique in-page preview popups.
