@@ -22,6 +22,7 @@
 
 ## Done
 
+- Completed a responsive UI audit and polish pass for homepage alignment, spacing, typography, cards, CTAs, forms, footer, and mobile layouts.
 - Fixed WhatsApp enquiry links so they include the direct WhatsApp URL in the static HTML and no longer depend on placeholder links.
 - Deployed the professional service client repositioning update to Hostinger and verified the live homepage, demo previews, dropdown, and WhatsApp links.
 - Repositioned the homepage for higher-value professional service businesses and added clickable clinic, solicitor, and roofing demo previews.

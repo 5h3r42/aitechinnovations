@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-06-03 - Responsive UI audit and polish
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Tightened shared section spacing, heading scale, card padding, button sizing, form spacing, footer alignment, and responsive grid gaps.
+- Reduced the fixed mobile contact bar to the two core actions: free quote and WhatsApp.
+- Improved mobile spacing for cards, hero actions, process rows, demo previews, and modal content while preserving the existing visual style and copy.
+
+### Validation
+
+- `npm run check`
+- Local browser validation at 375px, 390px, 430px, 768px, 1024px, and 1440px confirmed no horizontal scrolling.
+- Verified mobile navigation opens, the clinic demo preview modal opens and closes, quote form fields remain aligned, and privacy/terms pages still fit on mobile.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
 ## 2026-06-03 - Fix WhatsApp enquiry links
 
 ### Files Changed

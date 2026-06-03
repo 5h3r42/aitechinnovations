@@ -8,6 +8,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Responsive UI audit and polish pass completed on 2026-06-03 across homepage alignment, spacing, typography, cards, CTAs, forms, footer, mobile navigation, and demo preview modal behavior.
 - WhatsApp enquiry links were fixed on 2026-06-03 so the static HTML points directly to the WhatsApp quote URL before JavaScript hydration.
 - Professional service client repositioning update was deployed to Hostinger and verified live on 2026-06-03.
 - Homepage positioning was updated for higher-value professional service businesses including clinics, solicitors, accountants, trades, estate agents, and care providers.
