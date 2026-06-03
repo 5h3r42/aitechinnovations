@@ -40,6 +40,7 @@ Deploy only the static site files to Hostinger `public_html`:
 - `index.html`
 - `styles.css`
 - `script.js`
+- `about.html`
 - `privacy.html`
 - `terms.html`
 - `assets/`

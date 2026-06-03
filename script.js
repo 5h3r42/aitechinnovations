@@ -153,10 +153,12 @@ function closePreview() {
   }, 180);
 }
 
-previewTriggers.forEach((trigger) => {
-  trigger.addEventListener("click", () => {
-    openPreview(trigger.getAttribute("data-preview-trigger"), trigger);
-  });
+document.addEventListener("click", (event) => {
+  if (!(event.target instanceof Element)) return;
+  const trigger = event.target.closest("[data-preview-trigger]");
+  if (!(trigger instanceof HTMLElement)) return;
+
+  openPreview(trigger.getAttribute("data-preview-trigger"), trigger);
 });
 
 previewModal?.addEventListener("click", (event) => {

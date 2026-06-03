@@ -8,6 +8,13 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Example work popout click handling was fixed on 2026-06-03 so each card/image opens the correct preview modal.
+- Example work card image clipping was fixed on 2026-06-03 so card titles and descriptions sit below the screenshots.
+- About page and footer VAT line-break update were deployed to Hostinger and verified live on 2026-06-03.
+- Static About Us page was added on 2026-06-03 and linked from the homepage navigation and footer.
+- Example work card labels were cleaned up on 2026-06-03, all three card-triggered popout previews were verified locally, and the fix was deployed to Hostinger.
+- Example work popout preview images update was deployed to Hostinger and verified live on 2026-06-03.
+- Popout preview images were added to the example work cards on 2026-06-03 without changing the card copy or preview behavior.
 - Responsive UI audit and polish pass completed on 2026-06-03 across homepage alignment, spacing, typography, cards, CTAs, forms, footer, mobile navigation, and demo preview modal behavior.
 - WhatsApp enquiry links were fixed on 2026-06-03 so the static HTML points directly to the WhatsApp quote URL before JavaScript hydration.
 - Professional service client repositioning update was deployed to Hostinger and verified live on 2026-06-03.

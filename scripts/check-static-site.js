@@ -5,6 +5,7 @@ const requiredFiles = [
   "index.html",
   "styles.css",
   "script.js",
+  "about.html",
   "privacy.html",
   "terms.html",
   "assets/logo.webp",
@@ -21,6 +22,7 @@ for (const file of requiredFiles) {
 }
 
 const index = fs.readFileSync(path.join(process.cwd(), "index.html"), "utf8");
+const about = fs.readFileSync(path.join(process.cwd(), "about.html"), "utf8");
 const script = fs.readFileSync(path.join(process.cwd(), "script.js"), "utf8");
 const checks = [
   "Trust-building websites that bring in better enquiries.",
@@ -29,6 +31,7 @@ const checks = [
   "Premium Website",
   "Get a free quote",
   "Send enquiry",
+  "about.html",
   "data-email-link",
   "data-whatsapp-link",
   "Private Clinic Website",
@@ -40,6 +43,14 @@ const checks = [
 for (const text of checks) {
   if (!index.includes(text)) {
     console.error(`Missing expected homepage text: ${text}`);
+    failed = true;
+  }
+}
+
+const aboutChecks = ["About Us | AITech Innovations", "Practical websites for professional service businesses.", "data-email-link"];
+for (const text of aboutChecks) {
+  if (!about.includes(text)) {
+    console.error(`Missing expected about page text: ${text}`);
     failed = true;
   }
 }

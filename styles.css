@@ -244,10 +244,12 @@ p { margin-bottom: 0; color: var(--muted); line-height: 1.52; }
   transform: translateY(-2px);
 }
 .work-card:focus-visible { outline: 4px solid rgba(22, 119, 255, 0.18); outline-offset: 3px; }
-.work-card span, .work-card h3, .work-card p { margin-inline: 24px; }
+.work-card h3, .work-card p { margin-inline: 24px; }
 .work-card span { display: inline-flex; margin-top: 20px; margin-bottom: 10px; color: var(--accent-dark); font-size: 0.78rem; font-weight: 900; text-transform: uppercase; }
+.work-card h3 { margin-top: 24px; }
 .work-card p { margin-bottom: 24px; }
-.work-preview { height: 180px; border-bottom: 1px solid var(--line); }
+.work-preview { height: 180px; overflow: hidden; border-bottom: 1px solid var(--line); }
+.work-preview img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .work-preview.clinic { background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(219,238,255,0.78)), linear-gradient(90deg, #eef7ff 0 30%, #ffffff 30% 100%); }
 .work-preview.solicitor { background: linear-gradient(135deg, rgba(12, 31, 58, 0.94), rgba(25, 52, 91, 0.88)), linear-gradient(90deg, #c7a86a 0 12%, transparent 12%); }
 .work-preview.roofing { background: linear-gradient(135deg, rgba(22, 30, 39, 0.96), rgba(247, 156, 43, 0.68)), repeating-linear-gradient(45deg, #263241 0 16px, #1b2430 16px 32px); }
@@ -497,6 +499,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); box-sha
 .legal-page p, .legal-page li { line-height: 1.55; }
 .legal-page a { color: var(--accent-dark); font-weight: 800; }
 .small-note { margin-top: 36px; font-size: 0.92rem; }
+.about-points { display: grid; gap: 16px; margin-top: 18px; }
+.about-points div { padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 10px 30px rgba(31, 53, 79, 0.06); }
+.about-points strong, .about-points span { display: block; }
+.about-points span { margin-top: 8px; color: var(--muted); line-height: 1.5; }
 
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity 520ms ease, transform 520ms ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }

@@ -1,5 +1,192 @@
 # Changelog
 
+## 2026-06-03 - Fix example work popout clicks
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `script.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Changed example work popout handling to delegated card click detection so clicks on the image, title, text, or card open the preview.
+- Bumped the homepage script query string so the live site loads the corrected JavaScript.
+- Deployed the fix to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Local browser check confirmed the clinic, solicitor, and roofing cards each open the correct preview modal.
+- Hostinger static deployment accepted
+- Live homepage references `script.js?v=20260603-popoutfix` and the live script contains delegated `[data-preview-trigger]` click handling.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Fix example work card image clipping
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added explicit clipping to the example work card image placeholders.
+- Forced preview images to render as block-level fitted images inside the placeholder.
+- Bumped the homepage stylesheet query string so the live page loads the corrected CSS.
+- Deployed the fix to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Local browser check confirmed the card images load, the `Demo concept` text is absent, image containers clip overflow, and card titles sit below the image placeholders.
+- Hostinger static deployment accepted
+- Live homepage references `styles.css?v=20260603-popoutfix` and the live stylesheet contains the corrected `.work-preview` clipping rules.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Deploy About page and footer update
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Built a clean Hostinger static deployment archive from the current site files.
+- Deployed the new About page, homepage navigation/footer updates, footer VAT line break, and preview card images to `aitechinnovations.com`.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- Live homepage contains the About links and the footer VAT line break
+- Live `about.html` returns `200` and contains the About page heading plus analytics snippets
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Add About Us page
+
+### Files Changed
+
+- Added `about.html`
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `scripts/check-static-site.js`
+- Updated `README.md`
+- Updated `AGENTS.md`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added a static About Us page matching the existing site style.
+- Linked the page from the homepage navigation and footer.
+- Updated static deployment documentation and checks to include `about.html`.
+
+### Validation
+
+- `npm run check`
+- Local browser check confirmed `about.html` loads, has no horizontal scroll on mobile width, and the homepage About links point to `about.html`.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Fix example work card popouts
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Removed the `Demo concept` text from the example work cards.
+- Kept the card images, card titles, descriptions, and existing popout modal behavior intact.
+- Deployed the fix to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Local browser check confirmed all three card images load and the clinic, solicitor, and roofing cards each open the correct popout preview.
+- Hostinger static deployment accepted
+- Live homepage no longer contains the example work card `Demo concept` text and still includes the three `data-preview-trigger` card buttons.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Deploy example work images to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Built a clean Hostinger static deployment archive from the current static site files.
+- Deployed the homepage, stylesheet, script, legal pages, `.htaccess`, and assets to `aitechinnovations.com`.
+- Verified the live homepage serves the new example work card image references.
+
+### Validation
+
+- Hostinger static deployment accepted
+- Live homepage contains `assets/preview-clinic-popout.png`, `assets/preview-solicitor-popout.png`, and `assets/preview-roofing-popout.png`
+- Live image assets return `200`
+- `https://aitechinnovations.com/` redirects to `https://www.aitechinnovations.com/`
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Add example work popout images
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Added `assets/preview-clinic-popout.png`
+- Added `assets/preview-solicitor-popout.png`
+- Added `assets/preview-roofing-popout.png`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added captured popout preview images into the existing example work card image areas.
+- Kept the section copy, cards, links, and modal preview behavior unchanged.
+
+### Validation
+
+- `npm run check`
+- Local browser check confirmed all three preview images load and the clinic card still opens the existing popout modal.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
 ## 2026-06-03 - Responsive UI audit and polish
 
 ### Files Changed

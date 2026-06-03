@@ -22,6 +22,13 @@
 
 ## Done
 
+- Fixed example work popout click handling so clicking any card/image opens the correct preview modal.
+- Fixed example work card image clipping so titles and descriptions no longer cover the screenshots.
+- Deployed the About page and footer VAT line-break update to Hostinger and verified the live pages.
+- Added a static About Us page and linked it from the homepage navigation and footer.
+- Removed the example work card `Demo concept` labels, verified all three cards still open their popout previews, and deployed the fix to Hostinger.
+- Deployed the example work popout preview images update to Hostinger and verified the live homepage and image assets.
+- Added popout preview images to the example work cards without changing the section copy or card behavior.
 - Completed a responsive UI audit and polish pass for homepage alignment, spacing, typography, cards, CTAs, forms, footer, and mobile layouts.
 - Fixed WhatsApp enquiry links so they include the direct WhatsApp URL in the static HTML and no longer depend on placeholder links.
 - Deployed the professional service client repositioning update to Hostinger and verified the live homepage, demo previews, dropdown, and WhatsApp links.
