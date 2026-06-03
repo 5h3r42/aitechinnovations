@@ -1,5 +1,85 @@
 # Changelog
 
+## 2026-06-03 - Install Google tag
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `privacy.html`
+- Updated `terms.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added the Google tag snippet for measurement ID `G-LTL4JXMYP2`.
+- Installed the tag in the `<head>` of the homepage, privacy page, and terms page.
+- Removed analytics confirmation from the pending task list.
+
+### Validation
+
+- `npm run check`
+- Confirmed `G-LTL4JXMYP2` appears in all three public HTML pages.
+
+### Next Task
+
+Prepare the Hostinger `public_html` deployment package.
+
+## 2026-05-30 - Create static lead form skill
+
+### Files Changed
+
+- Created `/Users/sherazkhalid/.codex/skills/static-lead-form/SKILL.md`
+- Created `/Users/sherazkhalid/.codex/skills/static-lead-form/references/pattern.md`
+- Created `/Users/sherazkhalid/.codex/skills/static-lead-form/scripts/check_static_lead_form.py`
+- Created `/Users/sherazkhalid/.codex/skills/static-lead-form/agents/openai.yaml`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Turned the AITech Innovations static contact form pattern into a reusable Codex skill.
+- Captured centralized contact settings, Google Sheets primary delivery, FormSubmit fallback activation, WhatsApp/email fallbacks, honeypot handling, and browser validation guidance.
+- Added a small checker script that validates the static lead-form contract against plain HTML/CSS/JavaScript projects.
+
+### Validation
+
+- Skill validation passed with `quick_validate.py`
+- Static lead-form checker passed against this project
+
+### Next Task
+
+Activate FormSubmit from the email, then retest fallback delivery.
+
+## 2026-05-01 - Final contact and form delivery review
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Checked centralized contact settings and confirmed no final WhatsApp number, phone number, or booking URL is available yet.
+- Completed the final live desktop/mobile browser review of the typography update.
+- Tested the live quote form in-browser and confirmed the primary Google Sheets delivery path submits successfully.
+- Checked FormSubmit directly from the live site origin and confirmed it still requires email activation.
+
+### Validation
+
+- `npm run check`
+- Live homepage and deployed `script.js` verified on `https://www.aitechinnovations.com/`
+- Live browser review at 1280px desktop and 390px mobile
+- Live quote form showed the success state after a Google Sheets submission
+- FormSubmit returned an activation-required response and sent an activation email to `support@aitechinnovations.com`
+
+### Next Task
+
+Activate FormSubmit from the email, then retest fallback delivery.
+
 ## 2026-05-01 - Tighten site typography spacing
 
 ### Files Changed
