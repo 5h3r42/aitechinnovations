@@ -22,6 +22,7 @@
 
 ## Done
 
+- Deployed the professional service client repositioning update to Hostinger and verified the live homepage, demo previews, dropdown, and WhatsApp links.
 - Repositioned the homepage for higher-value professional service businesses and added clickable clinic, solicitor, and roofing demo previews.
 - Deployed the WhatsApp Click-to-Chat update to Hostinger and verified the live site serves the updated links.
 - Added the final WhatsApp Click-to-Chat link for website quote enquiries and removed public call CTAs.

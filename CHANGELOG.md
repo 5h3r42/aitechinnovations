@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-06-03 - Deploy professional service repositioning
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a clean Hostinger static deployment archive from the committed `codex/b2b-repositioning` branch.
+- Deployed the homepage, stylesheet, script, legal pages, assets, and `.htaccess` to `aitechinnovations.com`.
+- Verified the live homepage serves the new professional service positioning and demo examples.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- Live homepage contains the new B2B hero copy and clinic, solicitor, and roofing demo titles
+- Live browser check confirmed the new dropdown options, WhatsApp URL, modal opening, scroll lock, and ESC close
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
 ## 2026-06-03 - Reposition for professional service clients
 
 ### Files Changed
