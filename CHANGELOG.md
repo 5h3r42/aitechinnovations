@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-06-04 - Move booking audit CTA above contact CTAs
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Reordered the homepage quote section so the `Book Your Free AI Automation Audit` card appears above the support email and WhatsApp enquiry CTAs.
+- Preserved the existing booking, email, WhatsApp, analytics, and form behavior.
+
+### Validation
+
+- `npm run check`
+- Local browser verification of the quote section order and horizontal overflow.
+
+### Next Task
+
+Deploy the booking audit CTA order update to Hostinger if it should go live immediately.
+
 ## 2026-06-04 - Deploy footer company number line break
 
 ### Files Changed

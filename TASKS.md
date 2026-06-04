@@ -21,6 +21,7 @@
 
 ## Done
 
+- Moved the Google Calendar booking audit card above the support email and WhatsApp CTAs in the homepage quote section.
 - Deployed the footer company number line-break update to Hostinger and verified the live homepage and location pages.
 - Moved the footer company number onto its own line across the homepage and location landing pages.
 - Deployed the Google Calendar booking CTA update to Hostinger and verified the live homepage and script cache-bust.
