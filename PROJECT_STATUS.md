@@ -8,6 +8,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Maidstone, Kent, and London website design landing pages were deployed to Hostinger and verified live on 2026-06-04.
 - Maidstone, Kent, and London website design landing pages were added on 2026-06-04 with unique SEO metadata, location-specific content, homepage internal links, and local FAQs.
 - GA4 conversion tracking update was deployed to Hostinger and verified live on 2026-06-04.
 - GA4 custom conversion tracking was added on 2026-06-04 for quote CTAs, WhatsApp clicks, email clicks, portfolio preview opens, and successful quote form submissions.
@@ -69,4 +70,4 @@ Launch preparation for a static Hostinger-ready agency website.
 2. Add the final booking URL if that channel should be live.
 3. Verify live domain, SSL, favicon, and key page routing after upload.
 4. Replace demo portfolio concepts with real client screenshots when available.
-5. Deploy the location landing pages to Hostinger and verify the live URLs.
+5. Verify GA4 custom events in DebugView on the live domain.

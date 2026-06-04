@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-06-04 - Deploy location landing pages
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Built a Hostinger static deployment archive from the committed location landing page update.
+- Deployed the updated homepage, shared styles, three location landing pages, existing static pages, and assets to `aitechinnovations.com`.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage serves the `Areas we serve` section, the three internal location links, and `styles.css?v=20260604-locations`.
+- Live `website-design-maidstone.html`, `website-design-kent.html`, and `website-design-london.html` return `200` and contain their expected titles, canonical URLs, H1s, CTAs, stylesheet, and analytics script.
+- Live `about.html`, `privacy.html`, and `terms.html` return `200`.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain.
+
 ## 2026-06-04 - Add location landing pages
 
 ### Files Changed
