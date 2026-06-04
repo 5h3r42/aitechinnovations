@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-06-04 - Deploy booking audit CTA order
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Deployed the homepage quote section order update to `aitechinnovations.com`.
+- Verified the live homepage serves the booking audit card before the support email and WhatsApp enquiry CTAs.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage markup contains `.booking-cta` before `.contact-options`.
+- Live homepage, About, privacy, terms, Maidstone, Kent, and London pages return `200`.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain.
+
 ## 2026-06-04 - Move booking audit CTA above contact CTAs
 
 ### Files Changed

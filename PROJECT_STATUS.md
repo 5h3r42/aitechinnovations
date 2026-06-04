@@ -8,6 +8,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Booking audit CTA order update was deployed to Hostinger and verified live on 2026-06-04.
 - Google Calendar booking audit card was moved above the support email and WhatsApp CTAs in the homepage quote section on 2026-06-04.
 - Footer company number line-break update was deployed to Hostinger and verified live on 2026-06-04.
 - Footer company registration text was adjusted on 2026-06-04 so the company number and VAT number each appear on their own line.
