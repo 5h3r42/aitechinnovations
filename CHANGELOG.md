@@ -1,5 +1,32 @@
 # Changelog
 
+## 2026-06-04 - Add Google Calendar booking CTA
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added a `Book Your Free AI Automation Audit` CTA block directly under the homepage quote section contact/WhatsApp options.
+- Added the Google Calendar booking link as the central `CONTACT_SETTINGS.bookingUrl`.
+- Kept the existing WhatsApp enquiry CTA, quote form, email link, and mobile sticky contact bar unchanged.
+
+### Validation
+
+- `npm run check`
+- Local browser verification of `index.html#quote` for the WhatsApp CTA, booking CTA, Google Calendar URL, and mobile/desktop layout.
+
+### Next Task
+
+Deploy the booking CTA update to Hostinger and verify the live homepage.
+
 ## 2026-06-04 - Deploy location landing pages
 
 ### Files Changed

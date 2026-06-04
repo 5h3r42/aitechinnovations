@@ -475,6 +475,19 @@ p { margin-bottom: 0; color: var(--muted); line-height: 1.52; }
 .contact-section { background: linear-gradient(180deg, rgba(245, 248, 251, 0.72), rgba(255, 255, 255, 1)), var(--bg-soft); }
 .contact-options { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .contact-options a { padding: 11px 14px; color: var(--accent-dark); background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius); font-weight: 800; }
+.booking-cta {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(31, 53, 79, 0.06);
+}
+.booking-cta h3 { margin-bottom: 0; }
+.booking-cta p { line-height: 1.48; }
+.booking-cta .button { width: fit-content; }
 .quote-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 24px; }
 label { display: grid; gap: 8px; color: #34495e; font-size: 0.92rem; font-weight: 800; }
 input, select, textarea { width: 100%; min-height: 48px; padding: 12px 14px; color: var(--text); background: #ffffff; border: 1px solid var(--strong-line); border-radius: var(--radius); outline: none; font-weight: 500 !important; }
@@ -569,6 +582,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); box-sha
   .site-nav a { padding: 12px; }
   .nav-cta { text-align: center; }
   .hero-actions, .form-actions, .care-plan, .footer-bottom { flex-direction: column; align-items: stretch; }
+  .booking-cta .button { width: 100%; }
   .services-grid, .pricing-grid, .work-grid, .area-grid, .proof-cards, .quote-form, .footer-grid { grid-template-columns: 1fr; }
   .section-heading.center { margin-bottom: 32px; }
   .card-grid, .pricing-grid, .work-grid { gap: 16px; }

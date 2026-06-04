@@ -1,7 +1,7 @@
 const CONTACT_SETTINGS = {
   email: "support@aitechinnovations.com",
   whatsappNumber: "447882111810",
-  bookingUrl: "",
+  bookingUrl: "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ29kmaaQThmrdewMfPksmL8AuJR67EUDytKmyhAuakCNeIRyHNRMQ8-gQc82hxmjMc2fl8jPZCr",
 };
 const WHATSAPP_QUOTE_MESSAGE = "Hi AITech Innovations, I'd like a website quote.";
 const WHATSAPP_QUOTE_ENCODED_MESSAGE = "Hi%20AITech%20Innovations,%20I'd%20like%20a%20website%20quote.";
@@ -143,7 +143,7 @@ function hydrateContactLinks() {
     showAvailableLink(link);
     link.setAttribute("href", CONTACT_SETTINGS.bookingUrl);
     link.setAttribute("target", "_blank");
-    link.setAttribute("rel", "noopener");
+    link.setAttribute("rel", "noopener noreferrer");
   });
 
   currentYearElements.forEach((element) => {

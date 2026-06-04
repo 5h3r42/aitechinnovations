@@ -21,6 +21,7 @@
 
 ## Done
 
+- Added the Google Calendar booking CTA under the homepage WhatsApp enquiry CTA for free AI automation audit bookings.
 - Deployed the Maidstone, Kent, and London website design landing pages to Hostinger and verified the live URLs.
 - Created Maidstone, Kent, and London website design landing pages with unique SEO metadata, internal links, and local FAQs.
 - Deployed the GA4 conversion tracking update to Hostinger and verified the live homepage serves the new analytics script.

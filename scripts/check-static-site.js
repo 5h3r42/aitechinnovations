@@ -27,6 +27,8 @@ for (const file of requiredFiles) {
 const index = fs.readFileSync(path.join(process.cwd(), "index.html"), "utf8");
 const about = fs.readFileSync(path.join(process.cwd(), "about.html"), "utf8");
 const script = fs.readFileSync(path.join(process.cwd(), "script.js"), "utf8");
+const bookingUrl =
+  "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ29kmaaQThmrdewMfPksmL8AuJR67EUDytKmyhAuakCNeIRyHNRMQ8-gQc82hxmjMc2fl8jPZCr";
 const locationPages = [
   {
     file: "website-design-maidstone.html",
@@ -68,6 +70,10 @@ const checks = [
   "website-design-kent.html",
   "website-design-london.html",
   "Serving professional service businesses across Maidstone, Kent, London and the United Kingdom.",
+  "Book Your Free AI Automation Audit",
+  "Book Free AI Audit",
+  "Prefer to schedule a call? Book a free 30-minute AI Automation Audit",
+  bookingUrl,
 ];
 
 for (const text of checks) {
@@ -129,6 +135,7 @@ const scriptChecks = [
   "email_click",
   "quote_cta_click",
   "portfolio_preview_opened",
+  bookingUrl,
 ];
 for (const text of scriptChecks) {
   if (!script.includes(text)) {

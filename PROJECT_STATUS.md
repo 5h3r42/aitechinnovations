@@ -8,6 +8,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Google Calendar booking CTA for free AI automation audit calls was added under the homepage WhatsApp enquiry CTA on 2026-06-04.
 - Maidstone, Kent, and London website design landing pages were deployed to Hostinger and verified live on 2026-06-04.
 - Maidstone, Kent, and London website design landing pages were added on 2026-06-04 with unique SEO metadata, location-specific content, homepage internal links, and local FAQs.
 - GA4 conversion tracking update was deployed to Hostinger and verified live on 2026-06-04.
