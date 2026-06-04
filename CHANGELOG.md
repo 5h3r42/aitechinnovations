@@ -1,5 +1,228 @@
 # Changelog
 
+## 2026-06-04 - Deploy no-AI chatbot fallback to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a clean Hostinger `public_html` archive containing the updated static files, `.htaccess`, assets, `api/chatbot.php`, and `api/knowledge/`.
+- Deployed the archive to `aitechinnovations.com` through Hostinger.
+- Confirmed the no-AI scripted chatbot works live without an OpenAI API key.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage returns `200` and includes `styles.css?v=20260604-emailmove`, `script.js?v=20260604-emailmove`, and chatbot markup.
+- Live `https://www.aitechinnovations.com/api/chatbot.php` returns a scripted pricing answer for a POST request.
+- Live browser test confirmed the chatbot opens, sends “How much does a website cost?”, receives the scripted pricing response, fires chatbot open/message events, and has no horizontal overflow.
+- Live About, privacy, terms, Maidstone, Kent, and London pages return `200`.
+
+### Next Task
+
+Verify chatbot lead capture, WhatsApp, booking, and GA4 chatbot events on the live domain.
+
+## 2026-06-04 - Add no-AI chatbot fallback mode
+
+### Files Changed
+
+- Updated `api/chatbot.php`
+- Updated `scripts/check-static-site.js`
+- Updated `README.md`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added scripted chatbot answers for common services, pricing, AI audit, booking, WhatsApp, email, Hostinger, WordPress, timeline, automation, and chatbot questions.
+- Made OpenAI optional: the backend now tries scripted answers first, then uses OpenAI only for unmatched questions when `OPENAI_API_KEY` is configured.
+- Kept regulated-advice guardrails ahead of scripted and AI responses.
+- Updated docs to explain that an API key is optional and only needed for unmatched AI-generated answers.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local no-key API tests for services, website pricing, free AI audit, WhatsApp, tax-advice refusal, and unknown-question fallback.
+- Local mobile browser test confirmed scripted answer rendering, AI audit lead capture, WhatsApp/booking events, and no horizontal overflow.
+
+### Next Task
+
+Deploy the chatbot endpoint, knowledge base, and updated static files to Hostinger, then verify scripted answers and GA4 events on the live domain.
+
+## 2026-06-04 - Restore floating Ask us and move footer email
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `about.html`
+- Updated `privacy.html`
+- Updated `terms.html`
+- Updated `website-design-maidstone.html`
+- Updated `website-design-kent.html`
+- Updated `website-design-london.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Removed the Company-column footer Ask us button.
+- Restored the floating Ask us chatbot launcher behavior.
+- Moved the footer support email under the copyright line and left-aligned it so the floating launcher no longer covers it.
+- Bumped CSS and JS cache keys to `20260604-emailmove`.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local 615px browser check confirmed the floating Ask us launcher is back, the support email is left-aligned under the copyright line, the footer button hook is gone, and there is no overlap or horizontal overflow.
+
+### Next Task
+
+Configure `OPENAI_API_KEY` in Hostinger and deploy the chatbot endpoint, knowledge base, and updated static files.
+
+## 2026-06-04 - Add footer Ask us button
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `about.html`
+- Updated `privacy.html`
+- Updated `terms.html`
+- Updated `website-design-maidstone.html`
+- Updated `website-design-kent.html`
+- Updated `website-design-london.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added an `Ask us` button to the right side of the Company footer heading.
+- Wired the footer button to open the existing chatbot panel.
+- Bumped CSS and JS cache keys to `20260604-footerask`.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local 727px browser check confirmed the footer button sits to the right of the Company heading, has no horizontal overflow, loads fresh CSS/JS, and opens the chatbot.
+
+### Next Task
+
+Configure `OPENAI_API_KEY` in Hostinger and deploy the chatbot endpoint, knowledge base, and updated static files.
+
+## 2026-06-04 - Fix chatbot footer overlap
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `about.html`
+- Updated `privacy.html`
+- Updated `terms.html`
+- Updated `website-design-maidstone.html`
+- Updated `website-design-kent.html`
+- Updated `website-design-london.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Changed the mobile/tablet collapsed chatbot launcher to a compact circular AI button so it does not cover the footer email.
+- Added footer visibility handling so the collapsed chatbot hides while the footer is visible.
+- Bumped shared CSS and JS cache keys to `20260604-chatfooter` so browsers load the updated layout and behavior.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local 615px browser check confirmed the updated CSS/JS cache keys load, the launcher is 54px wide, the `Ask us` label is hidden, footer visibility class is applied, and there is no email overlap or horizontal overflow.
+
+### Next Task
+
+Configure `OPENAI_API_KEY` in Hostinger and deploy the chatbot endpoint, knowledge base, and updated static files.
+
+## 2026-06-04 - Fix chatbot font styling
+
+### Files Changed
+
+- Updated `styles.css`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added an explicit Plus Jakarta Sans font rule across the chatbot widget so message bubbles, inputs, buttons, links, and header text match the website font.
+- Bumped the shared stylesheet cache key to `styles.css?v=20260604-chatfont` across all HTML pages so browsers load the updated CSS.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local browser computed-style check confirmed `.chatbot-message` uses `Plus Jakarta Sans` and the homepage loads `styles.css?v=20260604-chatfont`.
+
+### Next Task
+
+Configure `OPENAI_API_KEY` in Hostinger and deploy the chatbot endpoint, knowledge base, and updated static files.
+
+## 2026-06-04 - Add AI support chatbot
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `privacy.html`
+- Updated `README.md`
+- Updated `scripts/check-static-site.js`
+- Added `api/chatbot.php`
+- Added `api/knowledge/services.json`
+- Added `api/knowledge/pricing.json`
+- Added `api/knowledge/ai-audit.json`
+- Added `api/knowledge/contact.json`
+- Added `api/knowledge/faqs.json`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added a bottom-right AITech Assistant chatbot with desktop/mobile responsive UI, accessible controls, and smooth open/close behavior.
+- Added a Hostinger PHP chatbot API endpoint that reads `OPENAI_API_KEY` server-side, loads a local JSON knowledge base, calls OpenAI `gpt-5.4-mini`, and refuses regulated-advice topics.
+- Added AI audit lead capture after chatbot interaction, reusing the existing Google Sheets/FormSubmit/WhatsApp/email lead handoff pattern.
+- Added GA4 chatbot events for open, message sent, lead started, lead submitted, WhatsApp click, and booking click.
+- Updated privacy and README documentation for chatbot data handling and deployment setup.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local desktop browser verification of chatbot open/close, message send fallback, GA4 events, and no horizontal overflow.
+- Local mobile browser verification at 390px width for panel fit, visible input, and no horizontal overflow.
+- Local lead capture verification for AI audit flow and chatbot GA4 events.
+- Direct API checks for regulated-advice refusal and no-key server response.
+
+### Next Task
+
+Configure `OPENAI_API_KEY` in Hostinger and deploy the chatbot endpoint, knowledge base, and updated static files.
+
 ## 2026-06-04 - Deploy booking audit CTA order
 
 ### Files Changed

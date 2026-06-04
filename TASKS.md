@@ -2,8 +2,8 @@
 
 ## Today
 
+- Verify chatbot lead capture, WhatsApp, booking, and GA4 chatbot events on the live domain.
 - Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
-- Add the final booking URL if that channel should be live.
 
 ## This Week
 
@@ -21,6 +21,12 @@
 
 ## Done
 
+- Deployed the no-AI chatbot fallback, chatbot endpoint, knowledge base, footer email update, and updated static files to Hostinger.
+- Added no-AI chatbot fallback mode so common questions are answered from scripted local knowledge without requiring an OpenAI API key.
+- Restored the floating Ask us chatbot launcher and moved the footer support email under the copyright line to avoid overlap.
+- Fixed chatbot launcher overlap with the footer email by using a compact mobile launcher, footer visibility handling, and fresh CSS/JS cache keys.
+- Fixed chatbot font styling and bumped the stylesheet cache key so chat bubbles, input, and controls load the website font.
+- Added a low-cost AI support chatbot with a Hostinger PHP backend endpoint, local JSON knowledge base, AI audit lead capture, GA4 chatbot events, and server-only OpenAI API key handling.
 - Deployed the booking audit CTA order update to Hostinger and verified the live homepage.
 - Moved the Google Calendar booking audit card above the support email and WhatsApp CTAs in the homepage quote section.
 - Deployed the footer company number line-break update to Hostinger and verified the live homepage and location pages.

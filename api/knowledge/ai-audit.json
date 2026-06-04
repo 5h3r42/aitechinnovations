@@ -1,0 +1,17 @@
+{
+  "name": "Free AI Automation Audit",
+  "duration": "30 minutes",
+  "purpose": "Review the business workflow, identify automation opportunities, and discuss practical AI solutions.",
+  "good_fit_for": [
+    "Businesses spending too much time replying to repeated enquiries.",
+    "Teams that want to automate lead capture, FAQs, admin, booking flows, or follow-up.",
+    "Professional service businesses that need clear handoff routes to WhatsApp, booking, or quote requests."
+  ],
+  "what_to_prepare": [
+    "Business name and website if available.",
+    "Main service or business type.",
+    "A short description of the repeated task or workflow they want to automate.",
+    "Any current tools used for enquiries, booking, email, forms, CRM, or spreadsheets."
+  ],
+  "handoff_copy": "Would you like to request a free AI audit?"
+}

@@ -12,6 +12,12 @@ const requiredFiles = [
   "privacy.html",
   "terms.html",
   "assets/logo.webp",
+  "api/chatbot.php",
+  "api/knowledge/services.json",
+  "api/knowledge/pricing.json",
+  "api/knowledge/ai-audit.json",
+  "api/knowledge/contact.json",
+  "api/knowledge/faqs.json",
 ];
 
 let failed = false;
@@ -73,6 +79,13 @@ const checks = [
   "Book Your Free AI Automation Audit",
   "Book Free AI Audit",
   "Prefer to schedule a call? Book a free 30-minute AI Automation Audit",
+  "data-chatbot-open",
+  "data-chatbot-panel",
+  "data-chatbot-form",
+  "data-chatbot-lead-start",
+  "data-chatbot-whatsapp",
+  "data-chatbot-booking",
+  "AITech Assistant",
   bookingUrl,
 ];
 
@@ -105,7 +118,7 @@ for (const page of locationPages) {
     "Local SEO basics",
     "WhatsApp enquiry flow",
     "Ready to improve your business website?",
-    "script.js?v=20260604-booking",
+    "script.js?v=20260604-emailmove",
   ];
 
   for (const text of pageChecks) {
@@ -125,6 +138,15 @@ for (const page of locationPages) {
 const scriptChecks = [
   "CONTACT_SETTINGS",
   "buildWhatsAppUrl",
+  "CHATBOT_API_ENDPOINT",
+  "api/chatbot.php",
+  "chatbot_opened",
+  "chatbot_message_sent",
+  "chatbot_lead_started",
+  "chatbot_lead_submitted",
+  "chatbot_whatsapp_clicked",
+  "chatbot_booking_clicked",
+  "AI audit chatbot lead",
   "_honey",
   "openPreview",
   "closePreview",
@@ -157,6 +179,32 @@ if (index.includes('href="#" data-whatsapp-link')) {
 
 if (index.includes("_next/") || index.includes("/_next")) {
   console.error("Homepage should not reference Next.js build assets.");
+  failed = true;
+}
+
+const chatbotApi = fs.readFileSync(path.join(process.cwd(), "api/chatbot.php"), "utf8");
+const chatbotApiChecks = [
+  "getenv('OPENAI_API_KEY')",
+  "function scripted_reply",
+  "message_matches",
+  "'source' => 'scripted'",
+  "'source' => 'fallback'",
+  "The free AI Automation Audit is a 30-minute review",
+  "Website pricing starts from £499",
+  "gpt-5.4-mini",
+  "https://api.openai.com/v1/responses",
+  "__DIR__ . '/knowledge'",
+  "legal, medical, financial, tax",
+];
+for (const text of chatbotApiChecks) {
+  if (!chatbotApi.includes(text)) {
+    console.error(`Missing expected chatbot API text: ${text}`);
+    failed = true;
+  }
+}
+
+if (index.includes("OPENAI_API_KEY") || script.includes("OPENAI_API_KEY")) {
+  console.error("OpenAI API key environment variable must not appear in frontend files.");
   failed = true;
 }
 

@@ -1,0 +1,32 @@
+{
+  "faqs": [
+    {
+      "question": "Do you only build websites for professional service businesses?",
+      "answer": "That is the main focus, especially businesses where trust, proof, local search, and qualified enquiries matter."
+    },
+    {
+      "question": "Can you host the website on Hostinger?",
+      "answer": "Yes. The site can be uploaded to Hostinger and connected to the client domain."
+    },
+    {
+      "question": "Do you use WordPress?",
+      "answer": "Only when it is the right fit. For many small brochure sites, static HTML/CSS/JS is simpler."
+    },
+    {
+      "question": "Can you add WhatsApp booking?",
+      "answer": "Yes. The website can include click-to-WhatsApp buttons and pre-filled enquiry messages."
+    },
+    {
+      "question": "How long does a website take?",
+      "answer": "Most small sites can be planned, built, reviewed, and launched in around 7-14 days."
+    },
+    {
+      "question": "What can an AI customer support chatbot help with?",
+      "answer": "A simple chatbot can answer common questions, guide visitors to services or pricing, collect audit requests, and hand off to WhatsApp or booking."
+    },
+    {
+      "question": "Can the chatbot give regulated advice?",
+      "answer": "No. It should not provide legal, medical, financial, tax, or regulated professional advice."
+    }
+  ]
+}

@@ -5,6 +5,7 @@ const CONTACT_SETTINGS = {
 };
 const WHATSAPP_QUOTE_MESSAGE = "Hi AITech Innovations, I'd like a website quote.";
 const WHATSAPP_QUOTE_ENCODED_MESSAGE = "Hi%20AITech%20Innovations,%20I'd%20like%20a%20website%20quote.";
+const CHATBOT_API_ENDPOINT = "api/chatbot.php";
 
 const GOOGLE_SHEETS_ENDPOINT =
   "https://script.google.com/macros/s/AKfycbwsi2ZxS5UzS-Cioi5Ll-1IHSiU3LJGoc6HdVK_J2h3_YhWMDhKP0wUdcyCXtj5qYn0/exec";
@@ -19,6 +20,16 @@ const whatsappLinks = document.querySelectorAll("[data-whatsapp-link]");
 const emailLinks = document.querySelectorAll("[data-email-link]");
 const bookingLinks = document.querySelectorAll("[data-booking-link]");
 const currentYearElements = document.querySelectorAll("[data-current-year]");
+const chatbotPanel = document.querySelector("[data-chatbot-panel]");
+const chatbotOpenButton = document.querySelector("[data-chatbot-open]");
+const chatbotCloseButton = document.querySelector("[data-chatbot-close]");
+const chatbotForm = document.querySelector("[data-chatbot-form]");
+const chatbotInput = document.querySelector("[data-chatbot-input]");
+const chatbotMessages = document.querySelector("[data-chatbot-messages]");
+const chatbotLeadStartButton = document.querySelector("[data-chatbot-lead-start]");
+const chatbotWhatsappLink = document.querySelector("[data-chatbot-whatsapp]");
+const chatbotBookingLink = document.querySelector("[data-chatbot-booking]");
+const chatbotWidget = document.querySelector("[data-chatbot]");
 const previewModal = document.querySelector("[data-preview-modal]");
 const previewDialog = document.querySelector("[data-preview-dialog]");
 const previewTriggers = document.querySelectorAll("[data-preview-trigger]");
@@ -26,6 +37,19 @@ const previewPanels = document.querySelectorAll("[data-preview-panel]");
 let activePreviewTrigger = null;
 let previewCloseTimer = null;
 const trackedInteractionEvents = new WeakSet();
+const chatbotConversation = [];
+const chatbotLeadSteps = [
+  { key: "name", prompt: "What is your name?" },
+  { key: "email", prompt: "What email address should we use?" },
+  { key: "business", prompt: "What is your business name?" },
+  { key: "automation", prompt: "What would you like to automate?" },
+];
+let chatbotCloseTimer = null;
+let chatbotMessageCount = 0;
+let chatbotLeadPromptShown = false;
+let chatbotLeadActive = false;
+let chatbotLeadStepIndex = 0;
+let chatbotLeadData = {};
 
 function isAnalyticsDebugMode() {
   const host = window.location.hostname;
@@ -102,6 +126,200 @@ function buildEmailUrl(subject, message = "") {
   return `mailto:${CONTACT_SETTINGS.email}?${query.join("&")}`;
 }
 
+function setChatbotActions() {
+  const auditMessage = "Hi AITech Innovations, I'd like to request a free AI audit.";
+  const whatsappUrl = buildWhatsAppUrl(auditMessage);
+
+  if (chatbotWhatsappLink && whatsappUrl) {
+    chatbotWhatsappLink.setAttribute("href", whatsappUrl);
+  }
+
+  if (chatbotBookingLink && CONTACT_SETTINGS.bookingUrl) {
+    chatbotBookingLink.setAttribute("href", CONTACT_SETTINGS.bookingUrl);
+  }
+}
+
+function appendChatbotMessage(role, text) {
+  if (!chatbotMessages) return null;
+
+  const message = document.createElement("div");
+  message.className = `chatbot-message ${role}`;
+  message.textContent = text;
+  chatbotMessages.append(message);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  return message;
+}
+
+function openChatbot() {
+  if (!chatbotPanel || !chatbotOpenButton) return;
+
+  window.clearTimeout(chatbotCloseTimer);
+  chatbotPanel.removeAttribute("hidden");
+  chatbotOpenButton.setAttribute("aria-expanded", "true");
+
+  window.requestAnimationFrame(() => {
+    chatbotPanel.classList.add("is-open");
+    chatbotInput?.focus({ preventScroll: true });
+  });
+
+  trackAnalyticsEvent("chatbot_opened");
+}
+
+function closeChatbot() {
+  if (!chatbotPanel || !chatbotOpenButton) return;
+
+  chatbotPanel.classList.remove("is-open");
+  chatbotOpenButton.setAttribute("aria-expanded", "false");
+  chatbotCloseTimer = window.setTimeout(() => {
+    chatbotPanel.setAttribute("hidden", "");
+    chatbotOpenButton.focus({ preventScroll: true });
+  }, 180);
+}
+
+function shouldStartLeadFromMessage(message) {
+  return chatbotLeadPromptShown && /^(yes|yeah|yep|sure|ok|okay|audit|free audit|ai audit|request audit)/i.test(message);
+}
+
+function offerChatbotLead() {
+  if (chatbotLeadPromptShown || chatbotLeadActive || chatbotMessageCount < 2) return;
+  chatbotLeadPromptShown = true;
+  appendChatbotMessage("bot", "Would you like to request a free AI audit?");
+}
+
+function startChatbotLeadCapture() {
+  if (chatbotLeadActive) return;
+
+  chatbotLeadActive = true;
+  chatbotLeadPromptShown = true;
+  chatbotLeadStepIndex = 0;
+  chatbotLeadData = {};
+  trackAnalyticsEvent("chatbot_lead_started");
+  appendChatbotMessage("bot", chatbotLeadSteps[chatbotLeadStepIndex].prompt);
+}
+
+async function submitChatbotLead() {
+  const message = [
+    "Hi AITech Innovations, I would like to request a free AI audit.",
+    "",
+    `Name: ${chatbotLeadData.name || ""}`,
+    `Business: ${chatbotLeadData.business || ""}`,
+    `Email: ${chatbotLeadData.email || ""}`,
+    "",
+    `Automation request: ${chatbotLeadData.automation || ""}`,
+  ].join("\n");
+  const subject = `AI audit chatbot lead - ${chatbotLeadData.business || chatbotLeadData.name || "New lead"}`;
+  const sheetPayload = {
+    name: chatbotLeadData.name || "",
+    email: chatbotLeadData.email || "",
+    website: "",
+    businessType: chatbotLeadData.business || "",
+    mainGoal: "AI audit chatbot lead",
+    notes: [`Automation request: ${chatbotLeadData.automation || "-"}`, "Source: website chatbot"].join("\n"),
+  };
+
+  try {
+    if (!GOOGLE_SHEETS_ENDPOINT) throw new Error("Google Sheets endpoint is not configured");
+
+    await fetch(GOOGLE_SHEETS_ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(sheetPayload),
+    });
+
+    trackAnalyticsEvent("chatbot_lead_submitted");
+    return true;
+  } catch {
+    const payload = new FormData();
+    payload.append("_subject", subject);
+    payload.append("_template", "table");
+    payload.append("_captcha", "false");
+    payload.append("Source", "Website chatbot");
+    payload.append("Lead type", "AI audit chatbot lead");
+    payload.append("Name", chatbotLeadData.name || "");
+    payload.append("Business", chatbotLeadData.business || "");
+    payload.append("Email", chatbotLeadData.email || "");
+    payload.append("Automation request", chatbotLeadData.automation || "");
+    payload.append("Full message", message);
+
+    try {
+      const response = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: payload,
+      });
+
+      if (!response.ok) throw new Error("Form service failed");
+
+      trackAnalyticsEvent("chatbot_lead_submitted");
+      return true;
+    } catch {
+      const whatsappUrl = buildWhatsAppUrl(message);
+      if (whatsappUrl) {
+        window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      } else {
+        window.location.href = buildEmailUrl(subject, message);
+      }
+      return false;
+    }
+  }
+}
+
+async function handleChatbotLeadMessage(message) {
+  const currentStep = chatbotLeadSteps[chatbotLeadStepIndex];
+
+  if (currentStep.key === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(message)) {
+    appendChatbotMessage("bot", "Please enter a valid email address so we can follow up.");
+    return;
+  }
+
+  chatbotLeadData[currentStep.key] = message;
+  chatbotLeadStepIndex += 1;
+
+  if (chatbotLeadStepIndex < chatbotLeadSteps.length) {
+    appendChatbotMessage("bot", chatbotLeadSteps[chatbotLeadStepIndex].prompt);
+    return;
+  }
+
+  chatbotLeadActive = false;
+  const statusMessage = appendChatbotMessage("status", "Sending your AI audit request...");
+  const submitted = await submitChatbotLead();
+  statusMessage?.remove();
+
+  if (submitted) {
+    appendChatbotMessage("bot", "Thanks. Your free AI audit request has been sent. You can also use WhatsApp or book a call if you would like to speak sooner.");
+  } else {
+    appendChatbotMessage("bot", "The direct form route was unavailable, so I opened a WhatsApp or email handoff with your audit details.");
+  }
+}
+
+async function sendChatbotMessage(message) {
+  const statusMessage = appendChatbotMessage("status", "AITech Assistant is typing...");
+
+  try {
+    const response = await fetch(CHATBOT_API_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message,
+        history: chatbotConversation.slice(-8),
+      }),
+    });
+
+    if (!response.ok) throw new Error("Chatbot API failed");
+
+    const data = await response.json();
+    const reply = String(data.reply || "").trim();
+    appendChatbotMessage("bot", reply || "I am not sure from the current knowledge base. Please request a free AI Audit or contact the team.");
+    chatbotConversation.push({ role: "assistant", content: reply });
+  } catch {
+    appendChatbotMessage("bot", "I could not reach the assistant just now. Please request a free AI Audit, use WhatsApp, or book a call and the team will help.");
+  } finally {
+    statusMessage?.remove();
+    offerChatbotLead();
+  }
+}
+
 function setHeaderState() {
   if (!header) return;
   header.classList.toggle("is-scrolled", window.scrollY > 8);
@@ -164,9 +382,52 @@ nav?.addEventListener("click", (event) => {
   }
 });
 
-window.addEventListener("scroll", setHeaderState, { passive: true });
+window.addEventListener(
+  "scroll",
+  () => {
+    setHeaderState();
+  },
+  { passive: true },
+);
 setHeaderState();
 hydrateContactLinks();
+setChatbotActions();
+
+chatbotOpenButton?.addEventListener("click", openChatbot);
+chatbotCloseButton?.addEventListener("click", closeChatbot);
+chatbotLeadStartButton?.addEventListener("click", startChatbotLeadCapture);
+chatbotWhatsappLink?.addEventListener("click", () => {
+  trackAnalyticsEvent("chatbot_whatsapp_clicked");
+});
+chatbotBookingLink?.addEventListener("click", () => {
+  trackAnalyticsEvent("chatbot_booking_clicked");
+});
+
+chatbotForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!(chatbotInput instanceof HTMLInputElement)) return;
+
+  const message = chatbotInput.value.trim();
+  if (!message) return;
+
+  chatbotInput.value = "";
+  appendChatbotMessage("user", message);
+  chatbotConversation.push({ role: "user", content: message });
+  chatbotMessageCount += 1;
+  trackAnalyticsEvent("chatbot_message_sent");
+
+  if (chatbotLeadActive) {
+    await handleChatbotLeadMessage(message);
+    return;
+  }
+
+  if (shouldStartLeadFromMessage(message)) {
+    startChatbotLeadCapture();
+    return;
+  }
+
+  await sendChatbotMessage(message);
+});
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -243,6 +504,10 @@ previewModal?.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && previewModal && !previewModal.hasAttribute("hidden")) {
     closePreview();
+  }
+
+  if (event.key === "Escape" && chatbotPanel && !chatbotPanel.hasAttribute("hidden")) {
+    closeChatbot();
   }
 });
 

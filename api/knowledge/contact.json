@@ -1,0 +1,18 @@
+{
+  "email": "support@aitechinnovations.com",
+  "whatsapp_number": "447882111810",
+  "whatsapp_use": "Use WhatsApp for quick enquiries, website quote requests, and AI audit handoff.",
+  "booking_url": "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ29kmaaQThmrdewMfPksmL8AuJR67EUDytKmyhAuakCNeIRyHNRMQ8-gQc82hxmjMc2fl8jPZCr",
+  "booking_use": "Use the booking link for a free 30-minute AI Automation Audit.",
+  "company": {
+    "name": "AITech Innovations Ltd",
+    "registered": "Registered in England & Wales",
+    "company_number": "15076403",
+    "vat_number": "GB498138444"
+  },
+  "preferred_handoffs": [
+    "Request a free AI Audit through the chatbot lead form.",
+    "Use WhatsApp for a fast enquiry.",
+    "Book a free AI Automation Audit call."
+  ]
+}

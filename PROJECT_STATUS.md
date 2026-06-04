@@ -8,6 +8,12 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- No-AI chatbot fallback and footer email update were deployed to Hostinger and verified live on 2026-06-04.
+- No-AI chatbot fallback mode was added on 2026-06-04 so common chatbot questions are answered from scripted local knowledge without requiring an OpenAI API key.
+- Chatbot launcher was restored to its original floating Ask us placement on 2026-06-04, and the footer support email was moved under the copyright line to avoid overlap.
+- Chatbot launcher overlap with the footer email was fixed on 2026-06-04 by making the mobile launcher compact, hiding it when the footer is visible, and bumping CSS/JS cache keys.
+- Chatbot font styling was fixed on 2026-06-04 so chat bubbles and controls explicitly use the website font, with the stylesheet cache key bumped to force the live browser to load the update.
+- Low-cost AI support chatbot was added on 2026-06-04 with a Hostinger PHP backend endpoint, local JSON knowledge base, AI audit lead capture, GA4 chatbot events, and server-only OpenAI API key handling.
 - Booking audit CTA order update was deployed to Hostinger and verified live on 2026-06-04.
 - Google Calendar booking audit card was moved above the support email and WhatsApp CTAs in the homepage quote section on 2026-06-04.
 - Footer company number line-break update was deployed to Hostinger and verified live on 2026-06-04.
@@ -60,20 +66,19 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## In Progress
 
+- Chatbot deployment can work without `OPENAI_API_KEY` for scripted answers; configuring the key is optional for unmatched AI-generated responses.
 - FormSubmit fallback needs email activation before it can be relied on.
-- Booking still needs a final business URL if that channel should be live.
 - Portfolio examples are still demo concepts until real client screenshots are available.
 
 ## Known Issues
 
-- `CONTACT_SETTINGS.bookingUrl` is currently blank, so the booking path remains hidden.
 - FormSubmit returned an activation-required response on 2026-05-01 and sent an activation email to `support@aitechinnovations.com`.
 - Hostinger still has historical Next.js deployments listed for the domain, but the live root URL now serves the static site.
 
 ## Next 5 Logical Tasks
 
-1. Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
-2. Add the final booking URL if that channel should be live.
+1. Verify chatbot lead capture, WhatsApp, booking, and GA4 chatbot events on the live domain.
+2. Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
 3. Verify live domain, SSL, favicon, and key page routing after upload.
 4. Replace demo portfolio concepts with real client screenshots when available.
-5. Verify GA4 custom events in DebugView on the live domain.
+5. Configure `OPENAI_API_KEY` in Hostinger only if unmatched AI-generated answers are wanted.

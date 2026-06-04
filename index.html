@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260604-booking" />
+    <link rel="stylesheet" href="styles.css?v=20260604-emailmove" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -329,6 +329,40 @@
       <a href="https://wa.me/447882111810?text=Hi%20AITech%20Innovations,%20I'd%20like%20a%20website%20quote." target="_blank" rel="noopener noreferrer" data-whatsapp-link data-analytics-location="sticky">WhatsApp</a>
     </div>
 
-    <script src="script.js?v=20260604-booking"></script>
+    <aside class="chatbot-widget" data-chatbot aria-label="AITech Innovations chatbot">
+      <button class="chatbot-launcher" type="button" aria-expanded="false" aria-controls="chatbot-panel" data-chatbot-open>
+        <span aria-hidden="true">AI</span>
+        <strong>Ask us</strong>
+      </button>
+
+      <section class="chatbot-panel" id="chatbot-panel" aria-label="Chat with AITech Innovations" data-chatbot-panel hidden>
+        <header class="chatbot-header">
+          <div>
+            <h2>AITech Assistant</h2>
+            <p>Ask about services, pricing, AI audits, or booking.</p>
+          </div>
+          <button class="chatbot-close" type="button" aria-label="Close chat" data-chatbot-close>Close</button>
+        </header>
+
+        <div class="chatbot-messages" role="log" aria-live="polite" aria-relevant="additions" data-chatbot-messages>
+          <div class="chatbot-message bot">Hi, I can help with AITech Innovations services, pricing guidance, AI audits, and contact options. What would you like to automate?</div>
+        </div>
+
+        <div class="chatbot-actions" aria-label="Quick chatbot actions">
+          <button type="button" data-chatbot-lead-start>Free AI audit</button>
+          <a href="https://wa.me/447882111810?text=Hi%20AITech%20Innovations,%20I'd%20like%20to%20ask%20about%20AI%20automation." target="_blank" rel="noopener noreferrer" data-chatbot-whatsapp>WhatsApp</a>
+          <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ29kmaaQThmrdewMfPksmL8AuJR67EUDytKmyhAuakCNeIRyHNRMQ8-gQc82hxmjMc2fl8jPZCr" target="_blank" rel="noopener noreferrer" data-chatbot-booking>Book</a>
+        </div>
+
+        <form class="chatbot-form" data-chatbot-form>
+          <label class="sr-only" for="chatbot-input">Type your message</label>
+          <input id="chatbot-input" name="message" type="text" autocomplete="off" placeholder="Type your question..." data-chatbot-input required />
+          <button type="submit" aria-label="Send chatbot message">Send</button>
+        </form>
+        <p class="chatbot-note">The assistant gives general information only. For advice or exact pricing, request an AI Audit.</p>
+      </section>
+    </aside>
+
+    <script src="script.js?v=20260604-emailmove"></script>
   </body>
 </html>
