@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-06-04 - Deploy Google Calendar booking CTA
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Deployed the homepage Google Calendar booking CTA update to `aitechinnovations.com`.
+- Redeployed with a cache-busted `script.js?v=20260604-booking` reference so the live booking link is not hidden by the older cached script.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage contains `Book Your Free AI Automation Audit`, `Book Free AI Audit`, the Google Calendar booking URL, and the existing WhatsApp enquiry CTA.
+- Live `script.js?v=20260604-booking` contains the configured `bookingUrl` and `rel="noopener noreferrer"` hydration.
+- Live About, privacy, terms, Maidstone, Kent, and London pages return `200`.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain.
+
 ## 2026-06-04 - Add Google Calendar booking CTA
 
 ### Files Changed
