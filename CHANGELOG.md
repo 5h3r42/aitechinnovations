@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-06-04 - Deploy footer company number line break
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Deployed the footer company number line-break update to `aitechinnovations.com`.
+- Verified the live homepage serves `Registered in England & Wales.`, `Company No: 15076403.`, and `VAT No: GB498138444.` on separate markup lines.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage, Maidstone, Kent, and London pages return `200`.
+- Live homepage and Kent landing page contain the updated footer registration line breaks.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain.
+
 ## 2026-06-04 - Footer company number line break
 
 ### Files Changed
