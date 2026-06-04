@@ -8,6 +8,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Footer company registration text was adjusted on 2026-06-04 so the company number and VAT number each appear on their own line.
 - Google Calendar booking CTA update was deployed to Hostinger and verified live on 2026-06-04.
 - Google Calendar booking CTA for free AI automation audit calls was added under the homepage WhatsApp enquiry CTA on 2026-06-04.
 - Maidstone, Kent, and London website design landing pages were deployed to Hostinger and verified live on 2026-06-04.

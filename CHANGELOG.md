@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-06-04 - Footer company number line break
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `website-design-maidstone.html`
+- Updated `website-design-kent.html`
+- Updated `website-design-london.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Moved `Company No: 15076403.` onto its own footer line.
+- Kept `VAT No: GB498138444.` on the next line and preserved all footer copy, links, and styling.
+
+### Validation
+
+- `npm run check`
+- Local browser verification of the homepage footer registration text and horizontal overflow.
+
+### Next Task
+
+Deploy the footer line-break update to Hostinger if it should go live immediately.
+
 ## 2026-06-04 - Deploy Google Calendar booking CTA
 
 ### Files Changed
