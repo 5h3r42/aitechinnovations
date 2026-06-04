@@ -6,6 +6,9 @@ const requiredFiles = [
   "styles.css",
   "script.js",
   "about.html",
+  "website-design-maidstone.html",
+  "website-design-kent.html",
+  "website-design-london.html",
   "privacy.html",
   "terms.html",
   "assets/logo.webp",
@@ -24,6 +27,26 @@ for (const file of requiredFiles) {
 const index = fs.readFileSync(path.join(process.cwd(), "index.html"), "utf8");
 const about = fs.readFileSync(path.join(process.cwd(), "about.html"), "utf8");
 const script = fs.readFileSync(path.join(process.cwd(), "script.js"), "utf8");
+const locationPages = [
+  {
+    file: "website-design-maidstone.html",
+    title: "Website Design Maidstone | AITech Innovations",
+    h1: "Website design Maidstone",
+    canonical: "https://aitechinnovations.com/website-design-maidstone.html",
+  },
+  {
+    file: "website-design-kent.html",
+    title: "Website Design Kent | AITech Innovations",
+    h1: "Website design Kent",
+    canonical: "https://aitechinnovations.com/website-design-kent.html",
+  },
+  {
+    file: "website-design-london.html",
+    title: "Website Design London | AITech Innovations",
+    h1: "Website design London",
+    canonical: "https://aitechinnovations.com/website-design-london.html",
+  },
+];
 const checks = [
   "Trust-building websites that bring in better enquiries.",
   "Starter Website",
@@ -40,6 +63,11 @@ const checks = [
   "Solicitor Website",
   "Roofing Company Website",
   "Other professional service business",
+  "Areas we serve",
+  "website-design-maidstone.html",
+  "website-design-kent.html",
+  "website-design-london.html",
+  "Serving professional service businesses across Maidstone, Kent, London and the United Kingdom.",
 ];
 
 for (const text of checks) {
@@ -53,6 +81,37 @@ const aboutChecks = ["About Us | AITech Innovations", "Practical websites for pr
 for (const text of aboutChecks) {
   if (!about.includes(text)) {
     console.error(`Missing expected about page text: ${text}`);
+    failed = true;
+  }
+}
+
+for (const page of locationPages) {
+  const html = fs.readFileSync(path.join(process.cwd(), page.file), "utf8");
+  const pageChecks = [
+    page.title,
+    `<h1>${page.h1}</h1>`,
+    `rel="canonical" href="${page.canonical}"`,
+    "Get a Free Quote",
+    "WhatsApp Enquiry",
+    "Mobile responsive design",
+    "Fast loading pages",
+    "Trust-building layout",
+    "Local SEO basics",
+    "WhatsApp enquiry flow",
+    "Ready to improve your business website?",
+    "script.js?v=20260604-analytics",
+  ];
+
+  for (const text of pageChecks) {
+    if (!html.includes(text)) {
+      console.error(`Missing expected ${page.file} text: ${text}`);
+      failed = true;
+    }
+  }
+
+  const h1Count = (html.match(/<h1>/g) || []).length;
+  if (h1Count !== 1) {
+    console.error(`${page.file} should contain exactly one H1.`);
     failed = true;
   }
 }

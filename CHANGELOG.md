@@ -1,5 +1,61 @@
 # Changelog
 
+## 2026-06-04 - Add location landing pages
+
+### Files Changed
+
+- Added `website-design-maidstone.html`
+- Added `website-design-kent.html`
+- Added `website-design-london.html`
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created unique Maidstone, Kent, and London website design landing pages with location-specific hero copy, benefits, audience sections, process steps, pricing cards, FAQs, and final CTAs.
+- Added unique page titles, meta descriptions, canonical URLs, and Open Graph title/description metadata for each new page.
+- Added a homepage `Areas We Serve` section linking to all three landing pages.
+- Added footer text for Maidstone, Kent, London, and UK service coverage.
+- No sitemap was updated because the project does not currently include a `sitemap.xml`.
+
+### Validation
+
+- `npm run check`
+- Local browser checks confirmed the three new pages and homepage load at 375px, 390px, 430px, 768px, 1024px, and 1440px without horizontal overflow.
+- Browser checks confirmed each new page has one H1, the expected title/canonical/OG metadata, working quote links, hydrated WhatsApp links, and the updated stylesheet cache tag.
+
+### Next Task
+
+Deploy the location landing pages to Hostinger and verify the live URLs.
+
+## 2026-06-04 - Deploy GA4 conversion tracking
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a Hostinger static deployment archive from the current committed site files.
+- Deployed the GA4 conversion tracking update to `aitechinnovations.com`.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage serves `script.js?v=20260604-analytics`.
+- Live `script.js` contains `trackAnalyticsEvent`, `generate_lead`, `whatsapp_click`, `email_click`, `quote_cta_click`, and `portfolio_preview_opened`.
+- Live privacy and terms pages return `200`.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain.
+
 ## 2026-06-04 - Add GA4 conversion tracking
 
 ### Files Changed
