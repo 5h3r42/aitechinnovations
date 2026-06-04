@@ -25,6 +25,70 @@ const previewTriggers = document.querySelectorAll("[data-preview-trigger]");
 const previewPanels = document.querySelectorAll("[data-preview-panel]");
 let activePreviewTrigger = null;
 let previewCloseTimer = null;
+const trackedInteractionEvents = new WeakSet();
+
+function isAnalyticsDebugMode() {
+  const host = window.location.hostname;
+  return host === "localhost" || host === "127.0.0.1" || new URLSearchParams(window.location.search).has("debug_analytics");
+}
+
+function trackAnalyticsEvent(eventName, parameters = {}) {
+  if (typeof window.gtag !== "function") return false;
+
+  const eventParameters = { ...parameters };
+  if (isAnalyticsDebugMode()) {
+    eventParameters.debug_mode = true;
+  }
+
+  window.gtag("event", eventName, eventParameters);
+  return true;
+}
+
+function getAnalyticsLocation(element) {
+  if (!(element instanceof Element)) return "";
+
+  const labelledElement = element.closest("[data-analytics-location]");
+  if (labelledElement) {
+    return labelledElement.getAttribute("data-analytics-location") || "";
+  }
+
+  if (element.closest(".hero")) return "hero";
+  if (element.closest("#pricing")) return "pricing";
+  if (element.closest(".contact-section")) return "contact";
+  if (element.closest(".mobile-contact-bar")) return "sticky";
+  if (element.closest(".site-footer")) return "footer";
+  return "";
+}
+
+function trackInteractionOnce(event, eventName, parameters = {}) {
+  if (trackedInteractionEvents.has(event)) return false;
+  trackedInteractionEvents.add(event);
+  return trackAnalyticsEvent(eventName, parameters);
+}
+
+function isWhatsAppLink(link) {
+  return link.hasAttribute("data-whatsapp-link") || link.href.includes("wa.me/");
+}
+
+function isEmailLink(link) {
+  return link.href.startsWith("mailto:");
+}
+
+function trackLinkClick(link, event) {
+  if (isWhatsAppLink(link)) {
+    trackInteractionOnce(event, "whatsapp_click", { location: getAnalyticsLocation(link) || "contact" });
+    return;
+  }
+
+  if (isEmailLink(link)) {
+    trackInteractionOnce(event, "email_click");
+    return;
+  }
+
+  if (link.hasAttribute("data-analytics-cta")) {
+    trackInteractionOnce(event, "quote_cta_click", { location: getAnalyticsLocation(link) || "hero" });
+  }
+}
 
 function buildWhatsAppUrl(message) {
   if (!CONTACT_SETTINGS.whatsappNumber) return "";
@@ -155,10 +219,18 @@ function closePreview() {
 
 document.addEventListener("click", (event) => {
   if (!(event.target instanceof Element)) return;
+
+  const link = event.target.closest("a");
+  if (link instanceof HTMLAnchorElement) {
+    trackLinkClick(link, event);
+  }
+
   const trigger = event.target.closest("[data-preview-trigger]");
   if (!(trigger instanceof HTMLElement)) return;
 
-  openPreview(trigger.getAttribute("data-preview-trigger"), trigger);
+  const previewName = trigger.getAttribute("data-preview-trigger");
+  trackInteractionOnce(event, "portfolio_preview_opened", { project: previewName });
+  openPreview(previewName, trigger);
 });
 
 previewModal?.addEventListener("click", (event) => {
@@ -216,6 +288,13 @@ quoteForm?.addEventListener("submit", async (event) => {
   };
 
   const submitButton = quoteForm.querySelector("button[type='submit']");
+  let leadEventTracked = false;
+  const trackLeadOnce = () => {
+    if (leadEventTracked) return;
+    leadEventTracked = true;
+    trackAnalyticsEvent("generate_lead", { method: "website_form" });
+  };
+
   submitButton.disabled = true;
   formStatus.textContent = "Sending your enquiry...";
 
@@ -247,6 +326,7 @@ quoteForm?.addEventListener("submit", async (event) => {
 
     quoteForm.reset();
     formStatus.textContent = "Thanks. Your enquiry has been sent.";
+    trackLeadOnce();
   } catch {
     try {
       const response = await fetch(FORM_ENDPOINT, {
@@ -259,6 +339,7 @@ quoteForm?.addEventListener("submit", async (event) => {
 
       quoteForm.reset();
       formStatus.textContent = "Thanks. Your enquiry has been sent.";
+      trackLeadOnce();
     } catch {
       if (whatsappUrl) {
         window.open(whatsappUrl, "_blank", "noopener,noreferrer");

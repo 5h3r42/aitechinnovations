@@ -14,7 +14,6 @@
 ## Backlog
 
 - Add real case studies with screenshots, outcomes, and client permission.
-- Add lightweight analytics or conversion tracking.
 - Add a dedicated thank-you or confirmation page if needed.
 - Add sitemap and robots files for the static deployment if required.
 - Add more niche landing sections for target business types.
@@ -22,6 +21,7 @@
 
 ## Done
 
+- Added GA4 custom conversion tracking for quote CTAs, WhatsApp clicks, email clicks, portfolio previews, and successful quote form submissions.
 - Fixed example work popout click handling so clicking any card/image opens the correct preview modal.
 - Fixed example work card image clipping so titles and descriptions no longer cover the screenshots.
 - Deployed the About page and footer VAT line-break update to Hostinger and verified the live pages.

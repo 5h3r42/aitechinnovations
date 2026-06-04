@@ -34,6 +34,8 @@ const checks = [
   "about.html",
   "data-email-link",
   "data-whatsapp-link",
+  "data-analytics-cta",
+  "data-analytics-location",
   "Private Clinic Website",
   "Solicitor Website",
   "Roofing Company Website",
@@ -55,7 +57,20 @@ for (const text of aboutChecks) {
   }
 }
 
-const scriptChecks = ["CONTACT_SETTINGS", "buildWhatsAppUrl", "_honey", "openPreview", "closePreview"];
+const scriptChecks = [
+  "CONTACT_SETTINGS",
+  "buildWhatsAppUrl",
+  "_honey",
+  "openPreview",
+  "closePreview",
+  "trackAnalyticsEvent",
+  "getAnalyticsLocation",
+  "generate_lead",
+  "whatsapp_click",
+  "email_click",
+  "quote_cta_click",
+  "portfolio_preview_opened",
+];
 for (const text of scriptChecks) {
   if (!script.includes(text)) {
     console.error(`Missing expected script text: ${text}`);

@@ -1,5 +1,33 @@
 # Changelog
 
+## 2026-06-04 - Add GA4 conversion tracking
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added reusable GA4 event helpers with local and query-string DebugView support.
+- Added explicit analytics location attributes for hero, pricing, contact, footer, mobile, and sticky contact actions.
+- Tracked quote CTA clicks, WhatsApp clicks, email clicks, portfolio preview opens, and successful quote form submissions.
+- Kept the existing GA4 tag, Clarity snippet, form delivery, links, and static Hostinger setup unchanged.
+
+### Validation
+
+- `npm run check`
+- Local automated browser test with GA stub and blocked external requests confirmed: `quote_cta_click` 7, `whatsapp_click` 3, `email_click` 1, `portfolio_preview_opened` 3, and `generate_lead` 1.
+- Form test used a stubbed `fetch`, so no real external lead was submitted.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain after the next Hostinger upload.
+
 ## 2026-06-03 - Fix example work popout clicks
 
 ### Files Changed

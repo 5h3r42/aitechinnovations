@@ -1,6 +1,6 @@
 # Project Status
 
-Date: 2026-06-03
+Date: 2026-06-04
 
 ## Current Phase
 
@@ -8,6 +8,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- GA4 custom conversion tracking was added on 2026-06-04 for quote CTAs, WhatsApp clicks, email clicks, portfolio preview opens, and successful quote form submissions.
 - Example work popout click handling was fixed on 2026-06-03 so each card/image opens the correct preview modal.
 - Example work card image clipping was fixed on 2026-06-03 so card titles and descriptions sit below the screenshots.
 - About page and footer VAT line-break update were deployed to Hostinger and verified live on 2026-06-03.
@@ -66,4 +67,4 @@ Launch preparation for a static Hostinger-ready agency website.
 2. Add the final booking URL if that channel should be live.
 3. Verify live domain, SSL, favicon, and key page routing after upload.
 4. Replace demo portfolio concepts with real client screenshots when available.
-5. Verify whether the historical Hostinger Next.js deployments can be removed from hPanel.
+5. Verify GA4 custom events in DebugView on the live domain after the next Hostinger upload.
