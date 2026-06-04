@@ -105,7 +105,7 @@ for (const page of locationPages) {
     "Local SEO basics",
     "WhatsApp enquiry flow",
     "Ready to improve your business website?",
-    "script.js?v=20260604-analytics",
+    "script.js?v=20260604-booking",
   ];
 
   for (const text of pageChecks) {
