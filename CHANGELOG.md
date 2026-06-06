@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-06-06 - Deploy homepage conversion update to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a clean Hostinger `public_html` archive from the committed static site files.
+- Deployed the homepage conversion flow and positioning update to `aitechinnovations.com`.
+- Kept the deployment static and Hostinger-ready.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage returns `200` and includes `Websites and AI automation that bring in better enquiries`, `Free AI Automation Audit`, the Google Calendar booking URL, JSON-LD schema, and `styles.css?v=20260606-conversion` / `script.js?v=20260606-conversion`.
+- Live `script.js` contains `calendar_booking_click`, `pricing_cta_click`, `form_submit`, `chatbot_open`, and `whatsapp_click`.
+- Live About, privacy, terms, Maidstone, Kent, and London pages return `200`.
+- Live chatbot endpoint returns a scripted pricing response for a POST request.
+
+### Next Task
+
+Verify the new GA4 conversion events in DebugView on the live domain.
+
 ## 2026-06-06 - Update homepage conversion flow and positioning
 
 ### Files Changed

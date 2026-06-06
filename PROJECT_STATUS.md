@@ -8,6 +8,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Homepage conversion flow and positioning update was deployed to Hostinger and verified live on 2026-06-06.
 - Homepage conversion flow and positioning were updated on 2026-06-06 with website, booking system, and AI automation messaging, a standalone AI audit section, revised chatbot quick actions, schema markup, and requested GA4 event tracking.
 - No-AI chatbot fallback and footer email update were deployed to Hostinger and verified live on 2026-06-04.
 - No-AI chatbot fallback mode was added on 2026-06-04 so common chatbot questions are answered from scripted local knowledge without requiring an OpenAI API key.
@@ -78,7 +79,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Next 5 Logical Tasks
 
-1. Deploy and verify the homepage conversion flow, AI audit booking CTA, chatbot quick actions, and GA4 events on the live domain.
+1. Verify the new GA4 conversion events in DebugView on the live domain.
 2. Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
 3. Verify live domain, SSL, favicon, and key page routing after upload.
 4. Replace demo portfolio concepts with real client screenshots when available.
