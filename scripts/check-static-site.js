@@ -56,7 +56,10 @@ const locationPages = [
   },
 ];
 const checks = [
-  "Trust-building websites that bring in better enquiries.",
+  "Web Design & AI Automation for Service Businesses",
+  "AITech Innovations builds trust-focused websites, booking systems and AI automation support for professional service businesses.",
+  "Websites and AI automation that bring in better enquiries.",
+  "We design fast, mobile-friendly websites, booking flows, and simple AI automations",
   "Starter Website",
   "Business Website",
   "Premium Website",
@@ -76,16 +79,24 @@ const checks = [
   "website-design-kent.html",
   "website-design-london.html",
   "Serving professional service businesses across Maidstone, Kent, London and the United Kingdom.",
-  "Book Your Free AI Automation Audit",
+  "Free AI Automation Audit",
   "Book Free AI Audit",
-  "Prefer to schedule a call? Book a free 30-minute AI Automation Audit",
+  "Book a free 30-minute AI Automation Audit. We'll review your current workflow",
+  "application/ld+json",
+  "Organization",
+  "LocalBusiness",
+  "Service",
+  "FAQPage",
   "data-chatbot-open",
   "data-chatbot-panel",
   "data-chatbot-form",
-  "data-chatbot-lead-start",
   "data-chatbot-whatsapp",
   "data-chatbot-booking",
   "AITech Assistant",
+  "Website quote",
+  "Book AI audit",
+  "Pricing",
+  "Hi, I can help you choose the right website package, request a quote, or book a free AI automation audit. What would you like help with?",
   bookingUrl,
 ];
 
@@ -118,7 +129,7 @@ for (const page of locationPages) {
     "Local SEO basics",
     "WhatsApp enquiry flow",
     "Ready to improve your business website?",
-    "script.js?v=20260604-emailmove",
+    "script.js?v=20260606-conversion",
   ];
 
   for (const text of pageChecks) {
@@ -153,9 +164,13 @@ const scriptChecks = [
   "trackAnalyticsEvent",
   "getAnalyticsLocation",
   "generate_lead",
+  "form_submit",
   "whatsapp_click",
+  "calendar_booking_click",
   "email_click",
   "quote_cta_click",
+  "pricing_cta_click",
+  "chatbot_open",
   "portfolio_preview_opened",
   bookingUrl,
 ];

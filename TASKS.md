@@ -21,6 +21,7 @@
 
 ## Done
 
+- Updated the homepage conversion flow and positioning with website, booking system, and AI automation messaging; a standalone AI audit section; revised chatbot quick actions; schema markup; and GA4 events for booking, pricing, chatbot open, WhatsApp, and form submit interactions.
 - Deployed the no-AI chatbot fallback, chatbot endpoint, knowledge base, footer email update, and updated static files to Hostinger.
 - Added no-AI chatbot fallback mode so common questions are answered from scripted local knowledge without requiring an OpenAI API key.
 - Restored the floating Ask us chatbot launcher and moved the footer support email under the copyright line to avoid overlap.

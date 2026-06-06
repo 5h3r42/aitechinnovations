@@ -1,5 +1,37 @@
 # Changelog
 
+## 2026-06-06 - Update homepage conversion flow and positioning
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated static HTML asset cache keys in `about.html`, `privacy.html`, `terms.html`, `website-design-maidstone.html`, `website-design-kent.html`, and `website-design-london.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Repositioned the homepage around websites, booking systems, and AI automations for professional service businesses.
+- Added the hero `Book Free AI Audit` CTA and moved the AI audit offer into its own standalone section before the quote form.
+- Kept the quote form focused on website project enquiries.
+- Updated chatbot intro text and quick actions for website quote, AI audit booking, pricing, and WhatsApp.
+- Added homepage JSON-LD for Organization, LocalBusiness, Service, and FAQPage.
+- Added requested GA4 event names for booking, form submit, chatbot open, pricing CTA, and WhatsApp interactions while preserving existing conversion events.
+
+### Validation
+
+- `node scripts/check-static-site.js`
+- Local desktop and mobile browser checks confirmed the hero CTA order, standalone AI audit section, quote form separation, chatbot intro/actions, booking/WhatsApp URLs, and no horizontal overflow.
+- Local GA stub check confirmed `chatbot_open`, `calendar_booking_click`, `pricing_cta_click`, `whatsapp_click`, `form_submit`, and existing `generate_lead` events fire safely.
+
+### Next Task
+
+Deploy and verify the homepage conversion flow, AI audit booking CTA, chatbot quick actions, and GA4 events on the live domain.
+
 ## 2026-06-04 - Deploy no-AI chatbot fallback to Hostinger
 
 ### Files Changed

@@ -26,7 +26,6 @@ const chatbotCloseButton = document.querySelector("[data-chatbot-close]");
 const chatbotForm = document.querySelector("[data-chatbot-form]");
 const chatbotInput = document.querySelector("[data-chatbot-input]");
 const chatbotMessages = document.querySelector("[data-chatbot-messages]");
-const chatbotLeadStartButton = document.querySelector("[data-chatbot-lead-start]");
 const chatbotWhatsappLink = document.querySelector("[data-chatbot-whatsapp]");
 const chatbotBookingLink = document.querySelector("[data-chatbot-booking]");
 const chatbotWidget = document.querySelector("[data-chatbot]");
@@ -98,7 +97,16 @@ function isEmailLink(link) {
   return link.href.startsWith("mailto:");
 }
 
+function isBookingLink(link) {
+  return link.hasAttribute("data-booking-link") || link.href.includes("calendar.google.com/calendar");
+}
+
 function trackLinkClick(link, event) {
+  if (isBookingLink(link)) {
+    trackInteractionOnce(event, "calendar_booking_click", { location: getAnalyticsLocation(link) || "booking" });
+    return;
+  }
+
   if (isWhatsAppLink(link)) {
     trackInteractionOnce(event, "whatsapp_click", { location: getAnalyticsLocation(link) || "contact" });
     return;
@@ -110,7 +118,9 @@ function trackLinkClick(link, event) {
   }
 
   if (link.hasAttribute("data-analytics-cta")) {
-    trackInteractionOnce(event, "quote_cta_click", { location: getAnalyticsLocation(link) || "hero" });
+    const ctaType = link.getAttribute("data-analytics-cta");
+    const eventName = ctaType === "pricing" ? "pricing_cta_click" : "quote_cta_click";
+    trackInteractionOnce(event, eventName, { location: getAnalyticsLocation(link) || "hero" });
   }
 }
 
@@ -162,6 +172,7 @@ function openChatbot() {
     chatbotInput?.focus({ preventScroll: true });
   });
 
+  trackAnalyticsEvent("chatbot_open");
   trackAnalyticsEvent("chatbot_opened");
 }
 
@@ -395,7 +406,6 @@ setChatbotActions();
 
 chatbotOpenButton?.addEventListener("click", openChatbot);
 chatbotCloseButton?.addEventListener("click", closeChatbot);
-chatbotLeadStartButton?.addEventListener("click", startChatbotLeadCapture);
 chatbotWhatsappLink?.addEventListener("click", () => {
   trackAnalyticsEvent("chatbot_whatsapp_clicked");
 });
@@ -557,6 +567,7 @@ quoteForm?.addEventListener("submit", async (event) => {
   const trackLeadOnce = () => {
     if (leadEventTracked) return;
     leadEventTracked = true;
+    trackAnalyticsEvent("form_submit", { method: "website_form" });
     trackAnalyticsEvent("generate_lead", { method: "website_form" });
   };
 

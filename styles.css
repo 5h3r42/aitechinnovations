@@ -200,7 +200,7 @@ p { margin-bottom: 0; color: var(--muted); line-height: 1.52; }
 .metric-card strong, .metric-card span { display: block; }
 .metric-card span { margin-top: 5px; color: var(--muted); font-size: 0.92rem; }
 
-.split, .proof-grid, .contact-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 48px; align-items: start; }
+.split, .proof-grid, .contact-grid, .audit-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 48px; align-items: start; }
 .section-heading { max-width: 700px; }
 .section-heading.center { margin: 0 auto 40px; text-align: center; }
 .section-heading p:last-child { font-size: 1.05rem; line-height: 1.5; }
@@ -735,7 +735,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); box-sha
 }
 
 @media (max-width: 980px) {
-  .hero-grid, .split, .proof-grid, .contact-grid { grid-template-columns: 1fr; }
+  .hero-grid, .split, .proof-grid, .contact-grid, .audit-grid { grid-template-columns: 1fr; }
   .hero-grid { gap: 48px; }
   .services-grid, .pricing-grid, .work-grid, .area-grid { grid-template-columns: repeat(2, 1fr); }
   .process-step { grid-template-columns: 48px 1fr; }
