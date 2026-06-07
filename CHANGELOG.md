@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-06-07 - Deploy GA4 lead tracking update to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a clean Hostinger `public_html` archive containing the updated static pages, `.htaccess`, `assets/`, and `api/`.
+- Deployed the GA4 lead event tracking update to `aitechinnovations.com` through Hostinger.
+- Kept the deployment static and Hostinger-ready.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage returns the new `script.js?v=20260607-ga4-leads` cache key.
+- Live `script.js` contains `generate_lead`, `form_submit`, `submit_form`, `contact_submit`, `lead_generated`, `whatsapp_click`, `book_appointment_click`, `phone_click`, `email_click`, and `chatbot_lead`.
+- Live About, privacy, terms, Maidstone, Kent, and London pages return `200`.
+- Live chatbot endpoint returns a scripted pricing response for a POST request.
+
+### Next Task
+
+Verify the deployed lead events in GA4 DebugView, then mark the required events as Key Events.
+
 ## 2026-06-07 - Add GA4 quote form event aliases
 
 ### Files Changed
