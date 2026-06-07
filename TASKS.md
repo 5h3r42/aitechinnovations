@@ -2,6 +2,7 @@
 
 ## Today
 
+- Deploy the GA4 lead event tracking update to Hostinger, then verify `generate_lead`, `form_submit`, `submit_form`, `contact_submit`, `lead_generated`, `chatbot_lead`, `book_appointment_click`, `whatsapp_click`, `email_click`, and any future `phone_click` events in GA4 DebugView.
 - Verify chatbot lead capture, WhatsApp, booking, and GA4 chatbot events on the live domain.
 - Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
 
@@ -21,6 +22,8 @@
 
 ## Done
 
+- Added the missing GA4 form event aliases `form_submit`, `submit_form`, `contact_submit`, and `lead_generated` to the successful quote form lead path.
+- Implemented the GA4 lead event tracking update with safe reusable tracking helpers, normalized CTA locations, updated script cache keys, and local browser validation for click, form lead, chatbot lead, and no-gtag fallback behavior.
 - Deployed the homepage conversion flow and positioning update to Hostinger and verified the live homepage, cache-busted CSS/JS, static pages, and chatbot endpoint.
 - Updated the homepage conversion flow and positioning with website, booking system, and AI automation messaging; a standalone AI audit section; revised chatbot quick actions; schema markup; and GA4 events for booking, pricing, chatbot open, WhatsApp, and form submit interactions.
 - Deployed the no-AI chatbot fallback, chatbot endpoint, knowledge base, footer email update, and updated static files to Hostinger.

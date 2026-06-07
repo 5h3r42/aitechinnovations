@@ -50,21 +50,129 @@ let chatbotLeadActive = false;
 let chatbotLeadStepIndex = 0;
 let chatbotLeadData = {};
 
+// GA4 event helper: centralizes lead tracking and avoids sending personal contact details to Analytics.
 function isAnalyticsDebugMode() {
+  if (typeof window === "undefined") return false;
+
   const host = window.location.hostname;
   return host === "localhost" || host === "127.0.0.1" || new URLSearchParams(window.location.search).has("debug_analytics");
 }
 
-function trackAnalyticsEvent(eventName, parameters = {}) {
-  if (typeof window.gtag !== "function") return false;
+function isValidAnalyticsEventName(eventName) {
+  return /^[a-z][a-z0-9_]{0,39}$/.test(eventName);
+}
 
-  const eventParameters = { ...parameters };
-  if (isAnalyticsDebugMode()) {
+function getPageAnalyticsParameters() {
+  if (typeof window === "undefined" || typeof document === "undefined") return {};
+
+  return {
+    page_path: window.location.pathname || "/",
+    page_title: document.title || "",
+  };
+}
+
+function trackEvent(eventName, parameters = {}) {
+  const debugMode = isAnalyticsDebugMode();
+
+  if (!isValidAnalyticsEventName(eventName)) {
+    if (debugMode) console.debug("[analytics] skipped invalid event", eventName);
+    return false;
+  }
+
+  const eventParameters = {
+    ...parameters,
+    ...getPageAnalyticsParameters(),
+  };
+
+  if (debugMode) {
     eventParameters.debug_mode = true;
+    console.debug("[analytics]", eventName, eventParameters);
+  }
+
+  if (typeof window === "undefined" || typeof window.gtag !== "function") {
+    if (debugMode) console.debug("[analytics] gtag unavailable", eventName);
+    return false;
   }
 
   window.gtag("event", eventName, eventParameters);
   return true;
+}
+
+function getSafeLinkUrl(linkUrl) {
+  if (!linkUrl || typeof window === "undefined") return "";
+
+  try {
+    const url = new URL(linkUrl, window.location.href);
+
+    if (url.protocol === "mailto:") return "mailto:contact_email";
+    if (url.protocol === "tel:") return "tel:phone";
+    if (url.hostname === "wa.me" || url.hostname.endsWith(".wa.me")) return "https://wa.me/contact";
+    if (url.hostname === "api.whatsapp.com" || url.hostname.endsWith(".whatsapp.com")) return "https://api.whatsapp.com/send";
+
+    url.search = "";
+    url.hash = "";
+    return url.href;
+  } catch {
+    return "";
+  }
+}
+
+function getSafeEmailTarget(emailTarget = "") {
+  return emailTarget.includes(CONTACT_SETTINGS.email) ? "support_email" : "email_link";
+}
+
+function getSafePhoneTarget(phoneTarget = "") {
+  return phoneTarget.includes(CONTACT_SETTINGS.whatsappNumber) ? "business_phone" : "phone_link";
+}
+
+function trackWhatsappClick(location, linkUrl) {
+  return trackEvent("whatsapp_click", {
+    location,
+    link_url: getSafeLinkUrl(linkUrl),
+  });
+}
+
+function trackBookingClick(location, linkUrl) {
+  return trackEvent("book_appointment_click", {
+    location,
+    link_url: getSafeLinkUrl(linkUrl),
+  });
+}
+
+function trackPhoneClick(location, phoneTarget) {
+  return trackEvent("phone_click", {
+    location,
+    phone_target: getSafePhoneTarget(phoneTarget),
+  });
+}
+
+function trackEmailClick(location, emailTarget) {
+  return trackEvent("email_click", {
+    location,
+    email_target: getSafeEmailTarget(emailTarget),
+  });
+}
+
+function trackGenerateLead(formName) {
+  const leadParameters = {
+    form_name: formName,
+    lead_type: "contact_form",
+  };
+  const leadEvents = ["generate_lead", "form_submit", "submit_form", "contact_submit", "lead_generated"];
+
+  return leadEvents
+    .map((eventName) => trackEvent(eventName, leadParameters))
+    .some(Boolean);
+}
+
+function trackChatbotOpened() {
+  return trackEvent("chatbot_opened");
+}
+
+function trackChatbotLead() {
+  return trackEvent("chatbot_lead", {
+    lead_type: "chatbot",
+  });
 }
 
 function getAnalyticsLocation(element) {
@@ -77,24 +185,30 @@ function getAnalyticsLocation(element) {
 
   if (element.closest(".hero")) return "hero";
   if (element.closest("#pricing")) return "pricing";
-  if (element.closest(".contact-section")) return "contact";
-  if (element.closest(".mobile-contact-bar")) return "sticky";
+  if (element.closest("#ai-audit")) return "ai_audit";
+  if (element.closest(".contact-section")) return "contact_section";
+  if (element.closest(".mobile-contact-bar")) return "mobile_bar";
   if (element.closest(".site-footer")) return "footer";
+  if (element.closest(".legal-page")) return "legal_content";
   return "";
 }
 
-function trackInteractionOnce(event, eventName, parameters = {}) {
+function trackInteractionOnce(event, tracker) {
   if (trackedInteractionEvents.has(event)) return false;
   trackedInteractionEvents.add(event);
-  return trackAnalyticsEvent(eventName, parameters);
+  return tracker();
 }
 
 function isWhatsAppLink(link) {
-  return link.hasAttribute("data-whatsapp-link") || link.href.includes("wa.me/");
+  return link.hasAttribute("data-whatsapp-link") || link.hostname === "wa.me" || link.hostname === "api.whatsapp.com";
 }
 
 function isEmailLink(link) {
-  return link.href.startsWith("mailto:");
+  return link.protocol === "mailto:";
+}
+
+function isPhoneLink(link) {
+  return link.protocol === "tel:";
 }
 
 function isBookingLink(link) {
@@ -102,25 +216,32 @@ function isBookingLink(link) {
 }
 
 function trackLinkClick(link, event) {
+  const location = getAnalyticsLocation(link) || "link";
+
   if (isBookingLink(link)) {
-    trackInteractionOnce(event, "calendar_booking_click", { location: getAnalyticsLocation(link) || "booking" });
+    trackInteractionOnce(event, () => trackBookingClick(location, link.href));
     return;
   }
 
   if (isWhatsAppLink(link)) {
-    trackInteractionOnce(event, "whatsapp_click", { location: getAnalyticsLocation(link) || "contact" });
+    trackInteractionOnce(event, () => trackWhatsappClick(location, link.href));
+    return;
+  }
+
+  if (isPhoneLink(link)) {
+    trackInteractionOnce(event, () => trackPhoneClick(location, link.href));
     return;
   }
 
   if (isEmailLink(link)) {
-    trackInteractionOnce(event, "email_click");
+    trackInteractionOnce(event, () => trackEmailClick(location, link.href));
     return;
   }
 
   if (link.hasAttribute("data-analytics-cta")) {
     const ctaType = link.getAttribute("data-analytics-cta");
     const eventName = ctaType === "pricing" ? "pricing_cta_click" : "quote_cta_click";
-    trackInteractionOnce(event, eventName, { location: getAnalyticsLocation(link) || "hero" });
+    trackInteractionOnce(event, () => trackEvent(eventName, { location }));
   }
 }
 
@@ -172,8 +293,7 @@ function openChatbot() {
     chatbotInput?.focus({ preventScroll: true });
   });
 
-  trackAnalyticsEvent("chatbot_open");
-  trackAnalyticsEvent("chatbot_opened");
+  trackChatbotOpened();
 }
 
 function closeChatbot() {
@@ -204,7 +324,7 @@ function startChatbotLeadCapture() {
   chatbotLeadPromptShown = true;
   chatbotLeadStepIndex = 0;
   chatbotLeadData = {};
-  trackAnalyticsEvent("chatbot_lead_started");
+  trackEvent("chatbot_lead_started");
   appendChatbotMessage("bot", chatbotLeadSteps[chatbotLeadStepIndex].prompt);
 }
 
@@ -238,7 +358,7 @@ async function submitChatbotLead() {
       body: JSON.stringify(sheetPayload),
     });
 
-    trackAnalyticsEvent("chatbot_lead_submitted");
+    trackChatbotLead();
     return true;
   } catch {
     const payload = new FormData();
@@ -262,7 +382,7 @@ async function submitChatbotLead() {
 
       if (!response.ok) throw new Error("Form service failed");
 
-      trackAnalyticsEvent("chatbot_lead_submitted");
+      trackChatbotLead();
       return true;
     } catch {
       const whatsappUrl = buildWhatsAppUrl(message);
@@ -406,13 +526,6 @@ setChatbotActions();
 
 chatbotOpenButton?.addEventListener("click", openChatbot);
 chatbotCloseButton?.addEventListener("click", closeChatbot);
-chatbotWhatsappLink?.addEventListener("click", () => {
-  trackAnalyticsEvent("chatbot_whatsapp_clicked");
-});
-chatbotBookingLink?.addEventListener("click", () => {
-  trackAnalyticsEvent("chatbot_booking_clicked");
-});
-
 chatbotForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!(chatbotInput instanceof HTMLInputElement)) return;
@@ -424,7 +537,7 @@ chatbotForm?.addEventListener("submit", async (event) => {
   appendChatbotMessage("user", message);
   chatbotConversation.push({ role: "user", content: message });
   chatbotMessageCount += 1;
-  trackAnalyticsEvent("chatbot_message_sent");
+  trackEvent("chatbot_message_sent");
 
   if (chatbotLeadActive) {
     await handleChatbotLeadMessage(message);
@@ -500,7 +613,7 @@ document.addEventListener("click", (event) => {
   if (!(trigger instanceof HTMLElement)) return;
 
   const previewName = trigger.getAttribute("data-preview-trigger");
-  trackInteractionOnce(event, "portfolio_preview_opened", { project: previewName });
+  trackInteractionOnce(event, () => trackEvent("portfolio_preview_opened", { project: previewName }));
   openPreview(previewName, trigger);
 });
 
@@ -567,8 +680,7 @@ quoteForm?.addEventListener("submit", async (event) => {
   const trackLeadOnce = () => {
     if (leadEventTracked) return;
     leadEventTracked = true;
-    trackAnalyticsEvent("form_submit", { method: "website_form" });
-    trackAnalyticsEvent("generate_lead", { method: "website_form" });
+    trackGenerateLead("quote_form");
   };
 
   submitButton.disabled = true;

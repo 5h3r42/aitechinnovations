@@ -87,6 +87,7 @@ const checks = [
   "LocalBusiness",
   "Service",
   "FAQPage",
+  "script.js?v=20260607-ga4-leads",
   "data-chatbot-open",
   "data-chatbot-panel",
   "data-chatbot-form",
@@ -129,7 +130,7 @@ for (const page of locationPages) {
     "Local SEO basics",
     "WhatsApp enquiry flow",
     "Ready to improve your business website?",
-    "script.js?v=20260606-conversion",
+    "script.js?v=20260607-ga4-leads",
   ];
 
   for (const text of pageChecks) {
@@ -151,32 +152,58 @@ const scriptChecks = [
   "buildWhatsAppUrl",
   "CHATBOT_API_ENDPOINT",
   "api/chatbot.php",
+  "trackEvent",
+  "getSafeLinkUrl",
+  "trackWhatsappClick",
+  "trackBookingClick",
+  "trackPhoneClick",
+  "trackEmailClick",
+  "trackGenerateLead",
+  "trackChatbotOpened",
+  "trackChatbotLead",
+  "debug_analytics",
   "chatbot_opened",
   "chatbot_message_sent",
   "chatbot_lead_started",
-  "chatbot_lead_submitted",
-  "chatbot_whatsapp_clicked",
-  "chatbot_booking_clicked",
+  "chatbot_lead",
   "AI audit chatbot lead",
   "_honey",
   "openPreview",
   "closePreview",
-  "trackAnalyticsEvent",
   "getAnalyticsLocation",
   "generate_lead",
   "form_submit",
+  "submit_form",
+  "contact_submit",
+  "lead_generated",
   "whatsapp_click",
-  "calendar_booking_click",
+  "book_appointment_click",
+  "phone_click",
   "email_click",
+  "phone_target",
+  "email_target",
   "quote_cta_click",
   "pricing_cta_click",
-  "chatbot_open",
   "portfolio_preview_opened",
   bookingUrl,
 ];
 for (const text of scriptChecks) {
   if (!script.includes(text)) {
     console.error(`Missing expected script text: ${text}`);
+    failed = true;
+  }
+}
+
+const obsoleteScriptChecks = [
+  "calendar_booking_click",
+  "chatbot_lead_submitted",
+  "chatbot_whatsapp_clicked",
+  "chatbot_booking_clicked",
+  "trackAnalyticsEvent",
+];
+for (const text of obsoleteScriptChecks) {
+  if (script.includes(text)) {
+    console.error(`Obsolete analytics text should be removed from script.js: ${text}`);
     failed = true;
   }
 }

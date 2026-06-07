@@ -1,6 +1,6 @@
 # Project Status
 
-Date: 2026-06-06
+Date: 2026-06-07
 
 ## Current Phase
 
@@ -8,6 +8,8 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Missing GA4 quote form event aliases were added locally on 2026-06-07 so successful quote form submissions now emit `generate_lead`, `form_submit`, `submit_form`, `contact_submit`, and `lead_generated`.
+- GA4 lead event tracking was updated locally on 2026-06-07 with reusable safe analytics helpers, new lead-focused event names, normalized CTA locations, PII-safe contact click parameters, cache-busted script references, and local browser validation.
 - Homepage conversion flow and positioning update was deployed to Hostinger and verified live on 2026-06-06.
 - Homepage conversion flow and positioning were updated on 2026-06-06 with website, booking system, and AI automation messaging, a standalone AI audit section, revised chatbot quick actions, schema markup, and requested GA4 event tracking.
 - No-AI chatbot fallback and footer email update were deployed to Hostinger and verified live on 2026-06-04.
@@ -68,6 +70,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## In Progress
 
+- GA4 lead event tracking update, including the new form aliases, needs deployment to Hostinger and live GA4 DebugView verification before Key Events can be confirmed with real traffic.
 - Chatbot deployment can work without `OPENAI_API_KEY` for scripted answers; configuring the key is optional for unmatched AI-generated responses.
 - FormSubmit fallback needs email activation before it can be relied on.
 - Portfolio examples are still demo concepts until real client screenshots are available.
@@ -79,7 +82,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Next 5 Logical Tasks
 
-1. Verify the new GA4 conversion events in DebugView on the live domain.
+1. Deploy the GA4 lead event tracking update to Hostinger, then verify the new lead and form alias events in GA4 DebugView.
 2. Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
 3. Verify live domain, SSL, favicon, and key page routing after upload.
 4. Replace demo portfolio concepts with real client screenshots when available.

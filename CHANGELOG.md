@@ -1,5 +1,69 @@
 # Changelog
 
+## 2026-06-07 - Add GA4 quote form event aliases
+
+### Files Changed
+
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added `form_submit`, `submit_form`, `contact_submit`, and `lead_generated` as success-only aliases for the existing quote form `generate_lead` event.
+- Kept all form lead events on the successful submission path, not the submit-button click path.
+- Reused the existing safe lead parameters: `form_name`, `lead_type`, `page_path`, `page_title`, and debug mode where applicable.
+
+### Validation
+
+- `node --check script.js`
+- `npm run check`
+- Local Chrome automation with mocked successful form delivery confirmed `generate_lead`, `form_submit`, `submit_form`, `contact_submit`, and `lead_generated` fire together.
+- Local Chrome automation with a honeypot submission confirmed the form lead events do not fire for spam-filtered submissions.
+
+### Next Task
+
+Deploy the GA4 lead event tracking update to Hostinger, then verify all lead and form alias events in GA4 DebugView.
+
+## 2026-06-07 - Update GA4 lead event tracking
+
+### Files Changed
+
+- Updated `script.js`
+- Updated `index.html`
+- Updated `about.html`
+- Updated `privacy.html`
+- Updated `terms.html`
+- Updated `website-design-maidstone.html`
+- Updated `website-design-kent.html`
+- Updated `website-design-london.html`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Replaced the old analytics wrapper with a reusable `trackEvent()` helper that safely exits when `gtag` is unavailable, adds page context, and supports debug console output on localhost or `?debug_analytics=1`.
+- Added lead-focused GA4 helpers for WhatsApp clicks, calendar booking clicks, phone clicks, email clicks, quote form leads, chatbot opens, and chatbot leads.
+- Replaced legacy event names including `calendar_booking_click`, `chatbot_open`, `chatbot_lead_submitted`, and reserved `form_submit` with the approved event contract.
+- Kept contact click parameters PII-safe by avoiding raw email addresses, phone numbers, and WhatsApp number URLs in GA4 payloads.
+- Normalized CTA location values and bumped the script cache key to `20260607-ga4-leads`.
+
+### Validation
+
+- `npm run check`
+- Local Chrome automation with `?debug_analytics=1` confirmed `whatsapp_click`, `book_appointment_click`, `email_click`, and `chatbot_opened` debug output.
+- Local GA stub test confirmed successful quote form submission fires `generate_lead` only after the mocked success path.
+- Local GA stub test confirmed completed chatbot lead capture fires `chatbot_lead`.
+- Local no-gtag fallback check confirmed click tracking does not throw browser errors when `window.gtag` is unavailable.
+
+### Next Task
+
+Deploy the GA4 lead event tracking update to Hostinger, then verify the events in GA4 DebugView and mark the required events as Key Events.
+
 ## 2026-06-06 - Deploy homepage conversion update to Hostinger
 
 ### Files Changed
