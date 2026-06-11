@@ -2,7 +2,6 @@
 
 ## Today
 
-- Deploy the new SEO landing pages, clean URL rewrites, sitemap, and robots file to Hostinger.
 - Resubmit `https://aitechinnovations.com/sitemap.xml` in Google Search Console and request indexing for the homepage, one service page, and one blog article.
 - Verify the deployed GA4 events in GA4 DebugView: `generate_lead`, `form_submit`, `submit_form`, `contact_submit`, `lead_generated`, `chatbot_lead`, `book_appointment_click`, `whatsapp_click`, `email_click`, and any future `phone_click`.
 - Verify chatbot lead capture, WhatsApp, booking, and GA4 chatbot events on the live domain.
@@ -23,6 +22,7 @@
 
 ## Done
 
+- Deployed the 13-route SEO structure, clean URL rewrites, sitemap, robots file, updated assets, and analytics compatibility events to Hostinger; verified every public route, sitemap, robots, canonical host redirect, and chatbot endpoint live.
 - Added 13 crawlable SEO routes with unique metadata, self-canonicals, substantive service/blog content, internal links, audit CTAs, clean Hostinger rewrites, sitemap and robots files, and compatibility tracking for the required GA4 event names.
 - Deployed the GA4 lead event tracking update to Hostinger and verified the live homepage, cache-busted script, lead event aliases, static pages, and chatbot endpoint.
 - Added the missing GA4 form event aliases `form_submit`, `submit_form`, `contact_submit`, and `lead_generated` to the successful quote form lead path.

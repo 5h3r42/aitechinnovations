@@ -8,6 +8,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Deployed the crawlable SEO page structure to Hostinger on 2026-06-11 and verified all 13 clean public routes, `sitemap.xml`, and `robots.txt` return `200`; verified `www` redirects to the canonical non-www hostname, required GA4 event names remain present, and the chatbot endpoint returns a scripted response.
 - Added a crawlable SEO page structure on 2026-06-11 with 13 requested clean routes, five substantive automation service pages, a free audit page, a blog index, three long-form articles, unique metadata, self-referencing canonicals, internal links, FAQs, and audit CTAs.
 - Added matching root and `public/` sitemap and robots files on 2026-06-11, plus Hostinger rewrite rules that standardize the canonical non-www hostname and serve clean URLs without hash routing.
 - Preserved current GA4 event names and restored compatibility events `calendar_booking_click` and `chatbot_lead_submitted` alongside `book_appointment_click` and `chatbot_lead` on 2026-06-11.
@@ -75,7 +76,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## In Progress
 
-- The new SEO pages are complete locally but still need to be uploaded to Hostinger and submitted in Google Search Console.
+- The new SEO pages are live and still need to be submitted in Google Search Console.
 - GA4 lead event tracking update is live; GA4 DebugView verification and Key Event marking still need to be completed inside the Analytics property.
 - Chatbot deployment can work without `OPENAI_API_KEY` for scripted answers; configuring the key is optional for unmatched AI-generated responses.
 - FormSubmit fallback needs email activation before it can be relied on.
@@ -88,8 +89,8 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Next 5 Logical Tasks
 
-1. Upload the new SEO pages, `.htaccess`, sitemap, robots, CSS, JavaScript, and supporting static files to Hostinger.
-2. Verify all 13 clean URLs return `200` on the live domain and redirect `www` to the canonical non-www hostname.
-3. Resubmit the sitemap in Google Search Console and request indexing for representative service and blog URLs.
-4. Verify the required GA4 events in DebugView, then mark the chosen events as Key Events.
-5. Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+1. Resubmit the sitemap in Google Search Console and request indexing for representative service and blog URLs.
+2. Monitor Google Search Console indexing and page discovery after Google recrawls the new structure.
+3. Verify the required GA4 events in DebugView, then mark the chosen events as Key Events.
+4. Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+5. Replace demo portfolio concepts with real client screenshots when available.

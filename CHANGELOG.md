@@ -1,5 +1,32 @@
 # Changelog
 
+## 2026-06-11 - Deploy SEO landing pages to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a clean Hostinger archive containing only production static files, assets, server rewrites, sitemap, robots, and the chatbot API.
+- Deployed the SEO landing pages and clean URL structure to `aitechinnovations.com` through Hostinger.
+- Kept the canonical site on the non-www hostname.
+
+### Validation
+
+- All 13 requested public routes return `200` on the live domain.
+- Live `sitemap.xml` and `robots.txt` return `200`, and the sitemap contains 13 public URLs.
+- `www.aitechinnovations.com` returns a `301` redirect to `https://aitechinnovations.com`.
+- Live service metadata, self-canonical URLs, homepage internal links, cache-busted CSS/JavaScript, and required GA4 event names were confirmed.
+- Live chatbot endpoint returns a scripted pricing response with status `200`.
+- Desktop and mobile browser checks confirmed responsive rendering and no horizontal overflow.
+
+### Next Task
+
+Resubmit `https://aitechinnovations.com/sitemap.xml` in Google Search Console and request indexing for representative URLs.
+
 ## 2026-06-11 - Add crawlable SEO landing pages and clean routes
 
 ### Files Changed
