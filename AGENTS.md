@@ -37,12 +37,25 @@ Static web design agency website for AITech Innovations.
 
 Deploy only the static site files to Hostinger `public_html`:
 
+- `.htaccess`
 - `index.html`
+- `ai-automation-services.html`
+- `ai-chatbot-development.html`
+- `ai-lead-generation-automation.html`
+- `crm-automation-services.html`
+- `appointment-booking-automation.html`
+- `free-ai-audit.html`
+- `blog.html`
+- `blog-how-small-businesses-use-ai.html`
+- `blog-what-is-ai-workflow-automation.html`
+- `blog-ai-chatbots-for-customer-service.html`
 - `styles.css`
 - `script.js`
 - `about.html`
 - `privacy.html`
 - `terms.html`
+- `sitemap.xml`
+- `robots.txt`
 - `assets/`
 
 ## Tracking Files

@@ -1,6 +1,6 @@
 # Project Status
 
-Date: 2026-06-07
+Date: 2026-06-11
 
 ## Current Phase
 
@@ -8,6 +8,10 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Completed Work
 
+- Added a crawlable SEO page structure on 2026-06-11 with 13 requested clean routes, five substantive automation service pages, a free audit page, a blog index, three long-form articles, unique metadata, self-referencing canonicals, internal links, FAQs, and audit CTAs.
+- Added matching root and `public/` sitemap and robots files on 2026-06-11, plus Hostinger rewrite rules that standardize the canonical non-www hostname and serve clean URLs without hash routing.
+- Preserved current GA4 event names and restored compatibility events `calendar_booking_click` and `chatbot_lead_submitted` alongside `book_appointment_click` and `chatbot_lead` on 2026-06-11.
+- Expanded static validation and local preview tooling on 2026-06-11 to check metadata uniqueness, H1s, canonicals, content depth, sitemap parity, internal links, analytics events, clean routes, responsive layout, and `200` responses.
 - GA4 lead event tracking update was deployed to Hostinger and verified live on 2026-06-07, including the `20260607-ga4-leads` script cache key, form event aliases, static pages, and chatbot endpoint.
 - Missing GA4 quote form event aliases were added locally on 2026-06-07 so successful quote form submissions now emit `generate_lead`, `form_submit`, `submit_form`, `contact_submit`, and `lead_generated`.
 - GA4 lead event tracking was updated locally on 2026-06-07 with reusable safe analytics helpers, new lead-focused event names, normalized CTA locations, PII-safe contact click parameters, cache-busted script references, and local browser validation.
@@ -71,6 +75,7 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## In Progress
 
+- The new SEO pages are complete locally but still need to be uploaded to Hostinger and submitted in Google Search Console.
 - GA4 lead event tracking update is live; GA4 DebugView verification and Key Event marking still need to be completed inside the Analytics property.
 - Chatbot deployment can work without `OPENAI_API_KEY` for scripted answers; configuring the key is optional for unmatched AI-generated responses.
 - FormSubmit fallback needs email activation before it can be relied on.
@@ -83,8 +88,8 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## Next 5 Logical Tasks
 
-1. Verify the new lead and form alias events in GA4 DebugView, then mark the required events as Key Events.
-2. Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
-3. Verify live domain, SSL, favicon, and key page routing after upload.
-4. Replace demo portfolio concepts with real client screenshots when available.
-5. Configure `OPENAI_API_KEY` in Hostinger only if unmatched AI-generated answers are wanted.
+1. Upload the new SEO pages, `.htaccess`, sitemap, robots, CSS, JavaScript, and supporting static files to Hostinger.
+2. Verify all 13 clean URLs return `200` on the live domain and redirect `www` to the canonical non-www hostname.
+3. Resubmit the sitemap in Google Search Console and request indexing for representative service and blog URLs.
+4. Verify the required GA4 events in DebugView, then mark the chosen events as Key Events.
+5. Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.

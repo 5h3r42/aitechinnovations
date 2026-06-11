@@ -1,5 +1,35 @@
 # Changelog
 
+## 2026-06-11 - Add crawlable SEO landing pages and clean routes
+
+### Files Changed
+
+- Added five automation service pages, `free-ai-audit.html`, `blog.html`, and three blog article HTML files
+- Added `sitemap.xml`, `robots.txt`, `public/sitemap.xml`, and `public/robots.txt`
+- Added `scripts/generate-seo-pages.js` and `scripts/dev-server.js`
+- Updated `.htaccess`, `index.html`, legal/location pages, `styles.css`, `script.js`, validation, deployment docs, and tracking files
+
+### Summary
+
+- Added 13 crawlable public routes with unique titles, descriptions, H1s, self-canonicals, internal links, and audit CTAs.
+- Added substantive, distinct problem, solution, benefits, use case, FAQ, and related-service content to each automation service page.
+- Standardized the canonical hostname on `https://aitechinnovations.com` and added clean Hostinger rewrites without hash routing.
+- Preserved current GA4 tracking and added compatibility events for `calendar_booking_click` and `chatbot_lead_submitted`.
+
+### Validation
+
+- `node --check script.js`
+- `node --check scripts/generate-seo-pages.js`
+- `node --check scripts/check-static-site.js`
+- `npm run generate:seo`
+- `npm run check`
+- Local route check confirmed `200` for all 13 public routes, `sitemap.xml`, and `robots.txt`.
+- Browser checks confirmed desktop metadata/sections, mobile article rendering, working mobile navigation, and no horizontal overflow.
+
+### Next Task
+
+Deploy the SEO files to Hostinger, verify the live clean routes, then resubmit the sitemap in Google Search Console.
+
 ## 2026-06-07 - Deploy GA4 lead tracking update to Hostinger
 
 ### Files Changed

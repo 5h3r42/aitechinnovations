@@ -133,10 +133,14 @@ function trackWhatsappClick(location, linkUrl) {
 }
 
 function trackBookingClick(location, linkUrl) {
-  return trackEvent("book_appointment_click", {
+  const parameters = {
     location,
     link_url: getSafeLinkUrl(linkUrl),
-  });
+  };
+
+  return ["book_appointment_click", "calendar_booking_click"]
+    .map((eventName) => trackEvent(eventName, parameters))
+    .some(Boolean);
 }
 
 function trackPhoneClick(location, phoneTarget) {
@@ -170,9 +174,13 @@ function trackChatbotOpened() {
 }
 
 function trackChatbotLead() {
-  return trackEvent("chatbot_lead", {
+  const parameters = {
     lead_type: "chatbot",
-  });
+  };
+
+  return ["chatbot_lead", "chatbot_lead_submitted"]
+    .map((eventName) => trackEvent(eventName, parameters))
+    .some(Boolean);
 }
 
 function getAnalyticsLocation(element) {

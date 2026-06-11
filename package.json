@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "python3 -m http.server 4173",
+    "dev": "node scripts/dev-server.js",
+    "generate:seo": "node scripts/generate-seo-pages.js",
     "check": "node scripts/check-static-site.js"
   },
   "dependencies": {},

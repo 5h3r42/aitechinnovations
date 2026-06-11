@@ -34,21 +34,30 @@ npm run check
 Deploy these files to Hostinger `public_html`:
 
 ```text
+.htaccess
 index.html
+ai-automation-services.html
+ai-chatbot-development.html
+ai-lead-generation-automation.html
+crm-automation-services.html
+appointment-booking-automation.html
+free-ai-audit.html
+blog.html
+blog-how-small-businesses-use-ai.html
+blog-what-is-ai-workflow-automation.html
+blog-ai-chatbots-for-customer-service.html
 styles.css
 script.js
 about.html
 privacy.html
 terms.html
+sitemap.xml
+robots.txt
 api/
 assets/
 ```
 
-Optional server config:
-
-```text
-.htaccess
-```
+The `public/sitemap.xml` and `public/robots.txt` files are source mirrors for tooling. On Hostinger, upload the root copies directly into `public_html` so they are available at `/sitemap.xml` and `/robots.txt`.
 
 ## Contact Settings
 
