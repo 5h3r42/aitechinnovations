@@ -3,8 +3,13 @@ const CONTACT_SETTINGS = {
   whatsappNumber: "447882111810",
   bookingUrl: "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ29kmaaQThmrdewMfPksmL8AuJR67EUDytKmyhAuakCNeIRyHNRMQ8-gQc82hxmjMc2fl8jPZCr",
 };
-const WHATSAPP_QUOTE_MESSAGE = "Hi AITech Innovations, I'd like a website quote.";
-const WHATSAPP_QUOTE_ENCODED_MESSAGE = "Hi%20AITech%20Innovations,%20I'd%20like%20a%20website%20quote.";
+const DEFAULT_ENQUIRY_MESSAGE = "Hi AITech Innovations, I'd like to discuss a project.";
+const WHATSAPP_MESSAGES = {
+  website: "Hi AITech Innovations, I'd like to discuss a website and content project.",
+  ads: "Hi AITech Innovations, I'd like to discuss Google or Meta ads setup.",
+  automation: "Hi AITech Innovations, I'd like to discuss automation or a chatbot.",
+  strategy: "Hi AITech Innovations, I'd like to book a free strategy call.",
+};
 const CHATBOT_API_ENDPOINT = "api/chatbot.php";
 
 const GOOGLE_SHEETS_ENDPOINT =
@@ -16,6 +21,8 @@ const nav = document.querySelector("[data-nav]");
 const header = document.querySelector("[data-header]");
 const quoteForm = document.querySelector("[data-quote-form]");
 const formStatus = document.querySelector("[data-form-status]");
+const strategyForm = document.querySelector("[data-strategy-form]");
+const strategyFormStatus = document.querySelector("[data-strategy-status]");
 const whatsappLinks = document.querySelectorAll("[data-whatsapp-link]");
 const emailLinks = document.querySelectorAll("[data-email-link]");
 const bookingLinks = document.querySelectorAll("[data-booking-link]");
@@ -41,7 +48,7 @@ const chatbotLeadSteps = [
   { key: "name", prompt: "What is your name?" },
   { key: "email", prompt: "What email address should we use?" },
   { key: "business", prompt: "What is your business name?" },
-  { key: "automation", prompt: "What would you like to automate?" },
+  { key: "project", prompt: "Which service or business goal would you like to discuss?" },
 ];
 let chatbotCloseTimer = null;
 let chatbotMessageCount = 0;
@@ -125,10 +132,11 @@ function getSafePhoneTarget(phoneTarget = "") {
   return phoneTarget.includes(CONTACT_SETTINGS.whatsappNumber) ? "business_phone" : "phone_link";
 }
 
-function trackWhatsappClick(location, linkUrl) {
+function trackWhatsappClick(location, linkUrl, serviceInterest = "general") {
   return trackEvent("whatsapp_click", {
     location,
     link_url: getSafeLinkUrl(linkUrl),
+    service_interest: serviceInterest,
   });
 }
 
@@ -157,10 +165,10 @@ function trackEmailClick(location, emailTarget) {
   });
 }
 
-function trackGenerateLead(formName) {
+function trackGenerateLead(formName, leadType = "contact_form") {
   const leadParameters = {
     form_name: formName,
-    lead_type: "contact_form",
+    lead_type: leadType,
   };
   const leadEvents = ["generate_lead", "form_submit", "submit_form", "contact_submit", "lead_generated"];
 
@@ -232,7 +240,7 @@ function trackLinkClick(link, event) {
   }
 
   if (isWhatsAppLink(link)) {
-    trackInteractionOnce(event, () => trackWhatsappClick(location, link.href));
+    trackInteractionOnce(event, () => trackWhatsappClick(location, link.href, link.dataset.whatsappMessage || "general"));
     return;
   }
 
@@ -255,8 +263,7 @@ function trackLinkClick(link, event) {
 
 function buildWhatsAppUrl(message) {
   if (!CONTACT_SETTINGS.whatsappNumber) return "";
-  const encodedMessage = message === WHATSAPP_QUOTE_MESSAGE ? WHATSAPP_QUOTE_ENCODED_MESSAGE : encodeURIComponent(message);
-  return `https://wa.me/${CONTACT_SETTINGS.whatsappNumber}?text=${encodedMessage}`;
+  return `https://wa.me/${CONTACT_SETTINGS.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
 function buildEmailUrl(subject, message = "") {
@@ -266,8 +273,7 @@ function buildEmailUrl(subject, message = "") {
 }
 
 function setChatbotActions() {
-  const auditMessage = "Hi AITech Innovations, I'd like to request a free AI audit.";
-  const whatsappUrl = buildWhatsAppUrl(auditMessage);
+  const whatsappUrl = buildWhatsAppUrl(WHATSAPP_MESSAGES.strategy);
 
   if (chatbotWhatsappLink && whatsappUrl) {
     chatbotWhatsappLink.setAttribute("href", whatsappUrl);
@@ -316,13 +322,13 @@ function closeChatbot() {
 }
 
 function shouldStartLeadFromMessage(message) {
-  return chatbotLeadPromptShown && /^(yes|yeah|yep|sure|ok|okay|audit|free audit|ai audit|request audit)/i.test(message);
+  return chatbotLeadPromptShown && /^(yes|yeah|yep|sure|ok|okay|strategy|call|book|enquire|enquiry)/i.test(message);
 }
 
 function offerChatbotLead() {
   if (chatbotLeadPromptShown || chatbotLeadActive || chatbotMessageCount < 2) return;
   chatbotLeadPromptShown = true;
-  appendChatbotMessage("bot", "Would you like to request a free AI audit?");
+  appendChatbotMessage("bot", "Would you like to request a free strategy call?");
 }
 
 function startChatbotLeadCapture() {
@@ -338,22 +344,22 @@ function startChatbotLeadCapture() {
 
 async function submitChatbotLead() {
   const message = [
-    "Hi AITech Innovations, I would like to request a free AI audit.",
+    "Hi AITech Innovations, I would like to request a free strategy call.",
     "",
     `Name: ${chatbotLeadData.name || ""}`,
     `Business: ${chatbotLeadData.business || ""}`,
     `Email: ${chatbotLeadData.email || ""}`,
     "",
-    `Automation request: ${chatbotLeadData.automation || ""}`,
+    `Project interest: ${chatbotLeadData.project || ""}`,
   ].join("\n");
-  const subject = `AI audit chatbot lead - ${chatbotLeadData.business || chatbotLeadData.name || "New lead"}`;
+  const subject = `Strategy call chatbot lead - ${chatbotLeadData.business || chatbotLeadData.name || "New lead"}`;
   const sheetPayload = {
     name: chatbotLeadData.name || "",
     email: chatbotLeadData.email || "",
     website: "",
     businessType: chatbotLeadData.business || "",
-    mainGoal: "AI audit chatbot lead",
-    notes: [`Automation request: ${chatbotLeadData.automation || "-"}`, "Source: website chatbot"].join("\n"),
+    mainGoal: "Strategy call chatbot lead",
+    notes: [`Project interest: ${chatbotLeadData.project || "-"}`, "Source: website chatbot"].join("\n"),
   };
 
   try {
@@ -374,11 +380,11 @@ async function submitChatbotLead() {
     payload.append("_template", "table");
     payload.append("_captcha", "false");
     payload.append("Source", "Website chatbot");
-    payload.append("Lead type", "AI audit chatbot lead");
+    payload.append("Lead type", "Strategy call chatbot lead");
     payload.append("Name", chatbotLeadData.name || "");
     payload.append("Business", chatbotLeadData.business || "");
     payload.append("Email", chatbotLeadData.email || "");
-    payload.append("Automation request", chatbotLeadData.automation || "");
+    payload.append("Project interest", chatbotLeadData.project || "");
     payload.append("Full message", message);
 
     try {
@@ -421,14 +427,14 @@ async function handleChatbotLeadMessage(message) {
   }
 
   chatbotLeadActive = false;
-  const statusMessage = appendChatbotMessage("status", "Sending your AI audit request...");
+  const statusMessage = appendChatbotMessage("status", "Sending your strategy call request...");
   const submitted = await submitChatbotLead();
   statusMessage?.remove();
 
   if (submitted) {
-    appendChatbotMessage("bot", "Thanks. Your free AI audit request has been sent. You can also use WhatsApp or book a call if you would like to speak sooner.");
+    appendChatbotMessage("bot", "Thanks. Your strategy call request has been sent. You can also use WhatsApp or choose a calendar time if you would like to speak sooner.");
   } else {
-    appendChatbotMessage("bot", "The direct form route was unavailable, so I opened a WhatsApp or email handoff with your audit details.");
+    appendChatbotMessage("bot", "The direct form route was unavailable, so I opened a WhatsApp or email handoff with your project details.");
   }
 }
 
@@ -449,10 +455,10 @@ async function sendChatbotMessage(message) {
 
     const data = await response.json();
     const reply = String(data.reply || "").trim();
-    appendChatbotMessage("bot", reply || "I am not sure from the current knowledge base. Please request a free AI Audit or contact the team.");
+    appendChatbotMessage("bot", reply || "I am not sure from the current knowledge base. Please book a free strategy call or contact the team.");
     chatbotConversation.push({ role: "assistant", content: reply });
   } catch {
-    appendChatbotMessage("bot", "I could not reach the assistant just now. Please request a free AI Audit, use WhatsApp, or book a call and the team will help.");
+    appendChatbotMessage("bot", "I could not reach the assistant just now. Please use WhatsApp or book a free strategy call and the team will help.");
   } finally {
     statusMessage?.remove();
     offerChatbotLead();
@@ -475,15 +481,17 @@ function showAvailableLink(link) {
 }
 
 function hydrateContactLinks() {
-  const defaultMessage = WHATSAPP_QUOTE_MESSAGE;
+  const defaultMessage = DEFAULT_ENQUIRY_MESSAGE;
 
   emailLinks.forEach((link) => {
     link.textContent = CONTACT_SETTINGS.email;
-    link.setAttribute("href", buildEmailUrl("Website project enquiry", defaultMessage));
+    link.setAttribute("href", buildEmailUrl("AITech Innovations project enquiry", defaultMessage));
   });
 
   whatsappLinks.forEach((link) => {
-    const whatsappUrl = buildWhatsAppUrl(defaultMessage);
+    const messageKey = link.getAttribute("data-whatsapp-message") || "website";
+    const whatsappMessage = WHATSAPP_MESSAGES[messageKey] || defaultMessage;
+    const whatsappUrl = buildWhatsAppUrl(whatsappMessage);
     if (whatsappUrl) {
       showAvailableLink(link);
       link.setAttribute("href", whatsappUrl);
@@ -652,7 +660,7 @@ quoteForm?.addEventListener("submit", async (event) => {
   }
 
   const message = [
-    "Hi AITech Innovations, I would like a website quote.",
+    "Hi AITech Innovations, I would like to discuss a website and content project.",
     "",
     `Name: ${data.get("name") || ""}`,
     `Business: ${data.get("business") || ""}`,
@@ -667,7 +675,7 @@ quoteForm?.addEventListener("submit", async (event) => {
   ].join("\n");
 
   const whatsappUrl = buildWhatsAppUrl(message);
-  const subject = `Website quote enquiry - ${data.get("business") || data.get("name") || "New lead"}`;
+  const subject = `Website and content enquiry - ${data.get("business") || data.get("name") || "New lead"}`;
   const sheetPayload = {
     name: data.get("name") || "",
     email: data.get("email") || "",
@@ -743,6 +751,108 @@ quoteForm?.addEventListener("submit", async (event) => {
       } else {
         window.location.href = buildEmailUrl(subject, message);
         formStatus.textContent = "Email sending was unavailable, so your enquiry opened in your email app.";
+      }
+    }
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
+strategyForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const data = new FormData(strategyForm);
+
+  if (String(data.get("_honey") || "").trim()) {
+    strategyForm.reset();
+    return;
+  }
+
+  const serviceInterest = String(data.get("service") || "Not sure yet");
+  const message = [
+    "Hi AITech Innovations, I would like to request a free strategy call.",
+    "",
+    `Name: ${data.get("name") || ""}`,
+    `Business: ${data.get("business") || ""}`,
+    `Email: ${data.get("email") || ""}`,
+    `Phone: ${data.get("phone") || ""}`,
+    `Service interest: ${serviceInterest}`,
+    `Primary goal: ${data.get("goal") || ""}`,
+    `Current website: ${data.get("website") || ""}`,
+    `Budget: ${data.get("budget") || ""}`,
+    `Preferred timeline: ${data.get("timeline") || ""}`,
+  ].join("\n");
+  const subject = `Strategy call request - ${data.get("business") || data.get("name") || "New lead"}`;
+  const sheetPayload = {
+    name: data.get("name") || "",
+    email: data.get("email") || "",
+    website: data.get("website") || "",
+    businessType: data.get("business") || "",
+    mainGoal: `${serviceInterest}: ${data.get("goal") || "Strategy call"}`,
+    notes: [
+      `Phone: ${data.get("phone") || "-"}`,
+      `Budget: ${data.get("budget") || "-"}`,
+      `Timeline: ${data.get("timeline") || "-"}`,
+    ].join("\n"),
+  };
+  const payload = new FormData();
+  payload.append("_subject", subject);
+  payload.append("_template", "table");
+  payload.append("_captcha", "false");
+  payload.append("_honey", data.get("_honey") || "");
+  payload.append("Name", data.get("name") || "");
+  payload.append("Business", data.get("business") || "");
+  payload.append("Email", data.get("email") || "");
+  payload.append("Phone", data.get("phone") || "");
+  payload.append("Service interest", serviceInterest);
+  payload.append("Primary goal", data.get("goal") || "");
+  payload.append("Current website", data.get("website") || "");
+  payload.append("Budget", data.get("budget") || "");
+  payload.append("Preferred timeline", data.get("timeline") || "");
+  payload.append("Full message", message);
+
+  const submitButton = strategyForm.querySelector("button[type='submit']");
+  submitButton.disabled = true;
+  strategyFormStatus.textContent = "Sending your strategy call request...";
+
+  const trackStrategyLead = () => {
+    trackGenerateLead("strategy_call_form", "strategy_call");
+    trackEvent("strategy_call_lead_submitted", {
+      form_name: "strategy_call_form",
+      lead_type: "strategy_call",
+      service_interest: serviceInterest,
+    });
+  };
+
+  try {
+    if (!GOOGLE_SHEETS_ENDPOINT) throw new Error("Google Sheets endpoint is not configured");
+    await fetch(GOOGLE_SHEETS_ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(sheetPayload),
+    });
+    strategyForm.reset();
+    strategyFormStatus.textContent = "Thanks. We will follow up within one business day.";
+    trackStrategyLead();
+  } catch {
+    try {
+      const response = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: payload,
+      });
+      if (!response.ok) throw new Error("Form service failed");
+      strategyForm.reset();
+      strategyFormStatus.textContent = "Thanks. We will follow up within one business day.";
+      trackStrategyLead();
+    } catch {
+      const whatsappUrl = buildWhatsAppUrl(message);
+      if (whatsappUrl) {
+        window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+        strategyFormStatus.textContent = "Sending was unavailable, so your request opened in WhatsApp.";
+      } else {
+        window.location.href = buildEmailUrl(subject, message);
+        strategyFormStatus.textContent = "Sending was unavailable, so your request opened in your email app.";
       }
     }
   } finally {

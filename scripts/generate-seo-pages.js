@@ -2,11 +2,11 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
-const SITE_URL = "https://aitechinnovations.com";
+const SITE_URL = "https://www.aitechinnovations.com";
 const BOOKING_URL =
   "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ29kmaaQThmrdewMfPksmL8AuJR67EUDytKmyhAuakCNeIRyHNRMQ8-gQc82hxmjMc2fl8jPZCr";
 const WHATSAPP_URL =
-  "https://wa.me/447882111810?text=Hi%20AITech%20Innovations,%20I'd%20like%20to%20request%20a%20free%20AI%20audit.";
+  "https://wa.me/447882111810?text=Hi%20AITech%20Innovations,%20I'd%20like%20to%20book%20a%20free%20strategy%20call.";
 
 const services = [
   {
@@ -277,7 +277,15 @@ function analyticsHead() {
       gtag('config', 'G-LTL4JXMYP2');
     </script>
     <script>
-      (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "x1bt97hjsh");
+      (function(c,l,a,r,i){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        function loadClarity(){
+          var t=l.createElement(r),y=l.getElementsByTagName(r)[0];
+          t.async=1;t.src="https://www.clarity.ms/tag/"+i;y.parentNode.insertBefore(t,y);
+        }
+        if(l.readyState==="complete"){c.setTimeout(loadClarity,1000);}
+        else{c.addEventListener("load",function(){c.setTimeout(loadClarity,1000);},{once:true});}
+      })(window, document, "clarity", "script", "x1bt97hjsh");
     </script>`;
 }
 
@@ -296,10 +304,7 @@ function pageHead({ title, description, canonical, schema = "" }) {
     <meta property="og:url" content="${SITE_URL}${canonical}" />
     ${analyticsHead()}
     <link rel="icon" href="/assets/logo.webp" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=20260611-seo-pages" />
+    <link rel="stylesheet" href="/styles.css?v=20260611-growth-systems" />
     ${schema}
   </head>`;
 }
@@ -309,11 +314,11 @@ function header() {
       <a class="brand" href="/" aria-label="AITech Innovations home"><img src="/assets/logo.webp" alt="" width="34" height="34" /><span>AITech Innovations</span></a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle><span></span><span></span><span></span><span class="sr-only">Menu</span></button>
       <nav class="site-nav" id="site-nav" data-nav>
+        <a href="/website-content-services">Websites & Content</a>
+        <a href="/ads-setup-services">Ads Setup</a>
         <a href="/ai-automation-services">Automation</a>
-        <a href="/ai-chatbot-development">Chatbots</a>
-        <a href="/ai-lead-generation-automation">Lead generation</a>
         <a href="/blog">Blog</a>
-        <a class="nav-cta" href="/free-ai-audit" data-analytics-cta="quote" data-analytics-location="header">Free AI audit</a>
+        <a class="nav-cta" href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="header">Free Strategy Call</a>
       </nav>
     </header>`;
 }
@@ -321,14 +326,14 @@ function header() {
 function footer() {
   return `<footer class="site-footer">
       <div class="container footer-grid">
-        <div><a class="brand footer-brand" href="/"><img src="/assets/logo.webp" alt="" width="30" height="30" /><span>AITech Innovations</span></a><p>Practical websites and automation systems for service businesses.</p><p>Registered in England & Wales.<br />Company No: 15076403.<br />VAT No: GB498138444.</p></div>
-        <div><h3>Automation services</h3><a href="/ai-automation-services">AI automation</a><a href="/ai-chatbot-development">AI chatbots</a><a href="/ai-lead-generation-automation">Lead automation</a><a href="/crm-automation-services">CRM automation</a><a href="/appointment-booking-automation">Booking automation</a></div>
-        <div><h3>Resources</h3><a href="/free-ai-audit">Free AI audit</a><a href="/blog">AI automation blog</a><a href="/about.html">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+        <div><a class="brand footer-brand" href="/"><img src="/assets/logo.webp" alt="" width="30" height="30" /><span>AITech Innovations</span></a><p>Digital growth systems for UK service businesses that need more enquiries and a better way to handle them.</p><p>Registered in England & Wales.<br />Company No: 15076403.<br />VAT No: GB498138444.</p></div>
+        <div><h3>Services</h3><a href="/website-content-services">Websites & content</a><a href="/ads-setup-services">Ads & lead generation</a><a href="/ai-automation-services">Automation</a><a href="/ai-chatbot-development">AI chatbots</a><a href="/crm-automation-services">CRM automation</a></div>
+        <div><h3>Resources</h3><a href="/free-strategy-call">Free strategy call</a><a href="/free-ai-audit">Automation audit</a><a href="/blog">Insights</a><a href="/about.html">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
       </div>
       <div class="container footer-bottom"><span>© <span data-current-year>2026</span> AITech Innovations Ltd.</span><a href="#" data-email-link data-analytics-location="footer">support@aitechinnovations.com</a></div>
     </footer>
-    <div class="mobile-contact-bar" aria-label="Quick contact options"><a href="/free-ai-audit" data-analytics-cta="quote" data-analytics-location="mobile_bar">Free AI audit</a><a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" data-whatsapp-link data-analytics-location="mobile_bar">WhatsApp</a></div>
-    <script src="/script.js?v=20260611-seo-pages"></script>`;
+    <div class="mobile-contact-bar" aria-label="Quick contact options"><a href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="mobile_bar">Strategy call</a><a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-message="strategy" data-analytics-location="mobile_bar">WhatsApp</a></div>
+    <script src="/script.js?v=20260611-growth-systems"></script>`;
 }
 
 function relatedLinks(currentSlug) {
@@ -364,7 +369,7 @@ function servicePage(service) {
   <body>
     ${header()}
     <main>
-      <section class="hero section-pad seo-hero"><div class="container seo-hero-grid"><div class="reveal"><p class="eyebrow">${service.eyebrow}</p><h1>${service.h1}</h1><p class="hero-text">${service.intro}</p><div class="hero-actions"><a class="button primary" href="/free-ai-audit" data-analytics-cta="quote" data-analytics-location="hero">Request AI Audit</a><a class="button secondary" href="${BOOKING_URL}" target="_blank" rel="noopener noreferrer" data-booking-link data-analytics-location="hero">Book a 30-minute call</a></div></div><aside class="seo-summary reveal"><strong>Start with one useful workflow</strong><p>We review the current process, identify the repeated delay and recommend a practical first automation.</p><a href="/blog/what-is-ai-workflow-automation">Read: What is AI workflow automation?</a></aside></div></section>
+      <section class="hero section-pad seo-hero"><div class="container seo-hero-grid"><div class="reveal"><p class="eyebrow">${service.eyebrow}</p><h1>${service.h1}</h1><p class="hero-text">${service.intro}</p><div class="hero-actions"><a class="button primary" href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="hero">Book a Free Strategy Call</a><a class="button secondary" href="#use-cases">View use cases</a></div></div><aside class="seo-summary reveal"><strong>Start with one useful workflow</strong><p>We review the current process, identify the repeated delay and recommend a practical first automation.</p><a href="/blog/what-is-ai-workflow-automation">Read: What is AI workflow automation?</a></aside></div></section>
 
       <section class="section-pad"><div class="container"><div class="section-heading"><p class="eyebrow">The problem</p><h2>${service.problemTitle}</h2><p>${service.problemIntro}</p></div><div class="card-grid seo-three-grid">${service.problems.map(([title, copy]) => `<article class="card"><h3>${title}</h3><p>${copy}</p></article>`).join("")}</div></div></section>
 
@@ -372,13 +377,13 @@ function servicePage(service) {
 
       <section class="section-pad"><div class="container seo-copy-grid"><div class="section-heading"><p class="eyebrow">Benefits</p><h2>What a well-designed workflow improves</h2></div><ul class="seo-check-list">${service.benefits.map((benefit) => `<li>${benefit}</li>`).join("")}</ul></div></section>
 
-      <section class="section-pad muted"><div class="container"><div class="section-heading center"><p class="eyebrow">Use cases</p><h2>Where this service can be applied</h2></div><div class="card-grid seo-four-grid">${service.useCases.map(([title, copy]) => `<article class="card"><h3>${title}</h3><p>${copy}</p></article>`).join("")}</div></div></section>
+      <section class="section-pad muted" id="use-cases"><div class="container"><div class="section-heading center"><p class="eyebrow">Use cases</p><h2>Where this service can be applied</h2></div><div class="card-grid seo-four-grid">${service.useCases.map(([title, copy]) => `<article class="card"><h3>${title}</h3><p>${copy}</p></article>`).join("")}</div></div></section>
 
       <section class="section-pad faq-section"><div class="container"><div class="section-heading center"><p class="eyebrow">FAQ</p><h2>Questions about ${service.eyebrow.toLowerCase()}</h2></div><div class="faq-list">${service.faqs.map(([question, answer]) => `<details><summary>${question}</summary><p>${answer}</p></details>`).join("")}</div></div></section>
 
       <section class="section-pad muted"><div class="container"><div class="section-heading center"><p class="eyebrow">Related services</p><h2>Build a connected enquiry and follow-up system</h2></div><div class="card-grid seo-three-grid">${relatedLinks(service.slug)}</div></div></section>
 
-      <section class="section-pad seo-cta"><div class="container narrow"><h2>Find the first automation worth implementing</h2><p>Request a free AI audit to review one repeated process, its current cost and the safest practical next step.</p><div class="hero-actions"><a class="button primary" href="/free-ai-audit" data-analytics-cta="quote" data-analytics-location="service_cta">Request AI Audit</a><a class="button secondary" href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" data-whatsapp-link data-analytics-location="service_cta">Ask on WhatsApp</a></div></div></section>
+      <section class="section-pad seo-cta"><div class="container narrow"><h2>Find the first automation worth implementing</h2><p>Use a free strategy call to review the current process, its cost and the safest practical next step.</p><div class="hero-actions"><a class="button primary" href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="service_cta">Book a Free Strategy Call</a><a class="button secondary" href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-message="automation" data-analytics-location="service_cta">Ask on WhatsApp</a></div></div></section>
     </main>
     ${footer()}
   </body>
@@ -415,7 +420,7 @@ function blogPost(post) {
         <div class="container narrow article-body">${post.sections.map(([heading, paragraphs]) => `<section><h2>${heading}</h2>${paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("")}</section>`).join("")}</div>
       </article>
       <section class="section-pad muted"><div class="container"><div class="section-heading center"><p class="eyebrow">Next steps</p><h2>Related automation guidance and services</h2></div><div class="card-grid seo-three-grid">${related}</div></div></section>
-      <section class="section-pad seo-cta"><div class="container narrow"><h2>Apply this to a real process in your business</h2><p>Request a free AI audit and we will review where time is being lost, what should remain human and which first workflow is worth testing.</p><div class="hero-actions"><a class="button primary" href="/free-ai-audit" data-analytics-cta="quote" data-analytics-location="article_cta">Request AI Audit</a><a class="button secondary" href="/blog">Read more guides</a></div></div></section>
+      <section class="section-pad seo-cta"><div class="container narrow"><h2>Apply this to your own enquiry process</h2><p>Book a free strategy call to discuss your website, content, advertising or automation priorities.</p><div class="hero-actions"><a class="button primary" href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="article_cta">Book a Free Strategy Call</a><a class="button secondary" href="/blog">Read more guides</a></div></div></section>
     </main>
     ${footer()}
   </body>
@@ -429,10 +434,10 @@ function blogIndex() {
   <body>
     ${header()}
     <main>
-      <section class="hero section-pad"><div class="container narrow"><p class="eyebrow">AI automation blog</p><h1>Practical AI guidance for small businesses</h1><p class="hero-text">Clear explanations of automation, chatbots, lead workflows and customer-service systems, written for business owners who want useful improvements without unnecessary jargon.</p><a class="button primary" href="/free-ai-audit" data-analytics-cta="quote" data-analytics-location="blog_hero">Request AI Audit</a></div></section>
+      <section class="hero section-pad"><div class="container narrow"><p class="eyebrow">Digital growth insights</p><h1>Practical guidance for growing a service business online</h1><p class="hero-text">Clear explanations of websites, content, advertising, automation, chatbots and lead workflows for owners who want useful improvements without unnecessary jargon.</p><a class="button primary" href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="blog_hero">Book a Free Strategy Call</a></div></section>
       <section class="section-pad"><div class="container"><div class="card-grid blog-grid">${posts.map((post) => `<article class="card blog-card"><p class="eyebrow">Guide</p><h2><a href="/blog/${post.slug}">${post.h1}</a></h2><p>${post.description}</p><a class="text-link" href="/blog/${post.slug}">Read article</a></article>`).join("")}</div></div></section>
       <section class="section-pad muted"><div class="container"><div class="section-heading center"><p class="eyebrow">Services</p><h2>Put the guidance into practice</h2></div><div class="card-grid seo-three-grid">${services.slice(0, 3).map((service) => `<a class="card seo-link-card" href="/${service.slug}"><h3>${service.eyebrow}</h3><p>${service.description}</p><span>Explore service</span></a>`).join("")}</div></div></section>
-      <section class="section-pad seo-cta"><div class="container narrow"><h2>Not sure which process to improve first?</h2><p>Use the free audit to review a repeated task, assess the current tools and choose a realistic first automation.</p><a class="button primary" href="/free-ai-audit" data-analytics-cta="quote" data-analytics-location="blog_cta">Request AI Audit</a></div></section>
+      <section class="section-pad seo-cta"><div class="container narrow"><h2>Not sure what to improve first?</h2><p>Use the free strategy call to identify whether your website, content, advertising or follow-up system is the current bottleneck.</p><a class="button primary" href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="blog_cta">Book a Free Strategy Call</a></div></section>
     </main>
     ${footer()}
   </body>
@@ -455,26 +460,147 @@ function auditPage() {
   <body>
     ${header()}
     <main>
-      <section class="hero section-pad"><div class="container seo-hero-grid"><div><p class="eyebrow">Free 30-minute review</p><h1>Find one practical AI automation opportunity</h1><p class="hero-text">We review where repetitive admin, slow follow-up or disconnected tools are costing time, then outline a sensible first workflow with clear human control.</p><div class="hero-actions"><a class="button primary" href="${BOOKING_URL}" target="_blank" rel="noopener noreferrer" data-booking-link data-analytics-location="audit_hero">Book Free AI Audit</a><a class="button secondary" href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" data-whatsapp-link data-analytics-location="audit_hero">Ask on WhatsApp</a></div></div><aside class="seo-summary"><strong>Useful preparation</strong><p>Bring one repeated task, the tools involved and an estimate of how often it happens. No technical preparation is required.</p></aside></div></section>
+      <section class="hero section-pad"><div class="container seo-hero-grid"><div><p class="eyebrow">Automation-focused strategy call</p><h1>Find one practical AI automation opportunity</h1><p class="hero-text">We review where repetitive admin, slow follow-up or disconnected tools are costing time, then outline a sensible first workflow with clear human control.</p><div class="hero-actions"><a class="button primary" href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="audit_hero">Book a Free Strategy Call</a><a class="button secondary" href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-message="automation" data-analytics-location="audit_hero">Ask on WhatsApp</a></div></div><aside class="seo-summary"><strong>Useful preparation</strong><p>Bring one repeated task, the tools involved and an estimate of how often it happens. No technical preparation is required.</p></aside></div></section>
       <section class="section-pad"><div class="container"><div class="section-heading center"><p class="eyebrow">What we review</p><h2>A focused look at the current workflow</h2></div><div class="card-grid seo-three-grid"><article class="card"><h3>Where time is lost</h3><p>Repeated data entry, inbox handling, scheduling, document preparation or follow-up delays.</p></article><article class="card"><h3>What can be connected</h3><p>Your website, forms, email, calendar, CRM, spreadsheets and existing customer tools.</p></article><article class="card"><h3>What should stay human</h3><p>Important decisions, sensitive conversations, unusual cases and final approval points.</p></article></div></div></section>
       <section class="section-pad muted"><div class="container seo-copy-grid"><div class="section-heading"><p class="eyebrow">What you receive</p><h2>Clear next steps, not a generic AI presentation</h2></div><ul class="seo-check-list"><li>A short map of the current process and its main bottleneck.</li><li>A recommended first workflow based on value, effort and risk.</li><li>The likely tools or integrations involved.</li><li>Key exceptions, privacy points and human review stages.</li><li>A practical implementation option if you want help building it.</li></ul></div></section>
       <section class="section-pad faq-section"><div class="container"><div class="section-heading center"><p class="eyebrow">FAQ</p><h2>About the free AI audit</h2></div><div class="faq-list"><details><summary>What happens during the free AI audit?</summary><p>We review one or two repeated processes, identify delays and discuss a realistic first improvement.</p></details><details><summary>Do I need to buy software?</summary><p>No. The audit starts with your current tools and only recommends software when there is a clear need.</p></details><details><summary>Is there an obligation to proceed?</summary><p>No. You will receive practical next steps and can decide whether to implement them.</p></details></div></div></section>
-      <section class="section-pad seo-cta"><div class="container narrow"><h2>Book your free AI automation audit</h2><p>Choose a suitable time for a focused 30-minute conversation about one real process in your business.</p><a class="button primary" href="${BOOKING_URL}" target="_blank" rel="noopener noreferrer" data-booking-link data-analytics-location="audit_cta">Book Free AI Audit</a></div></section>
+      <section class="section-pad seo-cta"><div class="container narrow"><h2>Discuss your automation opportunity</h2><p>Use the free strategy call and select Automation & Chatbots as your service interest.</p><a class="button primary" href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="audit_cta">Book a Free Strategy Call</a></div></section>
     </main>
     ${footer()}
   </body>
 </html>`;
 }
 
+function pillarPage(config) {
+  const schema = `<script type="application/ld+json">${escapeJson({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: config.h1,
+    description: config.description,
+    url: `${SITE_URL}/${config.slug}`,
+    provider: { "@type": "Organization", name: "AITech Innovations", url: `${SITE_URL}/` },
+    areaServed: "United Kingdom",
+  })}</script>`;
+  return `${pageHead({ title: config.title, description: config.description, canonical: `/${config.slug}`, schema })}
+  <body>
+    ${header()}
+    <main>
+      <section class="hero section-pad"><div class="container seo-hero-grid"><div><p class="eyebrow">${config.eyebrow}</p><h1>${config.h1}</h1><p class="hero-text">${config.intro}</p><div class="hero-actions"><a class="button primary" href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="hero">Book a Free Strategy Call</a><a class="button secondary" href="#deliverables">View deliverables</a></div></div><aside class="seo-summary"><strong>${config.summaryTitle}</strong><p>${config.summary}</p><p class="price">${config.price}</p></aside></div></section>
+      <section class="section-pad"><div class="container"><div class="section-heading center"><p class="eyebrow">Problems solved</p><h2>${config.problemHeading}</h2></div><div class="problem-grid">${config.problems.map(([title, copy]) => `<article class="card"><h3>${title}</h3><p>${copy}</p></article>`).join("")}</div></div></section>
+      <section class="section-pad muted" id="deliverables"><div class="container seo-copy-grid"><div class="section-heading"><p class="eyebrow">Solution</p><h2>${config.deliverablesHeading}</h2><p>${config.deliverablesIntro}</p></div><ul class="seo-check-list">${config.deliverables.map((item) => `<li>${item}</li>`).join("")}</ul></div></section>
+      <section class="section-pad"><div class="container"><div class="section-heading center"><p class="eyebrow">Benefits</p><h2>${config.benefitsHeading}</h2></div><div class="card-grid seo-three-grid">${config.benefits.map(([title, copy]) => `<article class="card"><h3>${title}</h3><p>${copy}</p></article>`).join("")}</div></div></section>
+      <section class="section-pad muted"><div class="container"><div class="section-heading center"><p class="eyebrow">Use cases</p><h2>${config.useCasesHeading}</h2></div><div class="card-grid seo-four-grid">${config.useCases.map(([title, copy]) => `<article class="card"><h3>${title}</h3><p>${copy}</p></article>`).join("")}</div></div></section>
+      <section class="section-pad"><div class="container"><div class="section-heading center"><p class="eyebrow">How it works</p><h2>A clear, founder-led delivery process</h2></div><div class="card-grid seo-four-grid">${config.process.map(([title, copy]) => `<article class="card"><h3>${title}</h3><p>${copy}</p></article>`).join("")}</div></div></section>
+      <section class="section-pad muted"><div class="container seo-copy-grid"><div class="section-heading"><p class="eyebrow">Important scope</p><h2>${config.scopeHeading}</h2></div><div class="seo-long-copy"><p>${config.scope}</p><p>Any additional work is itemised before the project begins, so the scope and ongoing costs remain clear.</p></div></div></section>
+      <section class="section-pad faq-section"><div class="container"><div class="section-heading center"><p class="eyebrow">FAQ</p><h2>Questions about ${config.eyebrow.toLowerCase()}</h2></div><div class="faq-list">${config.faqs.map(([question, answer]) => `<details><summary>${question}</summary><p>${answer}</p></details>`).join("")}</div></div></section>
+      <section class="section-pad seo-cta"><div class="container narrow"><h2>${config.ctaHeading}</h2><p>${config.ctaCopy}</p><div class="hero-actions"><a class="button primary" href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="service_cta">Book a Free Strategy Call</a><a class="button secondary" href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-message="${config.whatsappKey}" data-analytics-location="service_cta">Ask on WhatsApp</a></div></div></section>
+    </main>
+    ${footer()}
+  </body>
+</html>`;
+}
+
+function strategyPage() {
+  const title = "Free Digital Strategy Call | AITech Innovations";
+  const description = "Book a free 30-minute strategy call about websites, content, ads, chatbots or automation for your UK service business.";
+  return `${pageHead({ title, description, canonical: "/free-strategy-call" })}
+  <body>
+    ${header()}
+    <main>
+      <section class="hero section-pad"><div class="container seo-hero-grid"><div><p class="eyebrow">Free 30-minute strategy call</p><h1>Choose the right digital growth system for your business</h1><p class="hero-text">Discuss your website, content, advertising, chatbot or follow-up process and leave with a clear recommended next step.</p><div class="hero-actions"><a class="button primary" href="${BOOKING_URL}" target="_blank" rel="noopener noreferrer" data-booking-link data-analytics-location="strategy_hero">Choose a call time</a><a class="button secondary" href="#strategy-form">Send project details</a></div></div><aside class="seo-summary"><strong>Who this is for</strong><p>UK service businesses that need more enquiries, a stronger online presence or a better way to respond and follow up.</p><p>No obligation and no technical preparation required.</p></aside></div></section>
+      <section class="section-pad"><div class="container"><div class="section-heading center"><p class="eyebrow">Topics</p><h2>Use the call for one service or a connected system</h2></div><div class="pillar-grid"><article class="pillar-card"><h3>Website & Content</h3><p>Website design, landing pages, service copy, SEO structure and conversion tracking.</p></article><article class="pillar-card"><h3>Ads & Lead Generation</h3><p>Google or Meta campaign setup, landing pages, targeting and initial conversion tracking.</p></article><article class="pillar-card"><h3>Automation & Chatbots</h3><p>Chatbots, CRM workflows, booking automation and lead follow-up systems.</p></article></div></div></section>
+      <section class="section-pad muted"><div class="container seo-copy-grid"><div class="section-heading"><p class="eyebrow">What happens</p><h2>A focused conversation with practical outputs</h2><p>We will review the current situation, the result you need and the most useful first project.</p></div><ul class="seo-check-list"><li>Clarify the main enquiry or workflow problem.</li><li>Identify which service pillar should come first.</li><li>Discuss realistic scope, starting price and timing.</li><li>Outline a simple recommended next step after the call.</li><li>Confirm whether a paid pilot or standard project is the best fit.</li></ul></div></section>
+      <section class="section-pad" id="strategy-form"><div class="container contact-grid"><div class="section-heading"><p class="eyebrow">Fallback enquiry form</p><h2>Send the project details instead</h2><p>If you are not ready to choose a calendar time, submit the essentials. We will reply within one business day.</p><div class="contact-options"><a href="#" data-email-link data-analytics-location="strategy_form">support@aitechinnovations.com</a><a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-message="strategy" data-analytics-location="strategy_form">WhatsApp strategy enquiry</a></div></div>
+        <form class="strategy-form" data-strategy-form>
+          <label class="hidden-field" aria-hidden="true">Leave this field empty<input name="_honey" tabindex="-1" autocomplete="off" /></label>
+          <label>Name<input name="name" autocomplete="name" required /></label>
+          <label>Business name<input name="business" autocomplete="organization" required /></label>
+          <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+          <label>Phone<input name="phone" autocomplete="tel" /></label>
+          <label>Service interest<select name="service" required><option value="">Choose one</option><option>Website & Content</option><option>Ads & Lead Generation</option><option>Automation & Chatbots</option><option>Connected growth system</option><option>Not sure yet</option></select></label>
+          <label>Current website<input name="website" type="url" placeholder="https://" /></label>
+          <label>Budget range<select name="budget" required><option value="">Choose one</option><option>£399 - £749</option><option>£750 - £1,499</option><option>£1,500 - £2,999</option><option>£3,000+</option><option>Not sure yet</option></select></label>
+          <label>Preferred timeline<select name="timeline" required><option value="">Choose one</option><option>As soon as possible</option><option>Within 30 days</option><option>Within 3 months</option><option>Researching options</option></select></label>
+          <label class="full-field">Primary business goal<textarea name="goal" rows="4" placeholder="What would you like to improve or achieve?" required></textarea></label>
+          <p class="form-note full-field">By submitting this form, you agree that AITech Innovations can contact you about this enquiry. See our <a href="/privacy">privacy policy</a>.</p>
+          <div class="form-actions full-field"><button class="button primary" type="submit">Request Strategy Call</button><p data-strategy-status aria-live="polite"></p></div>
+        </form>
+      </div></section>
+      <section class="section-pad muted"><div class="container"><div class="section-heading center"><p class="eyebrow">Paid pilot availability</p><h2>Two founder-led pilot projects</h2><p>Discounted pilot places are available for suitable UK service businesses willing to provide honest feedback and permission to publish the completed work. Results are never guaranteed or invented.</p></div><div class="pilot-grid"><article class="pilot-card"><h3>Clear scope</h3><p>One tightly defined website, advertising setup or automation project with agreed deliverables.</p></article><article class="pilot-card"><h3>Paid engagement</h3><p>The pilot is discounted, not free, so both sides commit to completing the project properly.</p></article><article class="pilot-card"><h3>Honest case study</h3><p>Only real screenshots, feedback and measurable information approved by the business will be published.</p></article></div></div></section>
+    </main>
+    ${footer()}
+  </body>
+</html>`;
+}
+
+const websiteContentPage = {
+  slug: "website-content-services",
+  title: "Website Design and Content Services | AITech Innovations",
+  description: "Website design, landing pages, service copy, SEO structure and conversion tracking for UK service businesses.",
+  eyebrow: "Website & Content",
+  h1: "Websites and content built to generate better enquiries",
+  intro: "We plan, write and build clear websites and landing pages that explain the offer, establish trust and make the next action easy.",
+  summaryTitle: "A practical online foundation",
+  summary: "Ideal for new businesses, outdated websites and service offers that need a focused landing page.",
+  price: "From £499",
+  problemHeading: "Fix the gaps that stop visitors becoming enquiries",
+  problems: [["Unclear offer", "Visitors cannot quickly understand the service, audience or next step."], ["Weak trust", "Generic copy and missing proof make a capable business look less established."], ["Poor conversion path", "Contact routes, landing pages and tracking are disconnected or difficult to use."]],
+  deliverablesHeading: "Design, copy and tracking in one project",
+  deliverablesIntro: "The final scope is matched to the business and page count.",
+  deliverables: ["Responsive website design or redesign.", "Service-page and landing-page copy support.", "Clear calls to action, forms, booking and WhatsApp routes.", "Basic technical SEO, metadata and indexing setup.", "GA4 conversion tracking and Hostinger-ready launch support."],
+  benefitsHeading: "A stronger foundation for trust, search and conversion",
+  benefits: [["Clearer positioning", "Focused copy explains the service, ideal customer and next step without making visitors work it out."], ["Better enquiry quality", "Forms, booking routes and page structure collect more useful context before the first conversation."], ["Faster ownership", "A lightweight, Hostinger-ready build avoids unnecessary plugins and remains easy to maintain."]],
+  useCasesHeading: "Website and content projects for common growth stages",
+  useCases: [["New business launch", "Create a credible first website with a focused offer, basic SEO and reliable contact routes."], ["Outdated website redesign", "Replace confusing pages, dated visuals and weak mobile usability with a clearer customer journey."], ["Campaign landing page", "Build a dedicated page that matches one advert, audience and conversion action."], ["Service content expansion", "Add useful service or location pages without copying thin, generic text across the site."]],
+  process: [["Discover", "Clarify the audience, offer, proof and enquiry goal."], ["Plan", "Agree the sitemap, page sections, copy inputs and tracking."], ["Build", "Create the responsive pages and review them together."], ["Launch", "Deploy, test contact routes and confirm indexing basics."]],
+  scopeHeading: "Content support is part of the website process",
+  scope: "We can shape supplied information into clear website copy. Ongoing social posting, high-volume article production and photography are separate services and are not included unless quoted.",
+  faqs: [["How many pages are included?", "The £499 starting point is suitable for a focused one-page website or landing page. Multi-page sites are quoted after the page structure and content needs are clear."], ["Can you write the website copy?", "Yes. We can turn your service information, process and proof into clear page copy. Specialist regulated claims still need your approval."], ["Will the site be ready for Google?", "The build includes technical basics such as titles, descriptions, headings, sitemap support and indexable page structure. Rankings are not guaranteed."], ["Can you redesign an existing website?", "Yes. We can retain useful content and tracking while rebuilding the structure, design and enquiry journey."]],
+  ctaHeading: "Discuss your website and content priorities",
+  ctaCopy: "Book a free strategy call to identify the right first page, package and enquiry route.",
+  whatsappKey: "website",
+};
+
+const adsSetupPage = {
+  slug: "ads-setup-services",
+  title: "Google and Meta Ads Setup Services | AITech Innovations",
+  description: "Google or Meta ads setup, landing pages and conversion tracking for UK service businesses. Initial setup and launch from £399 plus ad spend.",
+  eyebrow: "Ads & Lead Generation",
+  h1: "Advertising setup connected to a clear landing page and enquiry path",
+  intro: "We prepare and launch a focused Google or Meta campaign with the targeting, advert structure, landing page and tracking needed to start collecting useful data.",
+  summaryTitle: "Setup and launch only",
+  summary: "This initial offer does not include ongoing monthly campaign management or guaranteed lead volume.",
+  price: "From £399 plus ad spend",
+  problemHeading: "Avoid launching ads into a weak enquiry system",
+  problems: [["No focused landing page", "Paid visitors arrive on a general homepage that does not match the advert."], ["Missing tracking", "Clicks are purchased without reliable form, call or booking measurement."], ["Unclear campaign structure", "Services, locations and audiences are mixed together, making results difficult to interpret."]],
+  deliverablesHeading: "The essentials for a controlled first campaign",
+  deliverablesIntro: "Choose Google Ads or Meta Ads for the initial setup.",
+  deliverables: ["Campaign objective and account structure.", "Initial keyword, audience or location targeting.", "Advert copy and creative guidance using approved business claims.", "One focused landing page or review of an existing page.", "GA4 and platform conversion tracking checks.", "Launch handover with budget and monitoring guidance."],
+  benefitsHeading: "Launch with clearer decisions and measurable actions",
+  benefits: [["Focused traffic", "Targeting is organised around a defined service, location and audience rather than broad, mixed campaigns."], ["Consistent message", "The advert and landing page use the same offer and next step, reducing confusion after the click."], ["Useful measurement", "Conversion actions are checked before launch so enquiries can be separated from ordinary page visits."]],
+  useCasesHeading: "Suitable first campaigns for service businesses",
+  useCases: [["Local service leads", "Use Google Search to reach people actively looking for a specific service in an agreed area."], ["New offer test", "Build a focused landing page and small campaign to test demand before expanding the budget."], ["Consultation bookings", "Connect adverts to a qualification page and calendar route for higher-value services."], ["Remarketing preparation", "Set up the required tracking and audience foundations for a later remarketing campaign."]],
+  process: [["Assess", "Review the offer, audience, budget and current website."], ["Prepare", "Build the campaign structure, adverts and landing path."], ["Track", "Configure measurable enquiry actions before launch."], ["Launch", "Publish the campaign and provide a clear handover."]],
+  scopeHeading: "Advertising performance depends on the market and budget",
+  scope: "The service covers initial setup and launch. Ad spend is paid directly to Google or Meta. Ongoing optimisation, reporting and creative production require a separate agreement.",
+  faqs: [["Do you manage campaigns every month?", "This offer covers setup and launch only. Ongoing optimisation or reporting can be scoped separately after the initial campaign has useful data."], ["Is ad spend included in the £399 price?", "No. Advertising spend is paid directly to Google or Meta and should be agreed before the campaign is built."], ["Can you guarantee leads?", "No. Lead volume and cost depend on the offer, market, budget, competition and website experience. The setup is designed to create a controlled test, not a guaranteed outcome."], ["Do I need a landing page?", "Usually. A focused landing page gives the advert a consistent message and measurable next step. We can build one or review a suitable existing page."]],
+  ctaHeading: "Check whether paid advertising is the right next step",
+  ctaCopy: "Book a free strategy call before committing ad spend to a campaign or landing page.",
+  whatsappKey: "ads",
+};
+
 for (const service of services) {
   fs.writeFileSync(path.join(ROOT, `${service.slug}.html`), servicePage(service));
 }
 
 fs.writeFileSync(path.join(ROOT, "free-ai-audit.html"), auditPage());
+fs.writeFileSync(path.join(ROOT, "free-strategy-call.html"), strategyPage());
+fs.writeFileSync(path.join(ROOT, "website-content-services.html"), pillarPage(websiteContentPage));
+fs.writeFileSync(path.join(ROOT, "ads-setup-services.html"), pillarPage(adsSetupPage));
 fs.writeFileSync(path.join(ROOT, "blog.html"), blogIndex());
 
 for (const post of posts) {
   fs.writeFileSync(path.join(ROOT, `blog-${post.slug}.html`), blogPost(post));
 }
 
-console.log(`Generated ${services.length + posts.length + 2} SEO pages.`);
+console.log(`Generated ${services.length + posts.length + 5} SEO pages.`);

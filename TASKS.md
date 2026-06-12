@@ -2,16 +2,16 @@
 
 ## Today
 
-- Resubmit `https://aitechinnovations.com/sitemap.xml` in Google Search Console and request indexing for the homepage, one service page, and one blog article.
-- Verify the deployed GA4 events in GA4 DebugView: `generate_lead`, `form_submit`, `submit_form`, `contact_submit`, `lead_generated`, `chatbot_lead`, `book_appointment_click`, `whatsapp_click`, `email_click`, and any future `phone_click`.
-- Verify chatbot lead capture, WhatsApp, booking, and GA4 chatbot events on the live domain.
+- Submit `https://www.aitechinnovations.com/sitemap.xml` in the www Google Search Console property.
+- Verify `generate_lead`, `chatbot_lead_submitted`, and `strategy_call_lead_submitted` in GA4 DebugView and mark them as key events.
 - Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
 
 ## This Week
 
-- Verify live domain, SSL, favicon, and key page routing after upload.
+- Build the first 100 qualified UK service-business prospect list and begin 10-15 personalised contacts per working day.
+- Configure a GA4 internal-traffic rule for development and team visits.
 - Replace demo work with real portfolio screenshots when client work is available.
-- Check privacy and terms pages against the final enquiry workflow.
+- Add an approved founder photo when available.
 
 ## Backlog
 
@@ -22,6 +22,9 @@
 
 ## Done
 
+- Deployed the client-acquisition rebuild to Hostinger and verified the single non-www to www redirect, 20 live routes and self-canonicals, discovery files, optimized assets, chatbot response and required analytics event names.
+- Rebuilt the agency website around three service pillars, one Free Strategy Call CTA, contextual WhatsApp messages, the strategy-call lead workflow, honest sample systems, founder-led positioning, paid pilots, and a 30-day client-acquisition campaign.
+- Standardized the site on the www canonical host, expanded the sitemap to 20 public URLs, optimized portfolio images to WebP, removed render-blocking fonts, improved contrast and caching, and validated Lighthouse targets locally.
 - Deployed the 13-route SEO structure, clean URL rewrites, sitemap, robots file, updated assets, and analytics compatibility events to Hostinger; verified every public route, sitemap, robots, canonical host redirect, and chatbot endpoint live.
 - Added 13 crawlable SEO routes with unique metadata, self-canonicals, substantive service/blog content, internal links, audit CTAs, clean Hostinger rewrites, sitemap and robots files, and compatibility tracking for the required GA4 event names.
 - Deployed the GA4 lead event tracking update to Hostinger and verified the live homepage, cache-busted script, lead event aliases, static pages, and chatbot endpoint.

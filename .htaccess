@@ -1,8 +1,8 @@
 RewriteEngine On
 Options -MultiViews
 
-RewriteCond %{HTTP_HOST} ^www\.aitechinnovations\.com$ [NC]
-RewriteRule ^ https://aitechinnovations.com%{REQUEST_URI} [R=301,L,NE]
+RewriteCond %{HTTP_HOST} ^aitechinnovations\.com$ [NC]
+RewriteRule ^ https://www.aitechinnovations.com%{REQUEST_URI} [R=301,L,NE]
 
 RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
 RewriteRule ^index\.html$ / [R=301,L]
@@ -19,6 +19,12 @@ RewriteCond %{THE_REQUEST} \s/+appointment-booking-automation\.html[\s?] [NC]
 RewriteRule ^appointment-booking-automation\.html$ /appointment-booking-automation [R=301,L]
 RewriteCond %{THE_REQUEST} \s/+free-ai-audit\.html[\s?] [NC]
 RewriteRule ^free-ai-audit\.html$ /free-ai-audit [R=301,L]
+RewriteCond %{THE_REQUEST} \s/+free-strategy-call\.html[\s?] [NC]
+RewriteRule ^free-strategy-call\.html$ /free-strategy-call [R=301,L]
+RewriteCond %{THE_REQUEST} \s/+website-content-services\.html[\s?] [NC]
+RewriteRule ^website-content-services\.html$ /website-content-services [R=301,L]
+RewriteCond %{THE_REQUEST} \s/+ads-setup-services\.html[\s?] [NC]
+RewriteRule ^ads-setup-services\.html$ /ads-setup-services [R=301,L]
 RewriteCond %{THE_REQUEST} \s/+blog\.html[\s?] [NC]
 RewriteRule ^blog\.html$ /blog [R=301,L]
 RewriteCond %{THE_REQUEST} \s/+blog-how-small-businesses-use-ai\.html[\s?] [NC]
@@ -38,6 +44,9 @@ RewriteRule ^ai-lead-generation-automation/?$ ai-lead-generation-automation.html
 RewriteRule ^crm-automation-services/?$ crm-automation-services.html [L]
 RewriteRule ^appointment-booking-automation/?$ appointment-booking-automation.html [L]
 RewriteRule ^free-ai-audit/?$ free-ai-audit.html [L]
+RewriteRule ^free-strategy-call/?$ free-strategy-call.html [L]
+RewriteRule ^website-content-services/?$ website-content-services.html [L]
+RewriteRule ^ads-setup-services/?$ ads-setup-services.html [L]
 RewriteRule ^blog/?$ blog.html [L]
 RewriteRule ^blog/how-small-businesses-use-ai/?$ blog-how-small-businesses-use-ai.html [L]
 RewriteRule ^blog/what-is-ai-workflow-automation/?$ blog-what-is-ai-workflow-automation.html [L]
@@ -47,8 +56,9 @@ RewriteRule ^terms/?$ terms.html [L]
 
 <IfModule mod_headers.c>
   <FilesMatch "\.(html)$">
-    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
-    Header set Pragma "no-cache"
-    Header set Expires "0"
+    Header set Cache-Control "public, max-age=300, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(css|js|webp|png|jpg|jpeg|svg)$">
+    Header set Cache-Control "public, max-age=2592000, immutable"
   </FilesMatch>
 </IfModule>

@@ -1,38 +1,10 @@
 {
-  "pricing_policy": "Final price depends on pages, content, features, design complexity, copy support, and required setup. The chatbot should give guidance, not a fixed quote.",
-  "website_packages": [
-    {
-      "name": "Starter Website",
-      "guidance": "From £499",
-      "best_for": "New professional service businesses that need a credible online presence.",
-      "includes": ["1-page website", "mobile responsive design", "contact form", "WhatsApp button", "basic SEO setup", "Hostinger upload"]
-    },
-    {
-      "name": "Business Website",
-      "guidance": "From £899",
-      "best_for": "Established service businesses that need stronger proof, pages, and enquiries.",
-      "includes": ["up to 5 pages", "services/reviews/gallery/contact sections", "booking or contact form", "WhatsApp and quote CTAs", "basic local SEO", "2 revision rounds"]
-    },
-    {
-      "name": "Premium Website",
-      "guidance": "From £1,499",
-      "best_for": "Businesses that want a custom, higher-end website.",
-      "includes": ["up to 8 pages", "custom premium design", "copywriting support", "advanced sections", "lead tracking setup", "3 revision rounds"]
-    },
-    {
-      "name": "Website Care",
-      "guidance": "From £49/month",
-      "best_for": "Small updates, basic checks, content changes, and hosting or domain support."
-    }
+  "pricing_policy": "Published prices are starting points. Final price depends on scope, content, integrations, tracking and launch requirements. Combined systems receive a custom quote after consultation.",
+  "offers": [
+    {"name": "Website & Content", "guidance": "From £499", "includes": ["Website or landing page", "Copy support", "Basic SEO", "Enquiry routes", "GA4 tracking"]},
+    {"name": "Ads & Lead Generation", "guidance": "From £399 plus ad spend", "includes": ["Google or Meta setup", "Initial targeting", "Advert setup", "Landing page review", "Conversion tracking", "Launch handover"], "excludes": ["Ad spend", "Ongoing monthly management"]},
+    {"name": "Automation & Chatbots", "guidance": "From £499", "includes": ["Defined workflow or chatbot", "Lead capture or follow-up logic", "Human handoff", "Testing and launch support"]}
   ],
-  "ai_audit_pricing": {
-    "name": "Free AI Automation Audit",
-    "guidance": "The initial AI Automation Audit is free.",
-    "note": "Any recommended build work or automation setup should be scoped after the audit."
-  },
-  "guardrails": [
-    "Do not invent exact custom project prices.",
-    "Do not guarantee savings, revenue increases, lead volume, or conversion improvements.",
-    "For pricing beyond the published guidance, ask the visitor to request a quote or free AI Audit."
-  ]
+  "pilot_offer": "Two discounted paid pilot projects are available for suitable UK service businesses that agree to honest feedback and approved case-study documentation.",
+  "guardrails": ["Do not invent exact custom prices.", "Do not guarantee revenue, lead volume, conversion rates or cost savings.", "Explain that ad spend is separate.", "Recommend the free strategy call when scope is unclear."]
 }

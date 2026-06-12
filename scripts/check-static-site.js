@@ -2,29 +2,32 @@ const fs = require("fs");
 const path = require("path");
 
 const root = process.cwd();
-const siteUrl = "https://aitechinnovations.com";
+const siteUrl = "https://www.aitechinnovations.com";
 const pages = [
   { route: "/", file: "index.html", type: "home" },
+  { route: "/website-content-services", file: "website-content-services.html", type: "service" },
+  { route: "/ads-setup-services", file: "ads-setup-services.html", type: "service" },
   { route: "/ai-automation-services", file: "ai-automation-services.html", type: "service" },
   { route: "/ai-chatbot-development", file: "ai-chatbot-development.html", type: "service" },
   { route: "/ai-lead-generation-automation", file: "ai-lead-generation-automation.html", type: "service" },
   { route: "/crm-automation-services", file: "crm-automation-services.html", type: "service" },
   { route: "/appointment-booking-automation", file: "appointment-booking-automation.html", type: "service" },
+  { route: "/free-strategy-call", file: "free-strategy-call.html", type: "strategy" },
   { route: "/free-ai-audit", file: "free-ai-audit.html", type: "audit" },
   { route: "/blog", file: "blog.html", type: "blog" },
   { route: "/blog/how-small-businesses-use-ai", file: "blog-how-small-businesses-use-ai.html", type: "article" },
   { route: "/blog/what-is-ai-workflow-automation", file: "blog-what-is-ai-workflow-automation.html", type: "article" },
   { route: "/blog/ai-chatbots-for-customer-service", file: "blog-ai-chatbots-for-customer-service.html", type: "article" },
+  { route: "/about.html", file: "about.html", type: "company" },
+  { route: "/website-design-maidstone.html", file: "website-design-maidstone.html", type: "location" },
+  { route: "/website-design-kent.html", file: "website-design-kent.html", type: "location" },
+  { route: "/website-design-london.html", file: "website-design-london.html", type: "location" },
   { route: "/privacy", file: "privacy.html", type: "legal" },
   { route: "/terms", file: "terms.html", type: "legal" },
 ];
 
 const requiredFiles = [
   ...pages.map((page) => page.file),
-  "about.html",
-  "website-design-maidstone.html",
-  "website-design-kent.html",
-  "website-design-london.html",
   "styles.css",
   "script.js",
   ".htaccess",
@@ -33,34 +36,34 @@ const requiredFiles = [
   "public/sitemap.xml",
   "public/robots.txt",
   "assets/logo.webp",
+  "assets/preview-clinic-popout.webp",
+  "assets/preview-solicitor-popout.webp",
+  "assets/preview-roofing-popout.webp",
   "api/chatbot.php",
   "api/knowledge/services.json",
   "api/knowledge/pricing.json",
   "api/knowledge/ai-audit.json",
+  "api/knowledge/strategy-call.json",
   "api/knowledge/contact.json",
   "api/knowledge/faqs.json",
 ];
 
 let failed = false;
-
 function fail(message) {
   console.error(message);
   failed = true;
 }
-
 function read(file) {
   return fs.readFileSync(path.join(root, file), "utf8");
 }
-
 function matchOne(html, pattern, label, file) {
   const matches = [...html.matchAll(pattern)];
   if (matches.length !== 1) {
     fail(`${file} should contain exactly one ${label}; found ${matches.length}.`);
     return "";
   }
-  return matches[0][1].trim();
+  return matches[0][1].replace(/<[^>]+>/g, " ").trim();
 }
-
 function textWordCount(html) {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
@@ -98,16 +101,19 @@ for (const page of pages) {
   if (canonical !== expectedCanonical) fail(`${page.file} canonical should be ${expectedCanonical}; found ${canonical}.`);
   if (/noindex/i.test(html)) fail(`${page.file} contains a noindex directive.`);
   if (!html.includes("G-LTL4JXMYP2")) fail(`${page.file} is missing GA4.`);
-  if (page.route !== "/" && !html.includes('href="/free-ai-audit"') && page.type !== "audit") {
-    fail(`${page.file} is missing the internal AI audit CTA.`);
+  if (/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(html)) fail(`${page.file} still loads render-blocking Google Fonts.`);
+  if (!html.includes("20260611-growth-systems")) fail(`${page.file} is missing the current asset version.`);
+
+  if (page.type !== "strategy" && page.type !== "legal" && !html.includes('href="/free-strategy-call"')) {
+    fail(`${page.file} is missing the primary strategy-call CTA.`);
   }
 
   const internalLinks = (html.match(/href="\/(?!\/|#)[^"]*"/g) || []).length;
   if (internalLinks < 3) fail(`${page.file} should contain at least three internal links.`);
 
   if (page.type === "service") {
-    for (const heading of ["The problem", "The solution", "Benefits", "Use cases", "FAQ", "Request AI Audit"]) {
-      if (!html.includes(heading)) fail(`${page.file} is missing service section text: ${heading}`);
+    for (const section of ["Problem", "Solution", "Benefits", "Use cases", "FAQ", "Book a Free Strategy Call"]) {
+      if (!new RegExp(section, "i").test(html)) fail(`${page.file} is missing service section text: ${section}`);
     }
     if (textWordCount(html) < 550) fail(`${page.file} is too thin; expected at least 550 rendered words.`);
   }
@@ -115,11 +121,29 @@ for (const page of pages) {
   if (page.type === "article" && textWordCount(html) < 450) {
     fail(`${page.file} is too thin; expected at least 450 rendered words.`);
   }
+
+  const whatsappLinks = [...html.matchAll(/<a[^>]+data-whatsapp-link[^>]*>/gi)].map((match) => match[0]);
+  for (const link of whatsappLinks) {
+    if (!/data-whatsapp-message="(website|ads|automation|strategy)"/i.test(link)) {
+      fail(`${page.file} contains a WhatsApp link without a contextual message identifier.`);
+    }
+  }
 }
 
 const index = read("index.html");
-for (const route of pages.filter((page) => page.type === "service" || page.type === "blog" || page.type === "audit").map((page) => page.route)) {
+for (const route of ["/website-content-services", "/ads-setup-services", "/ai-automation-services", "/free-strategy-call", "/blog"]) {
   if (!index.includes(`href="${route}"`)) fail(`Homepage is missing internal link to ${route}.`);
+}
+for (const image of ["preview-clinic-popout.webp", "preview-solicitor-popout.webp", "preview-roofing-popout.webp"]) {
+  if (!index.includes(image)) fail(`Homepage is missing optimized image: ${image}`);
+}
+
+const strategy = read("free-strategy-call.html");
+for (const field of ["name", "business", "email", "phone", "service", "goal", "website", "budget", "timeline"]) {
+  if (!new RegExp(`name="${field}"`).test(strategy)) fail(`Strategy-call form is missing field: ${field}`);
+}
+for (const marker of ["data-strategy-form", "data-booking-link", "data-strategy-status"]) {
+  if (!strategy.includes(marker)) fail(`Strategy-call page is missing ${marker}.`);
 }
 
 const sitemap = read("sitemap.xml");
@@ -128,7 +152,7 @@ if (sitemap !== publicSitemap) fail("Root and public sitemap.xml files must matc
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 const expectedUrls = pages.map((page) => `${siteUrl}${page.route}`);
 if (JSON.stringify(sitemapUrls) !== JSON.stringify(expectedUrls)) {
-  fail(`Sitemap URLs do not match the requested public routes.\nExpected: ${expectedUrls.join(", ")}\nFound: ${sitemapUrls.join(", ")}`);
+  fail(`Sitemap URLs do not match the public routes.\nExpected: ${expectedUrls.join(", ")}\nFound: ${sitemapUrls.join(", ")}`);
 }
 
 const robots = read("robots.txt");
@@ -138,10 +162,11 @@ for (const directive of ["User-agent: *", "Allow: /", `Sitemap: ${siteUrl}/sitem
 }
 
 const htaccess = read(".htaccess");
-if (!htaccess.includes("^www\\.aitechinnovations\\.com$")) fail(".htaccess should redirect www to the canonical non-www host.");
-if (htaccess.includes("https://www.aitechinnovations.com")) fail(".htaccess contains the non-canonical www hostname.");
-for (const page of pages.filter((page) => page.route !== "/")) {
-  const routePattern = page.route.replace(/^\//, "").replace(/\//g, "/");
+if (!htaccess.includes("^aitechinnovations\\.com$")) fail(".htaccess should redirect non-www to the canonical www host.");
+if (!htaccess.includes("https://www.aitechinnovations.com%{REQUEST_URI}")) fail(".htaccess is missing the canonical www redirect.");
+if (/no-store/i.test(htaccess)) fail(".htaccess should not disable HTML caching with no-store.");
+for (const page of pages.filter((page) => page.route !== "/" && !page.route.endsWith(".html"))) {
+  const routePattern = page.route.replace(/^\//, "");
   if (!htaccess.includes(routePattern)) fail(`.htaccess is missing clean route coverage for ${page.route}.`);
   if (!htaccess.includes(page.file)) fail(`.htaccess is missing target file coverage for ${page.file}.`);
 }
@@ -154,12 +179,13 @@ for (const eventName of [
   "quote_cta_click",
   "chatbot_lead_submitted",
   "generate_lead",
-  "book_appointment_click",
-  "chatbot_lead",
+  "strategy_call_lead_submitted",
 ]) {
   if (!script.includes(eventName)) fail(`script.js is missing required analytics event: ${eventName}`);
 }
-
+for (const messageKey of ["website", "ads", "automation", "strategy"]) {
+  if (!script.includes(`${messageKey}:`)) fail(`script.js is missing WhatsApp message context: ${messageKey}`);
+}
 for (const helper of ["CONTACT_SETTINGS", "getSafeLinkUrl", "trackBookingClick", "trackChatbotLead", "trackGenerateLead"]) {
   if (!script.includes(helper)) fail(`script.js is missing analytics helper: ${helper}`);
 }
@@ -170,6 +196,5 @@ for (const text of ["getenv('OPENAI_API_KEY')", "function scripted_reply", "http
 }
 
 if (index.includes("/_next") || index.includes("_next/")) fail("Homepage should not reference Next.js assets.");
-
 if (failed) process.exit(1);
-console.log(`Static SEO check passed for ${pages.length} public routes.`);
+console.log(`Static site check passed for ${pages.length} public routes.`);

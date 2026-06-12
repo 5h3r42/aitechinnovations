@@ -2,35 +2,37 @@
 
 ## Project Goal
 
-Build and launch a fast, clean, static website for AITech Innovations that positions the business as a practical web design agency for local UK businesses and drives calls, WhatsApp enquiries, quote requests, and simple pricing conversations.
+Position AITech Innovations as a founder-led digital growth systems agency for UK service businesses and turn qualified website traffic and outbound outreach into strategy calls and paid projects.
 
 ## Current Phase
 
-Launch preparation.
+Production deployment and first-client acquisition.
 
-## Next Phases
+## Phase 1: Publish and Verify
 
-### Phase 1: Launch Readiness
+- Upload the rebuilt static site to Hostinger.
+- Confirm non-www redirects once to the canonical www host.
+- Verify all public pages, forms, WhatsApp contexts, calendar booking and chatbot responses.
+- Submit the www sitemap in Google Search Console.
+- Mark the approved GA4 lead events as key events and exclude internal traffic.
 
-- Finalize contact settings.
-- Test the quote form and fallback enquiry paths.
-- Review desktop and mobile presentation.
-- Confirm legal pages and deployment file list.
+## Phase 2: Run the 30-Day Campaign
 
-### Phase 2: Hostinger Deployment
+- Build a list of 100 qualified UK service businesses.
+- Contact 10-15 prospects per working day with a personalised three-point review.
+- Follow up after three and seven days.
+- Offer the free strategy call and one of two discounted paid pilot places.
+- Target four calls, two proposals and one paying client.
 
-- Upload the static site files to Hostinger `public_html`.
-- Verify domain, SSL, favicon, static assets, and page routing.
-- Complete a live enquiry test.
+## Phase 3: Build Honest Proof
 
-### Phase 3: Portfolio and Trust Building
+- Deliver the paid pilots with clear scope and measurable starting information.
+- Collect feedback, screenshots and before/after evidence only with written permission.
+- Replace sample systems with real case studies as projects complete.
+- Add a real founder photo when an approved image is available.
 
-- Replace demo concepts with honest real project screenshots when available.
-- Add short case studies or proof points.
-- Refine pricing and service scope based on real sales conversations.
+## Phase 4: Improve From Evidence
 
-### Phase 4: Measurement and Iteration
-
-- Add lightweight analytics or lead tracking if needed.
-- Review enquiry quality and conversion paths.
-- Improve copy, examples, and service pages based on visitor behavior.
+- Review lead source, service interest, qualified-call rate and proposal conversion.
+- Focus future pages and outreach on the strongest sector and service combination.
+- Expand content only where search or sales conversations show real demand.

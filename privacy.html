@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Privacy Policy | AITech Innovations</title>
     <meta name="description" content="Read how AITech Innovations collects, uses, stores and protects information submitted through website, chatbot and AI audit enquiries." />
-    <link rel="canonical" href="https://aitechinnovations.com/privacy" />
+    <link rel="canonical" href="https://www.aitechinnovations.com/privacy" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <script>
@@ -15,18 +15,19 @@
 
       gtag('config', 'G-LTL4JXMYP2');
     </script>
-    <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
+    <script>
+      (function(c,l,a,r,i){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        function loadClarity(){
+          var t=l.createElement(r),y=l.getElementsByTagName(r)[0];
+          t.async=1;t.src="https://www.clarity.ms/tag/"+i;y.parentNode.insertBefore(t,y);
+        }
+        if(l.readyState==="complete"){c.setTimeout(loadClarity,1000);}
+        else{c.addEventListener("load",function(){c.setTimeout(loadClarity,1000);},{once:true});}
       })(window, document, "clarity", "script", "x1bt97hjsh");
     </script>
     <link rel="icon" href="/assets/logo.webp" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=20260611-seo-pages" />
+    <link rel="stylesheet" href="/styles.css?v=20260611-growth-systems" />
   </head>
   <body>
     <header class="site-header simple">
@@ -35,9 +36,11 @@
         <span>AITech Innovations</span>
       </a>
       <nav class="site-nav static-nav">
+        <a href="/website-content-services">Website &amp; Content</a>
+        <a href="/ads-setup-services">Ads Setup</a>
         <a href="/ai-automation-services">Automation</a>
         <a href="/blog">Blog</a>
-        <a href="/free-ai-audit">Free AI audit</a>
+        <a class="nav-cta" href="/free-strategy-call">Free Strategy Call</a>
       </nav>
     </header>
     <main class="legal-page">
@@ -53,10 +56,10 @@
         <p>We keep enquiry and project information only for as long as needed for business, accounting, legal, or support purposes.</p>
         <h2>Contact</h2>
         <p>To ask about your data, email <a href="#" data-email-link data-analytics-location="legal_content">support@aitechinnovations.com</a>.</p>
-        <p class="small-note">Last updated: 4 June 2026.</p>
-        <section class="legal-cta"><h2>Questions before requesting an audit?</h2><p>Read about our <a href="/ai-automation-services">AI automation services</a> or <a href="/free-ai-audit" data-analytics-cta="quote" data-analytics-location="legal_content">request a free AI audit</a>.</p></section>
+        <p class="small-note">Last updated: 11 June 2026.</p>
+        <section class="legal-cta"><h2>Questions before getting started?</h2><p>Explore our <a href="/website-content-services">website and content services</a>, <a href="/ads-setup-services">ads setup</a>, or <a href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="legal_content">book a free strategy call</a>.</p></section>
       </div>
     </main>
-    <script src="/script.js?v=20260611-seo-pages"></script>
+    <script src="/script.js?v=20260611-growth-systems"></script>
   </body>
 </html>

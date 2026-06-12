@@ -1,99 +1,84 @@
 # AITech Innovations
 
-Static website for AITech Innovations, a UK web design agency for local businesses.
+Static website for a founder-led digital growth systems agency serving UK service businesses.
+
+## Offer
+
+- Website & Content from £499
+- Google or Meta Ads Setup from £399 plus ad spend
+- Automation & Chatbots from £499
+- Combined systems quoted after a free strategy call
 
 ## Stack
 
 - HTML
 - CSS
 - Vanilla JavaScript
-- PHP endpoint for the server-side chatbot API
+- PHP chatbot endpoint
+- Hostinger static hosting
 
-The site is designed for simple Hostinger deployment to `public_html`.
-
-## Local Preview
+## Local Validation
 
 ```sh
+npm run generate:seo
+npm run check
 npm run dev
 ```
 
-Then open:
+Local preview: `http://127.0.0.1:4173`.
 
-```text
-http://localhost:4173
-```
+## Hostinger Deployment
 
-## Static Check
-
-```sh
-npm run check
-```
-
-## Deployment
-
-Deploy these files to Hostinger `public_html`:
+Upload the production files to `public_html`:
 
 ```text
 .htaccess
 index.html
+website-content-services.html
+ads-setup-services.html
 ai-automation-services.html
 ai-chatbot-development.html
 ai-lead-generation-automation.html
 crm-automation-services.html
 appointment-booking-automation.html
+free-strategy-call.html
 free-ai-audit.html
 blog.html
 blog-how-small-businesses-use-ai.html
 blog-what-is-ai-workflow-automation.html
 blog-ai-chatbots-for-customer-service.html
-styles.css
-script.js
 about.html
+website-design-maidstone.html
+website-design-kent.html
+website-design-london.html
 privacy.html
 terms.html
+styles.css
+script.js
 sitemap.xml
 robots.txt
 api/
 assets/
 ```
 
-The `public/sitemap.xml` and `public/robots.txt` files are source mirrors for tooling. On Hostinger, upload the root copies directly into `public_html` so they are available at `/sitemap.xml` and `/robots.txt`.
+Do not upload the `public/` source mirrors. Upload the root `sitemap.xml` and `robots.txt` so they resolve at the domain root.
 
-## Contact Settings
+After deployment verify:
 
-Update the contact settings near the top of `script.js`:
+1. `https://aitechinnovations.com/` redirects once to `https://www.aitechinnovations.com/`.
+2. All 20 sitemap URLs return `200`.
+3. Canonicals, schema, sitemap and robots use `www.aitechinnovations.com`.
+4. Website, ads, automation and strategy WhatsApp links open different contextual messages.
+5. The calendar link, fallback form, chatbot and GA4 events still work.
 
-```js
-const CONTACT_SETTINGS = {
-  email: "support@aitechinnovations.com",
-  whatsappNumber: "",
-  phoneNumber: "",
-  bookingUrl: "",
-};
-```
+## Contact and Lead Settings
 
-## Chatbot Setup
+Contact, WhatsApp and calendar settings are centralized near the top of `script.js`. The strategy-call form sends to the existing Google Sheets endpoint, then FormSubmit, then WhatsApp or email fallback.
 
-The website chatbot frontend calls:
+The chatbot frontend calls `api/chatbot.php`. It supports scripted replies without an API key. Set `OPENAI_API_KEY` in Hostinger only if unmatched questions should use the optional AI fallback; never place the key in client-side files.
 
-```text
-api/chatbot.php
-```
+## Search Console and GA4
 
-The chatbot can answer common scripted questions without an OpenAI API key. It covers services, pricing guidance, the free AI Automation Audit, booking, WhatsApp, email, Hostinger, WordPress, timelines, and basic chatbot capability questions.
+Add or verify the `https://www.aitechinnovations.com/` URL-prefix property in Google Search Console, submit `https://www.aitechinnovations.com/sitemap.xml`, and request indexing for the homepage, one service page and one article.
 
-OpenAI is optional. Configure this environment variable in Hostinger only if you want unmatched questions to use the AI fallback:
-
-```text
-OPENAI_API_KEY=your_openai_api_key
-```
-
-The API key must stay server-side. Do not add it to `index.html`, `styles.css`, or `script.js`.
-
-If `OPENAI_API_KEY` is not configured, unmatched questions return a handoff message asking the visitor to request a free AI Audit or contact the team.
-
-The chatbot knowledge base lives in:
-
-```text
-api/knowledge/
-```
+In GA4, mark `generate_lead`, `chatbot_lead_submitted`, and `strategy_call_lead_submitted` as key events. Configure an internal-traffic rule for development and team visits.

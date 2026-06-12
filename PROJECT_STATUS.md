@@ -1,13 +1,22 @@
 # Project Status
 
-Date: 2026-06-11
+Date: 2026-06-12
 
 ## Current Phase
 
-Launch preparation for a static Hostinger-ready agency website.
+Production deployment and first-client acquisition for the rebuilt digital growth systems agency website.
 
 ## Completed Work
 
+- Completed the client-acquisition rebuild on 2026-06-12: repositioned the agency around Website & Content, Ads & Lead Generation, and Automation & Chatbots, with one primary Free Strategy Call CTA.
+- Deployed the client-acquisition rebuild to Hostinger on 2026-06-12 and verified the non-www host redirects once to www, all 20 public routes return `200` with matching self-canonicals, and the live sitemap, robots, WebP assets, chatbot and required analytics event names are available.
+- Added dedicated website/content, ads setup, and strategy-call pages; expanded service content, internal links, metadata, schema, FAQs, prices, pilot offer, founder-led copy, and honest sample growth systems.
+- Standardized all canonicals, schema, sitemap, robots and redirect rules on `https://www.aitechinnovations.com`, with a single non-www to www `301` rule and short HTML revalidation caching.
+- Fixed contextual WhatsApp behaviour and preserved `whatsapp_click`, `email_click`, `calendar_booking_click`, `quote_cta_click`, `chatbot_lead_submitted`, and `generate_lead`, while adding `strategy_call_lead_submitted`.
+- Added the strategy-call fallback form with Google Sheets, email, WhatsApp and mail fallback paths; updated chatbot knowledge and scripted responses for the new offer.
+- Replaced three large portfolio PNG files with WebP assets, removed render-blocking Google Fonts, deferred Clarity until after load, removed reveal delays, and improved button contrast.
+- Added `CLIENT_ACQUISITION_PLAN.md` with the 100-account, 10-15 contacts per day, day-three/day-seven follow-up and paid-pilot workflow.
+- Validated 20 public routes at `200`; local Lighthouse scored Performance 93, Accessibility 100, Best Practices 96 and SEO 100, with LCP 2.6s and CLS 0.
 - Deployed the crawlable SEO page structure to Hostinger on 2026-06-11 and verified all 13 clean public routes, `sitemap.xml`, and `robots.txt` return `200`; verified `www` redirects to the canonical non-www hostname, required GA4 event names remain present, and the chatbot endpoint returns a scripted response.
 - Added a crawlable SEO page structure on 2026-06-11 with 13 requested clean routes, five substantive automation service pages, a free audit page, a blog index, three long-form articles, unique metadata, self-referencing canonicals, internal links, FAQs, and audit CTAs.
 - Added matching root and `public/` sitemap and robots files on 2026-06-11, plus Hostinger rewrite rules that standardize the canonical non-www hostname and serve clean URLs without hash routing.
@@ -76,8 +85,8 @@ Launch preparation for a static Hostinger-ready agency website.
 
 ## In Progress
 
-- The new SEO pages are live and still need to be submitted in Google Search Console.
-- GA4 lead event tracking update is live; GA4 DebugView verification and Key Event marking still need to be completed inside the Analytics property.
+- The www Search Console property and new 20-URL sitemap still need to be submitted.
+- GA4 DebugView verification, key-event marking and internal-traffic exclusion still need to be completed inside Analytics.
 - Chatbot deployment can work without `OPENAI_API_KEY` for scripted answers; configuring the key is optional for unmatched AI-generated responses.
 - FormSubmit fallback needs email activation before it can be relied on.
 - Portfolio examples are still demo concepts until real client screenshots are available.
@@ -86,11 +95,12 @@ Launch preparation for a static Hostinger-ready agency website.
 
 - FormSubmit returned an activation-required response on 2026-05-01 and sent an activation email to `support@aitechinnovations.com`.
 - Hostinger still has historical Next.js deployments listed for the domain, but the live root URL now serves the static site.
+- The founder section uses the company mark because an approved real founder photo is not available in the repository.
 
 ## Next 5 Logical Tasks
 
-1. Resubmit the sitemap in Google Search Console and request indexing for representative service and blog URLs.
-2. Monitor Google Search Console indexing and page discovery after Google recrawls the new structure.
-3. Verify the required GA4 events in DebugView, then mark the chosen events as Key Events.
-4. Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
-5. Replace demo portfolio concepts with real client screenshots when available.
+1. Submit `https://www.aitechinnovations.com/sitemap.xml` in the www Search Console property.
+2. Verify lead events in GA4 DebugView, mark the three lead events as key events, and exclude internal traffic.
+3. Build the first 100-account prospect list and begin the 30-day outreach campaign.
+4. Activate and retest the FormSubmit fallback.
+5. Add an approved founder photo and replace sample systems with real case studies as paid pilots complete.

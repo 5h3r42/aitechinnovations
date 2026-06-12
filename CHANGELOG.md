@@ -1,5 +1,37 @@
 # Changelog
 
+## 2026-06-12 - Rebuild site for client acquisition
+
+### Files Changed
+
+- Rebuilt `index.html`, shared styles and client-side lead/tracking behaviour
+- Added `website-content-services.html`, `ads-setup-services.html`, `free-strategy-call.html`, `CLIENT_ACQUISITION_PLAN.md`, and strategy-call chatbot knowledge
+- Updated service, blog, legal, location, chatbot, sitemap, robots, redirect, validation and deployment files
+- Replaced three large portfolio PNG files with optimized WebP assets
+
+### Summary
+
+- Repositioned AITech Innovations as a founder-led digital growth systems agency for UK service businesses.
+- Organized the offer into Website & Content, Ads & Lead Generation, and Automation & Chatbots with clear starting prices and one primary Free Strategy Call CTA.
+- Added contextual WhatsApp messages, a complete strategy-call form workflow, honest sample systems, paid pilot positioning, and the 30-day outreach playbook.
+- Standardized the canonical hostname on `https://www.aitechinnovations.com` and expanded discovery files to 20 public URLs.
+- Deployed the rebuilt static package to Hostinger.
+
+### Validation
+
+- `npm run generate:seo`
+- `npm run check` passed for 20 public routes
+- JavaScript and PHP syntax checks passed
+- All 20 pages plus sitemap and robots returned `200` locally
+- Browser checks passed on desktop and mobile with no horizontal overflow and correct WhatsApp contexts
+- Lighthouse: Performance 93, Accessibility 100, Best Practices 96, SEO 100, LCP 2.6s, CLS 0
+- Live non-www redirects once to www; all 20 routes return `200` with matching self-canonicals
+- Live sitemap and robots return `200`; WebP assets, chatbot responses and required analytics event names were verified
+
+### Next Task
+
+Submit the www sitemap in Google Search Console, then verify and mark the lead events in GA4.
+
 ## 2026-06-11 - Deploy SEO landing pages to Hostinger
 
 ### Files Changed

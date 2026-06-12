@@ -1,23 +1,24 @@
 {
   "brand": "AITech Innovations",
-  "overview": "AITech Innovations is a UK-based web design and automation support business for professional service businesses.",
-  "website_services": [
-    "Website design for clinics, solicitors, accountants, trades, property teams, care providers, and other professional service businesses.",
-    "Website redesign for businesses with outdated or unclear websites.",
-    "Landing pages for offers, launches, ads, and individual high-value services.",
-    "Enquiry and booking setup, including quote forms, WhatsApp enquiry links, email routes, and booking links.",
-    "Basic SEO setup, including page titles, descriptions, local keywords, technical basics, and indexing support.",
-    "Hostinger upload, domain connection, SSL checks, and launch support."
+  "overview": "AITech Innovations is a founder-led UK digital growth systems agency for service businesses. It combines websites, content, advertising setup, chatbots and automation to help businesses generate and handle more enquiries.",
+  "service_pillars": [
+    {
+      "name": "Website & Content",
+      "starting_price": "From £499",
+      "services": ["Website design and redesign", "Landing pages", "Website copy and service content", "Basic SEO and GA4 tracking", "Hostinger-ready launch support"]
+    },
+    {
+      "name": "Ads & Lead Generation",
+      "starting_price": "From £399 plus ad spend",
+      "services": ["Google or Meta campaign setup", "Initial audience, location or keyword targeting", "Advert copy and creative guidance", "Landing page and conversion tracking", "Campaign launch and handover"],
+      "scope": "Setup and launch only. Ongoing monthly management is not included unless separately agreed. Results are not guaranteed."
+    },
+    {
+      "name": "Automation & Chatbots",
+      "starting_price": "From £499",
+      "services": ["Website chatbots", "CRM and lead follow-up workflows", "Booking automation", "Business process automation", "Human handoff and exception planning"]
+    }
   ],
-  "automation_services": [
-    "Practical AI automation advice for small businesses.",
-    "Workflow review to identify repetitive admin, enquiry handling, lead follow-up, booking, and customer support opportunities.",
-    "Simple website chatbot planning for FAQs, service guidance, lead capture, and handoff to WhatsApp or booking.",
-    "Automation recommendations that avoid heavy jargon and focus on useful business outcomes."
-  ],
-  "positioning": [
-    "Keep recommendations practical and suitable for small businesses.",
-    "Focus on enquiry quality, trust, speed, mobile usability, simple pricing, and easy contact routes.",
-    "Avoid promising guaranteed results or claiming specific outcomes unless provided by the team."
-  ]
+  "audience": ["Clinics", "Solicitors and professional firms", "Trades and home-service businesses", "Property and care providers", "Other UK service businesses"],
+  "positioning": ["Keep recommendations practical and commercially focused.", "Prioritise trust, enquiry quality, speed and clear contact routes.", "Do not invent customers, testimonials, performance claims or guaranteed outcomes.", "Combined systems receive a custom quote after a free strategy call."]
 }

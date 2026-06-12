@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aitechinnovations.com/sitemap.xml
+Sitemap: https://www.aitechinnovations.com/sitemap.xml

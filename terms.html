@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Website Terms of Use | AITech Innovations</title>
     <meta name="description" content="Terms governing use of the AITech Innovations website, service information, indicative pricing and third-party tools." />
-    <link rel="canonical" href="https://aitechinnovations.com/terms" />
+    <link rel="canonical" href="https://www.aitechinnovations.com/terms" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <script>
@@ -15,18 +15,19 @@
 
       gtag('config', 'G-LTL4JXMYP2');
     </script>
-    <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
+    <script>
+      (function(c,l,a,r,i){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        function loadClarity(){
+          var t=l.createElement(r),y=l.getElementsByTagName(r)[0];
+          t.async=1;t.src="https://www.clarity.ms/tag/"+i;y.parentNode.insertBefore(t,y);
+        }
+        if(l.readyState==="complete"){c.setTimeout(loadClarity,1000);}
+        else{c.addEventListener("load",function(){c.setTimeout(loadClarity,1000);},{once:true});}
       })(window, document, "clarity", "script", "x1bt97hjsh");
     </script>
     <link rel="icon" href="/assets/logo.webp" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=20260611-seo-pages" />
+    <link rel="stylesheet" href="/styles.css?v=20260611-growth-systems" />
   </head>
   <body>
     <header class="site-header simple">
@@ -35,16 +36,18 @@
         <span>AITech Innovations</span>
       </a>
       <nav class="site-nav static-nav">
+        <a href="/website-content-services">Website &amp; Content</a>
+        <a href="/ads-setup-services">Ads Setup</a>
         <a href="/ai-automation-services">Automation</a>
         <a href="/blog">Blog</a>
-        <a href="/free-ai-audit">Free AI audit</a>
+        <a class="nav-cta" href="/free-strategy-call">Free Strategy Call</a>
       </nav>
     </header>
     <main class="legal-page">
       <div class="container narrow">
         <p class="eyebrow">Terms</p>
         <h1>Terms of Use</h1>
-        <p>This website provides general information about AITech Innovations Ltd and our web design services. By using the site, you agree to use it lawfully and responsibly.</p>
+        <p>This website provides general information about AITech Innovations Ltd and our website, content, advertising setup, chatbot and automation services. By using the site, you agree to use it lawfully and responsibly.</p>
         <h2>Quotes and pricing</h2>
         <p>Prices shown on the website are starting prices. Final quotes depend on project scope, content, design requirements, features, revisions, and third-party costs.</p>
         <h2>Third-party services</h2>
@@ -53,10 +56,10 @@
         <p>We aim to keep information accurate, but we do not guarantee that all website content is complete, current, or error-free.</p>
         <h2>Contact</h2>
         <p>For questions, email <a href="#" data-email-link data-analytics-location="legal_content">support@aitechinnovations.com</a>.</p>
-        <p class="small-note">Last updated: 30 April 2026.</p>
-        <section class="legal-cta"><h2>Explore our services</h2><p>View our <a href="/ai-automation-services">AI automation services</a>, read the <a href="/blog">automation blog</a> or <a href="/free-ai-audit" data-analytics-cta="quote" data-analytics-location="legal_content">request a free AI audit</a>.</p></section>
+        <p class="small-note">Last updated: 11 June 2026.</p>
+        <section class="legal-cta"><h2>Explore our services</h2><p>View our <a href="/website-content-services">website and content services</a>, <a href="/ads-setup-services">ads setup</a>, <a href="/ai-automation-services">automation services</a>, or <a href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="legal_content">book a free strategy call</a>.</p></section>
       </div>
     </main>
-    <script src="/script.js?v=20260611-seo-pages"></script>
+    <script src="/script.js?v=20260611-growth-systems"></script>
   </body>
 </html>

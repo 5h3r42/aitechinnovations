@@ -2,7 +2,7 @@
 
 ## Project
 
-Static web design agency website for AITech Innovations.
+Static digital growth systems agency website for AITech Innovations.
 
 ## Stack
 
@@ -14,9 +14,9 @@ Static web design agency website for AITech Innovations.
 ## Direction
 
 - Light, clean, modern agency theme
-- Clear small-business web design positioning
+- Clear UK service-business positioning across websites, content, ads setup, chatbots and automation
 - Avoid heavy AI jargon
-- Prioritize calls, WhatsApp enquiries, quote requests, and simple pricing
+- Prioritize the free strategy call, contextual WhatsApp enquiries and simple starting prices
 
 ## Development Notes
 
@@ -39,11 +39,14 @@ Deploy only the static site files to Hostinger `public_html`:
 
 - `.htaccess`
 - `index.html`
+- `website-content-services.html`
+- `ads-setup-services.html`
 - `ai-automation-services.html`
 - `ai-chatbot-development.html`
 - `ai-lead-generation-automation.html`
 - `crm-automation-services.html`
 - `appointment-booking-automation.html`
+- `free-strategy-call.html`
 - `free-ai-audit.html`
 - `blog.html`
 - `blog-how-small-businesses-use-ai.html`
@@ -52,10 +55,14 @@ Deploy only the static site files to Hostinger `public_html`:
 - `styles.css`
 - `script.js`
 - `about.html`
+- `website-design-maidstone.html`
+- `website-design-kent.html`
+- `website-design-london.html`
 - `privacy.html`
 - `terms.html`
 - `sitemap.xml`
 - `robots.txt`
+- `api/`
 - `assets/`
 
 ## Tracking Files
