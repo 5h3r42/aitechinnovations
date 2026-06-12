@@ -10,9 +10,17 @@
     <meta property="og:description" content="Websites, content, advertising setup, chatbots and automation for UK service businesses." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.aitechinnovations.com/" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <script>
       window.aitechAnalyticsParameters = {};
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500
+      });
       try {
         const analyticsUrl = new URL(window.location.href);
         const internalSetting = analyticsUrl.searchParams.get('internal');
@@ -25,25 +33,21 @@
         if (localStorage.getItem('aitech_internal_traffic') === '1') {
           window.aitechAnalyticsParameters.traffic_type = 'internal';
         }
+        if (localStorage.getItem('aitech_cookie_consent') === 'accepted') {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        }
       } catch (error) {}
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-LTL4JXMYP2', window.aitechAnalyticsParameters);
     </script>
-    <script>
-      (function(c,l,a,r,i){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        function loadClarity(){
-          var t=l.createElement(r),y=l.getElementsByTagName(r)[0];
-          t.async=1;t.src="https://www.clarity.ms/tag/"+i;y.parentNode.insertBefore(t,y);
-        }
-        if(l.readyState==="complete"){c.setTimeout(loadClarity,1000);}
-        else{c.addEventListener("load",function(){c.setTimeout(loadClarity,1000);},{once:true});}
-      })(window, document, "clarity", "script", "x1bt97hjsh");
-    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <link rel="icon" href="assets/logo.webp" />
-    <link rel="stylesheet" href="styles.css?v=20260612-founder-removed" />
+    <link rel="stylesheet" href="styles.css?v=20260612-ads-ready" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -164,6 +168,6 @@
     </div>
 
     <aside class="chatbot-widget" data-chatbot aria-label="AITech Innovations chatbot"><button class="chatbot-launcher" type="button" aria-expanded="false" aria-controls="chatbot-panel" data-chatbot-open><span aria-hidden="true">AI</span><strong>Ask us</strong></button><section class="chatbot-panel" id="chatbot-panel" aria-label="Chat with AITech Innovations" data-chatbot-panel hidden><header class="chatbot-header"><div><h2>AITech Assistant</h2><p>Ask about websites, content, ads or automation.</p></div><button class="chatbot-close" type="button" aria-label="Close chat" data-chatbot-close>Close</button></header><div class="chatbot-messages" role="log" aria-live="polite" aria-relevant="additions" data-chatbot-messages><div class="chatbot-message bot">Hi, I can explain our website, content, ads setup, chatbot and automation services or help you request a strategy call. What would you like to improve?</div></div><div class="chatbot-actions" aria-label="Quick chatbot actions"><a href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="chatbot">Strategy call</a><a href="/website-content-services">Website & content</a><a href="/ads-setup-services">Ads setup</a><a href="/ai-automation-services">Automation</a><a href="https://wa.me/447882111810" target="_blank" rel="noopener noreferrer" data-chatbot-whatsapp data-whatsapp-message="strategy" data-analytics-location="chatbot">WhatsApp</a></div><form class="chatbot-form" data-chatbot-form><label class="sr-only" for="chatbot-input">Type your message</label><input id="chatbot-input" name="message" type="text" autocomplete="off" placeholder="Type your question..." data-chatbot-input required /><button type="submit" aria-label="Send chatbot message">Send</button></form><p class="chatbot-note">The assistant provides general information. Exact scope and pricing are confirmed after a strategy call.</p></section></aside>
-    <script src="script.js?v=20260612-ga4-cleanup"></script>
+    <script src="script.js?v=20260612-ads-ready"></script>
   </body>
 </html>

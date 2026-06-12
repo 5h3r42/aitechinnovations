@@ -11,9 +11,17 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.aitechinnovations.com/ai-automation-services" />
     
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <script>
       window.aitechAnalyticsParameters = {};
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500
+      });
       try {
         const analyticsUrl = new URL(window.location.href);
         const internalSetting = analyticsUrl.searchParams.get('internal');
@@ -26,25 +34,21 @@
         if (localStorage.getItem('aitech_internal_traffic') === '1') {
           window.aitechAnalyticsParameters.traffic_type = 'internal';
         }
+        if (localStorage.getItem('aitech_cookie_consent') === 'accepted') {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        }
       } catch (error) {}
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-LTL4JXMYP2', window.aitechAnalyticsParameters);
     </script>
-    <script>
-      (function(c,l,a,r,i){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        function loadClarity(){
-          var t=l.createElement(r),y=l.getElementsByTagName(r)[0];
-          t.async=1;t.src="https://www.clarity.ms/tag/"+i;y.parentNode.insertBefore(t,y);
-        }
-        if(l.readyState==="complete"){c.setTimeout(loadClarity,1000);}
-        else{c.addEventListener("load",function(){c.setTimeout(loadClarity,1000);},{once:true});}
-      })(window, document, "clarity", "script", "x1bt97hjsh");
-    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <link rel="icon" href="/assets/logo.webp" />
-    <link rel="stylesheet" href="/styles.css?v=20260611-growth-systems" />
+    <link rel="stylesheet" href="/styles.css?v=20260612-ads-ready" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@context":"https://schema.org","@type":"Service","name":"Practical AI automation services for small businesses","description":"Practical AI automation services for UK small businesses. Reduce repetitive admin, improve follow-up and connect everyday tools without unnecessary complexity.","url":"https://www.aitechinnovations.com/ai-automation-services","provider":{"@type":"Organization","name":"AITech Innovations","url":"https://www.aitechinnovations.com/"},"areaServed":"United Kingdom"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What can an AI automation service automate?","acceptedAnswer":{"@type":"Answer","text":"Common opportunities include enquiry handling, CRM updates, appointment reminders, document preparation, follow-up messages and internal task routing."}},{"@type":"Question","name":"Do we need to replace our current software?","acceptedAnswer":{"@type":"Answer","text":"Usually not. We first assess whether your existing website, email, calendar, CRM and forms can be connected safely."}},{"@type":"Question","name":"Will automation remove human control?","acceptedAnswer":{"@type":"Answer","text":"No. Important decisions, sensitive messages and exceptions can remain with your team while routine steps are automated."}},{"@type":"Question","name":"How do you choose the first workflow?","acceptedAnswer":{"@type":"Answer","text":"We prioritise a repeated process with clear inputs, measurable time cost and a low-risk path to improvement."}}]}]}</script>
   </head>
   <body>
@@ -87,6 +91,6 @@
       <div class="container footer-bottom"><span>© <span data-current-year>2026</span> AITech Innovations Ltd.</span><a href="#" data-email-link data-analytics-location="footer">support@aitechinnovations.com</a></div>
     </footer>
     <div class="mobile-contact-bar" aria-label="Quick contact options"><a href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="mobile_bar">Strategy call</a><a href="https://wa.me/447882111810?text=Hi%20AITech%20Innovations,%20I'd%20like%20to%20book%20a%20free%20strategy%20call." target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-message="strategy" data-analytics-location="mobile_bar">WhatsApp</a></div>
-    <script src="/script.js?v=20260612-ga4-cleanup"></script>
+    <script src="/script.js?v=20260612-ads-ready"></script>
   </body>
 </html>

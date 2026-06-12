@@ -8,6 +8,9 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## Completed Work
 
+- Completed and deployed the website-side paid-ads readiness work on 2026-06-12: added a focused `/website-design-for-service-businesses` landing page, Consent Mode v2 with reversible cookie controls, UTM/GCLID session attribution, campaign context in lead delivery, honest pilot positioning, and a decision-complete Kent Google Search campaign plan.
+- Added and verified HSTS, CSP, clickjacking, MIME-sniffing, referrer and permissions headers; blocked direct access to chatbot knowledge JSON; and added same-origin enforcement, request-size limits, no-store responses and IP-based rate limiting to the chatbot endpoint.
+- Live validation confirmed 21 routes in the sitemap, the paid landing page at `200`, mobile width without overflow, current CSS/JS cache keys, successful synthetic lead delivery, and one `generate_lead` in GA4 Realtime.
 - Cleaned up and deployed GA4 conversion tracking on 2026-06-12: successful strategy, quote, and chatbot leads now emit one canonical `generate_lead`; calendar selections emit one `calendar_booking_click`; duplicate legacy aliases were removed; and `?internal=1` / `?internal=0` manage a persistent `traffic_type=internal` browser marker.
 - Strengthened static analytics validation across all 20 pages and verified the strategy form, chatbot lead path, calendar click, parameter values, PII-safe payload, Hostinger deployment, canonical redirect, and live internal-event output.
 - Removed and deployed the homepage founder-led delivery section on 2026-06-12, then cleaned up its unused responsive CSS.
@@ -89,8 +92,9 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## In Progress
 
-- The www Search Console property and new 20-URL sitemap still need to be submitted.
+- The www Search Console property and updated 21-URL sitemap still need to be submitted.
 - GA4 Admin still needs the one-time key-event, custom-dimension and internal-traffic-filter configuration documented in `README.md`; the reporting connection is read-only and cannot change Admin settings.
+- Google Ads still needs account sign-in, conversion import, billing review and creation of the paused campaign documented in `ADS_LAUNCH_PLAN.md`; no advertising spend has been activated.
 - Chatbot deployment can work without `OPENAI_API_KEY` for scripted answers; configuring the key is optional for unmatched AI-generated responses.
 - FormSubmit fallback needs email activation before it can be relied on.
 - Portfolio examples are still demo concepts until real client screenshots are available.
@@ -102,8 +106,8 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## Next 5 Logical Tasks
 
-1. Submit `https://www.aitechinnovations.com/sitemap.xml` in the www Search Console property.
+1. Submit the updated 21-URL `https://www.aitechinnovations.com/sitemap.xml` in the www Search Console property.
 2. In GA4 Admin, mark `generate_lead` and `calendar_booking_click` as key events, register the lead dimensions, test the internal-traffic filter, and then activate it.
-3. Build the first 100-account prospect list and begin the 30-day outreach campaign.
-4. Activate and retest the FormSubmit fallback.
-5. Add an approved founder photo and replace sample systems with real case studies as paid pilots complete.
+3. Sign in to Google Ads, import the primary conversion, create the paused Kent Search campaign from `ADS_LAUNCH_PLAN.md`, and review it before enabling spend.
+4. Build the first 100-account prospect list and begin the 30-day outreach campaign.
+5. Activate and retest the FormSubmit fallback.

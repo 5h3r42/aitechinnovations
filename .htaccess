@@ -25,6 +25,8 @@ RewriteCond %{THE_REQUEST} \s/+website-content-services\.html[\s?] [NC]
 RewriteRule ^website-content-services\.html$ /website-content-services [R=301,L]
 RewriteCond %{THE_REQUEST} \s/+ads-setup-services\.html[\s?] [NC]
 RewriteRule ^ads-setup-services\.html$ /ads-setup-services [R=301,L]
+RewriteCond %{THE_REQUEST} \s/+website-design-for-service-businesses\.html[\s?] [NC]
+RewriteRule ^website-design-for-service-businesses\.html$ /website-design-for-service-businesses [R=301,L]
 RewriteCond %{THE_REQUEST} \s/+blog\.html[\s?] [NC]
 RewriteRule ^blog\.html$ /blog [R=301,L]
 RewriteCond %{THE_REQUEST} \s/+blog-how-small-businesses-use-ai\.html[\s?] [NC]
@@ -47,6 +49,7 @@ RewriteRule ^free-ai-audit/?$ free-ai-audit.html [L]
 RewriteRule ^free-strategy-call/?$ free-strategy-call.html [L]
 RewriteRule ^website-content-services/?$ website-content-services.html [L]
 RewriteRule ^ads-setup-services/?$ ads-setup-services.html [L]
+RewriteRule ^website-design-for-service-businesses/?$ website-design-for-service-businesses.html [L]
 RewriteRule ^blog/?$ blog.html [L]
 RewriteRule ^blog/how-small-businesses-use-ai/?$ blog-how-small-businesses-use-ai.html [L]
 RewriteRule ^blog/what-is-ai-workflow-automation/?$ blog-what-is-ai-workflow-automation.html [L]
@@ -55,6 +58,12 @@ RewriteRule ^privacy/?$ privacy.html [L]
 RewriteRule ^terms/?$ terms.html [L]
 
 <IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.clarity.ms; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.clarity.ms https://www.googleadservices.com https://*.doubleclick.net https://scripts.google.com https://script.google.com https://script.googleusercontent.com https://*.googleusercontent.com https://formsubmit.co; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://www.googleadservices.com https://*.doubleclick.net; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src https://calendar.google.com; base-uri 'self'; form-action 'self' https://formsubmit.co; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
   <FilesMatch "\.(html)$">
     Header set Cache-Control "public, max-age=300, must-revalidate"
   </FilesMatch>
@@ -62,3 +71,5 @@ RewriteRule ^terms/?$ terms.html [L]
     Header set Cache-Control "public, max-age=2592000, immutable"
   </FilesMatch>
 </IfModule>
+
+RewriteRule ^api/knowledge/ - [F,L,NC]

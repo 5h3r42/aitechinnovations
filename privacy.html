@@ -7,9 +7,17 @@
     <meta name="description" content="Read how AITech Innovations collects, uses, stores and protects information submitted through website, chatbot and AI audit enquiries." />
     <link rel="canonical" href="https://www.aitechinnovations.com/privacy" />
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <script>
       window.aitechAnalyticsParameters = {};
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500
+      });
       try {
         const analyticsUrl = new URL(window.location.href);
         const internalSetting = analyticsUrl.searchParams.get('internal');
@@ -22,25 +30,21 @@
         if (localStorage.getItem('aitech_internal_traffic') === '1') {
           window.aitechAnalyticsParameters.traffic_type = 'internal';
         }
+        if (localStorage.getItem('aitech_cookie_consent') === 'accepted') {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        }
       } catch (error) {}
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-LTL4JXMYP2', window.aitechAnalyticsParameters);
     </script>
-    <script>
-      (function(c,l,a,r,i){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        function loadClarity(){
-          var t=l.createElement(r),y=l.getElementsByTagName(r)[0];
-          t.async=1;t.src="https://www.clarity.ms/tag/"+i;y.parentNode.insertBefore(t,y);
-        }
-        if(l.readyState==="complete"){c.setTimeout(loadClarity,1000);}
-        else{c.addEventListener("load",function(){c.setTimeout(loadClarity,1000);},{once:true});}
-      })(window, document, "clarity", "script", "x1bt97hjsh");
-    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <link rel="icon" href="/assets/logo.webp" />
-    <link rel="stylesheet" href="/styles.css?v=20260611-growth-systems" />
+    <link rel="stylesheet" href="/styles.css?v=20260612-ads-ready" />
   </head>
   <body>
     <header class="site-header simple">
@@ -65,14 +69,19 @@
         <p>We use your information to respond to enquiries, prepare quotes, discuss project requirements, deliver services, handle AI audit requests, improve enquiry workflows, and keep basic business records.</p>
         <h2>Sharing</h2>
         <p>We do not sell personal information. We may use trusted service providers such as hosting, email, analytics, form tools, calendar tools, and AI service providers where needed to operate the website and respond to enquiries.</p>
+        <h2>Cookies, analytics and advertising measurement</h2>
+        <p>Optional analytics and advertising technologies are disabled by default until you make a choice in the cookie banner. If you accept, Google Analytics helps us understand visits, campaign attribution and completed enquiry actions, while Microsoft Clarity helps us understand how pages are used. Google and Microsoft may process device, browser, interaction and approximate location information under their own privacy terms.</p>
+        <p>Your choice is stored in your browser so the website can remember it. Use the Cookie settings button at the bottom of any page to accept, reject or change your choice. Rejecting optional cookies does not prevent you from using forms, WhatsApp, email or booking links.</p>
+        <h2>Advertising campaign information</h2>
+        <p>When you arrive from an advert, we may store campaign labels such as source, medium, campaign name and a Google click identifier for the current browser session. If you submit an enquiry, those labels may be attached to the lead so we can understand which campaign generated it. We do not send form names, email addresses, phone numbers or message contents to Google Analytics.</p>
         <h2>Retention</h2>
         <p>We keep enquiry and project information only for as long as needed for business, accounting, legal, or support purposes.</p>
         <h2>Contact</h2>
         <p>To ask about your data, email <a href="#" data-email-link data-analytics-location="legal_content">support@aitechinnovations.com</a>.</p>
-        <p class="small-note">Last updated: 11 June 2026.</p>
+        <p class="small-note">Last updated: 12 June 2026.</p>
         <section class="legal-cta"><h2>Questions before getting started?</h2><p>Explore our <a href="/website-content-services">website and content services</a>, <a href="/ads-setup-services">ads setup</a>, or <a href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="legal_content">book a free strategy call</a>.</p></section>
       </div>
     </main>
-    <script src="/script.js?v=20260612-ga4-cleanup"></script>
+    <script src="/script.js?v=20260612-ads-ready"></script>
   </body>
 </html>

@@ -1,5 +1,36 @@
 # Changelog
 
+## 2026-06-12 - Prepare website for paid customer acquisition
+
+### Files Changed
+
+- Added `website-design-for-service-businesses.html` and `ADS_LAUNCH_PLAN.md`
+- Updated shared analytics, consent, forms, styles, privacy wording, chatbot security, route generation, static validation, sitemap, Hostinger rules, deployment documentation, and project tracking files
+
+### Summary
+
+- Added a focused website-design landing page for UK service businesses with a single consultation offer, clear starting prices, qualification form and honest early-stage proof.
+- Implemented Google Consent Mode v2 with denied defaults, equal accept/reject controls, persistent reversible choices, and consent-gated Microsoft Clarity loading.
+- Preserved UTM parameters and Google click IDs for the browser session and attached campaign context to delivered form and chatbot leads without sending personal form data to GA4.
+- Added the initial £15/day Kent Google Search campaign structure, keywords, negatives, responsive search advert copy, tracking template, launch gates and stop rules.
+- Added HSTS, CSP, clickjacking, MIME, referrer and permissions headers; protected chatbot knowledge files; and added chatbot origin, size and rate controls.
+- Deployed the final static package to Hostinger.
+
+### Validation
+
+- `npm run generate:seo`
+- `npm run check` passed for 21 public routes
+- JavaScript and PHP syntax checks passed
+- Mobile browser check passed at 375px with no horizontal overflow
+- Cookie acceptance loaded Clarity; withdrawal and rejection prevented Clarity loading
+- Local chatbot checks returned `200` for an allowed origin, `403` for an untrusted origin and `413` for an oversized request
+- Live landing page and all discovery/security checks passed; chatbot knowledge now returns `403`
+- Live internal test lead delivered successfully and appeared once as `generate_lead` in GA4 Realtime
+
+### Next Task
+
+Sign in to GA4 and Google Ads to complete the account-level conversion configuration and create the campaign in paused state before approving any spend.
+
 ## 2026-06-12 - Clean up GA4 conversion tracking
 
 ### Files Changed

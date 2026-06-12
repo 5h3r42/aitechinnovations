@@ -4,6 +4,7 @@
 
 - Submit `https://www.aitechinnovations.com/sitemap.xml` in the www Google Search Console property.
 - In GA4 Admin, mark only `generate_lead` and `calendar_booking_click` as key events, register the five lead dimensions, and activate the tested internal-traffic filter.
+- Sign in to Google Ads, import `generate_lead` as the primary conversion, enable auto-tagging, and build the paused Kent Search campaign from `ADS_LAUNCH_PLAN.md`.
 - Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
 
 ## This Week
@@ -21,6 +22,8 @@
 
 ## Done
 
+- Built and deployed the paid-ads acquisition foundation: Consent Mode v2 and reversible cookie choices, campaign attribution through lead delivery, a focused website-design landing page, a complete Kent Search campaign plan, stronger security headers, protected chatbot knowledge, and chatbot abuse controls.
+- Verified the live paid landing page on desktop and mobile, successful lead delivery, one `generate_lead` in GA4 Realtime, 21 sitemap URLs, current cache keys, security headers, consent behaviour, and protected API files.
 - Cleaned up and deployed GA4 conversion tracking so successful forms and chatbot captures emit one `generate_lead`, calendar selections emit one `calendar_booking_click`, supporting clicks remain non-conversion events, and marked browsers send `traffic_type=internal`.
 - Removed and deployed the founder-led delivery block from the homepage and cleaned up its unused styles.
 - Redesigned and deployed the sample growth systems cards and restored full-size clinic, solicitor and trade-business preview popouts on desktop and mobile.

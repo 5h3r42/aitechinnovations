@@ -3,6 +3,24 @@ declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
+header('Cache-Control: no-store');
+
+$allowedOrigins = [
+    'https://www.aitechinnovations.com',
+    'https://aitechinnovations.com',
+    'http://127.0.0.1:4173',
+    'http://localhost:4173',
+];
+$requestOrigin = (string)($_SERVER['HTTP_ORIGIN'] ?? '');
+if ($requestOrigin !== '' && !in_array($requestOrigin, $allowedOrigins, true)) {
+    http_response_code(403);
+    echo json_encode(['reply' => 'This chatbot request was not accepted.']);
+    exit;
+}
+if ($requestOrigin !== '') {
+    header('Access-Control-Allow-Origin: ' . $requestOrigin);
+    header('Vary: Origin');
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
@@ -13,6 +31,39 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['reply' => 'Please send a chat message using the website chatbot.']);
     exit;
+}
+
+$contentLength = (int)($_SERVER['CONTENT_LENGTH'] ?? 0);
+if ($contentLength > 20000) {
+    http_response_code(413);
+    echo json_encode(['reply' => 'That request is too large. Please send a shorter message.']);
+    exit;
+}
+
+$clientAddress = (string)($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+$rateLimitFile = sys_get_temp_dir() . '/aitech-chatbot-' . hash('sha256', $clientAddress . __FILE__) . '.json';
+$rateWindow = 300;
+$rateMaximum = 30;
+$now = time();
+$rateHandle = @fopen($rateLimitFile, 'c+');
+if ($rateHandle !== false && flock($rateHandle, LOCK_EX)) {
+    $storedRate = json_decode((string)stream_get_contents($rateHandle), true);
+    $timestamps = is_array($storedRate) ? array_values(array_filter($storedRate, static fn($timestamp): bool => is_int($timestamp) && $timestamp > $now - $rateWindow)) : [];
+    if (count($timestamps) >= $rateMaximum) {
+        flock($rateHandle, LOCK_UN);
+        fclose($rateHandle);
+        header('Retry-After: 300');
+        http_response_code(429);
+        echo json_encode(['reply' => 'Too many chatbot requests were sent. Please wait a few minutes or use WhatsApp.']);
+        exit;
+    }
+    $timestamps[] = $now;
+    ftruncate($rateHandle, 0);
+    rewind($rateHandle);
+    fwrite($rateHandle, json_encode($timestamps));
+    fflush($rateHandle);
+    flock($rateHandle, LOCK_UN);
+    fclose($rateHandle);
 }
 
 $rawInput = file_get_contents('php://input') ?: '';

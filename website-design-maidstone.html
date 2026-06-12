@@ -11,9 +11,17 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.aitechinnovations.com/website-design-maidstone.html" />
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <script>
       window.aitechAnalyticsParameters = {};
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500
+      });
       try {
         const analyticsUrl = new URL(window.location.href);
         const internalSetting = analyticsUrl.searchParams.get('internal');
@@ -26,25 +34,21 @@
         if (localStorage.getItem('aitech_internal_traffic') === '1') {
           window.aitechAnalyticsParameters.traffic_type = 'internal';
         }
+        if (localStorage.getItem('aitech_cookie_consent') === 'accepted') {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        }
       } catch (error) {}
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-LTL4JXMYP2', window.aitechAnalyticsParameters);
     </script>
-    <script>
-      (function(c,l,a,r,i){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        function loadClarity(){
-          var t=l.createElement(r),y=l.getElementsByTagName(r)[0];
-          t.async=1;t.src="https://www.clarity.ms/tag/"+i;y.parentNode.insertBefore(t,y);
-        }
-        if(l.readyState==="complete"){c.setTimeout(loadClarity,1000);}
-        else{c.addEventListener("load",function(){c.setTimeout(loadClarity,1000);},{once:true});}
-      })(window, document, "clarity", "script", "x1bt97hjsh");
-    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <link rel="icon" href="assets/logo.webp" />
-    <link rel="stylesheet" href="styles.css?v=20260611-growth-systems" />
+    <link rel="stylesheet" href="styles.css?v=20260612-ads-ready" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -180,6 +184,6 @@
       <a href="https://wa.me/447882111810?text=Hi%20AITech%20Innovations,%20I'd%20like%20a%20website%20quote." target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-message="website" data-analytics-location="sticky">WhatsApp</a>
     </div>
 
-    <script src="script.js?v=20260612-ga4-cleanup"></script>
+    <script src="script.js?v=20260612-ads-ready"></script>
   </body>
 </html>

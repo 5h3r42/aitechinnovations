@@ -269,9 +269,17 @@ function escapeJson(value) {
 
 function analyticsHead() {
   return `
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <script>
       window.aitechAnalyticsParameters = {};
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500
+      });
       try {
         const analyticsUrl = new URL(window.location.href);
         const internalSetting = analyticsUrl.searchParams.get('internal');
@@ -284,23 +292,19 @@ function analyticsHead() {
         if (localStorage.getItem('aitech_internal_traffic') === '1') {
           window.aitechAnalyticsParameters.traffic_type = 'internal';
         }
+        if (localStorage.getItem('aitech_cookie_consent') === 'accepted') {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        }
       } catch (error) {}
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-LTL4JXMYP2', window.aitechAnalyticsParameters);
     </script>
-    <script>
-      (function(c,l,a,r,i){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        function loadClarity(){
-          var t=l.createElement(r),y=l.getElementsByTagName(r)[0];
-          t.async=1;t.src="https://www.clarity.ms/tag/"+i;y.parentNode.insertBefore(t,y);
-        }
-        if(l.readyState==="complete"){c.setTimeout(loadClarity,1000);}
-        else{c.addEventListener("load",function(){c.setTimeout(loadClarity,1000);},{once:true});}
-      })(window, document, "clarity", "script", "x1bt97hjsh");
-    </script>`;
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>`;
 }
 
 function pageHead({ title, description, canonical, schema = "" }) {
@@ -318,7 +322,7 @@ function pageHead({ title, description, canonical, schema = "" }) {
     <meta property="og:url" content="${SITE_URL}${canonical}" />
     ${analyticsHead()}
     <link rel="icon" href="/assets/logo.webp" />
-    <link rel="stylesheet" href="/styles.css?v=20260611-growth-systems" />
+    <link rel="stylesheet" href="/styles.css?v=20260612-ads-ready" />
     ${schema}
   </head>`;
 }
@@ -347,7 +351,7 @@ function footer() {
       <div class="container footer-bottom"><span>© <span data-current-year>2026</span> AITech Innovations Ltd.</span><a href="#" data-email-link data-analytics-location="footer">support@aitechinnovations.com</a></div>
     </footer>
     <div class="mobile-contact-bar" aria-label="Quick contact options"><a href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="mobile_bar">Strategy call</a><a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-message="strategy" data-analytics-location="mobile_bar">WhatsApp</a></div>
-    <script src="/script.js?v=20260612-ga4-cleanup"></script>`;
+    <script src="/script.js?v=20260612-ads-ready"></script>`;
 }
 
 function relatedLinks(currentSlug) {
@@ -547,6 +551,52 @@ function strategyPage() {
 </html>`;
 }
 
+function websiteAdsLandingPage() {
+  const title = "Website Design for UK Service Businesses | From £499";
+  const description = "Conversion-focused website design for UK service businesses. Clear copy, mobile design, enquiry tracking and launch support from £499.";
+  const schema = `<script type="application/ld+json">${escapeJson({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Website design for UK service businesses",
+    description,
+    url: `${SITE_URL}/website-design-for-service-businesses`,
+    provider: { "@type": "Organization", name: "AITech Innovations", url: `${SITE_URL}/` },
+    areaServed: "United Kingdom",
+    offers: { "@type": "Offer", priceCurrency: "GBP", price: "499", description: "Focused one-page website or landing page from £499" },
+  })}</script>`;
+
+  return `${pageHead({ title, description, canonical: "/website-design-for-service-businesses", schema })}
+  <body>
+    ${header()}
+    <main>
+      <section class="hero section-pad ad-landing-hero"><div class="container seo-hero-grid"><div><p class="eyebrow">Website design for UK service businesses</p><h1>Turn more website visitors into useful enquiries</h1><p class="hero-text">Get a clear, fast and mobile-friendly website that explains your service, builds trust and gives potential customers an obvious next step.</p><div class="hero-actions"><a class="button primary" href="#website-enquiry" data-analytics-cta="quote" data-analytics-location="ad_landing_hero">Request a Website Consultation</a><a class="button secondary" href="https://wa.me/447882111810?text=Hi%20AITech%20Innovations,%20I'd%20like%20to%20discuss%20a%20website%20project." target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-message="website" data-analytics-location="ad_landing_hero">Ask on WhatsApp</a></div><div class="trust-strip"><span>From £499</span><span>UK service businesses</span><span>Mobile-first</span><span>Tracking included</span></div></div><aside class="seo-summary"><strong>A practical first website package</strong><p>Ideal for trades, clinics, consultants, property businesses and professional service firms that need a credible website or focused landing page.</p><ul class="compact-list"><li>Clear website copy and structure</li><li>Responsive design</li><li>Form, WhatsApp or booking route</li><li>Basic SEO and GA4 setup</li><li>Hostinger-ready launch</li></ul></aside></div></section>
+      <section class="section-pad"><div class="container"><div class="section-heading center"><p class="eyebrow">Built around enquiries</p><h2>Fix the reasons potential customers leave without contacting you</h2><p>A service-business website has to answer three questions quickly: what you do, why the visitor should trust you and what they should do next.</p></div><div class="problem-grid"><article class="card"><h3>Your offer is unclear</h3><p>We organise the page around one audience, one service and a clear outcome so visitors do not have to work out whether you can help.</p></article><article class="card"><h3>The website feels dated</h3><p>A clean mobile experience, readable content and consistent calls to action make the business easier to trust.</p></article><article class="card"><h3>Enquiries are not measured</h3><p>Forms, WhatsApp and booking actions are connected to analytics so you can see which campaigns create real interest.</p></article></div></div></section>
+      <section class="section-pad muted"><div class="container seo-copy-grid"><div class="section-heading"><p class="eyebrow">What is included</p><h2>A focused website without unnecessary complexity</h2><p>The starting package is designed to get one strong offer online quickly. Larger sites are scoped after the consultation.</p></div><ul class="seo-check-list"><li>Planning around your target customer and main service.</li><li>Conversion-focused page structure and practical copy support.</li><li>Responsive design for mobile, tablet and desktop.</li><li>Contact form, WhatsApp or calendar integration.</li><li>Page titles, descriptions, headings and sitemap basics.</li><li>GA4 lead tracking and campaign attribution.</li><li>Launch checks and Hostinger deployment support.</li></ul></div></section>
+      <section class="section-pad"><div class="container"><div class="section-heading center"><p class="eyebrow">Straightforward pricing</p><h2>Start with the smallest website that can do the job properly</h2></div><div class="pricing-grid"><article class="price-card featured"><p class="badge">Focused launch</p><h3>One-page service website</h3><p class="price">From £499</p><p>One conversion-focused page with copy support, mobile design, contact routes, basic SEO and tracking.</p><a class="button primary full" href="#website-enquiry" data-analytics-cta="quote" data-analytics-location="ad_landing_pricing">Discuss This Package</a></article><article class="price-card"><h3>Multi-page business website</h3><p class="price">From £899</p><p>For businesses that need separate service, about, proof and contact pages with a stronger search structure.</p><a class="button secondary full" href="#website-enquiry" data-analytics-cta="quote" data-analytics-location="ad_landing_pricing">Request a Consultation</a></article><article class="price-card"><h3>Website plus growth system</h3><p class="price">Custom quote</p><p>Combine the website with an advertising landing page, chatbot, booking flow or lead follow-up automation.</p><a class="button secondary full" href="#website-enquiry" data-analytics-cta="quote" data-analytics-location="ad_landing_pricing">Discuss Requirements</a></article></div></div></section>
+      <section class="section-pad muted"><div class="container"><div class="section-heading center"><p class="eyebrow">A clear process</p><h2>From first conversation to launch</h2></div><div class="process-grid"><article><span>01</span><h3>Consultation</h3><p>Clarify the service, ideal customer, current website problems and the enquiry action that matters.</p></article><article><span>02</span><h3>Plan and copy</h3><p>Agree the page structure, messages, proof, content inputs and fixed project scope.</p></article><article><span>03</span><h3>Design and review</h3><p>Build the responsive page and refine it through the agreed review rounds.</p></article><article><span>04</span><h3>Launch and measure</h3><p>Test the contact routes, analytics, mobile experience and indexing basics before going live.</p></article></div></div></section>
+      <section class="section-pad" id="website-enquiry"><div class="container contact-grid"><div class="section-heading"><p class="eyebrow">Free website consultation</p><h2>Tell us what your website needs to achieve</h2><p>Send the essentials and receive a practical recommendation, likely scope and starting price. There is no obligation to proceed.</p><div class="ad-proof-box"><strong>Honest early-stage agency</strong><p>AITech Innovations is a new UK agency and sample work is labelled clearly. No client results or testimonials are invented. Two discounted paid pilot places are available for suitable projects.</p></div></div>
+        <form class="strategy-form" data-strategy-form data-form-name="website_ads_landing_form" data-lead-type="website_consultation" data-lead-source="paid_landing_page" data-analytics-location="website_ads_form">
+          <label class="hidden-field" aria-hidden="true">Leave this field empty<input name="_honey" tabindex="-1" autocomplete="off" /></label>
+          <input type="hidden" name="service" value="Website & Content" />
+          <label>Name<input name="name" autocomplete="name" required /></label>
+          <label>Business name<input name="business" autocomplete="organization" required /></label>
+          <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+          <label>Phone<input name="phone" autocomplete="tel" /></label>
+          <label>Current website<input name="website" type="url" placeholder="https://" /></label>
+          <label>Budget range<select name="budget" required><option value="">Choose one</option><option>£499 - £899</option><option>£900 - £1,499</option><option>£1,500 - £2,999</option><option>£3,000+</option><option>Not sure yet</option></select></label>
+          <label>Preferred timeline<select name="timeline" required><option value="">Choose one</option><option>As soon as possible</option><option>Within 30 days</option><option>Within 3 months</option><option>Researching options</option></select></label>
+          <label class="full-field">What should the website improve?<textarea name="goal" rows="4" placeholder="For example: generate quote requests, explain services more clearly or replace an outdated website." required></textarea></label>
+          <p class="form-note full-field">By submitting this form, you agree that AITech Innovations can contact you about this enquiry. See our <a href="/privacy">privacy policy</a>.</p>
+          <div class="form-actions full-field"><button class="button primary" type="submit">Request Website Consultation</button><p data-strategy-status aria-live="polite"></p></div>
+        </form>
+      </div></section>
+      <section class="section-pad muted faq-section"><div class="container"><div class="section-heading center"><p class="eyebrow">Questions</p><h2>Before requesting a website consultation</h2></div><div class="faq-list"><details><summary>Is £499 the final price?</summary><p>£499 is the starting price for a focused one-page service website. The final quote depends on page count, copy requirements, integrations and existing content.</p></details><details><summary>Do you guarantee enquiries or Google rankings?</summary><p>No. The website is designed around clear communication, usability and measurable enquiry actions, but traffic, rankings and lead volume cannot be guaranteed.</p></details><details><summary>Can you replace my existing website?</summary><p>Yes. Useful content, domains and tracking can be retained while the structure, copy, design and contact journey are improved.</p></details><details><summary>How quickly can the website launch?</summary><p>A focused project can often launch in 7-14 days when content and feedback are supplied promptly. The confirmed schedule is included in the proposal.</p></details></div></div></section>
+    </main>
+    ${footer()}
+  </body>
+</html>`;
+}
+
 const websiteContentPage = {
   slug: "website-content-services",
   title: "Website Design and Content Services | AITech Innovations",
@@ -609,6 +659,7 @@ for (const service of services) {
 
 fs.writeFileSync(path.join(ROOT, "free-ai-audit.html"), auditPage());
 fs.writeFileSync(path.join(ROOT, "free-strategy-call.html"), strategyPage());
+fs.writeFileSync(path.join(ROOT, "website-design-for-service-businesses.html"), websiteAdsLandingPage());
 fs.writeFileSync(path.join(ROOT, "website-content-services.html"), pillarPage(websiteContentPage));
 fs.writeFileSync(path.join(ROOT, "ads-setup-services.html"), pillarPage(adsSetupPage));
 fs.writeFileSync(path.join(ROOT, "blog.html"), blogIndex());
@@ -617,4 +668,4 @@ for (const post of posts) {
   fs.writeFileSync(path.join(ROOT, `blog-${post.slug}.html`), blogPost(post));
 }
 
-console.log(`Generated ${services.length + posts.length + 5} SEO pages.`);
+console.log(`Generated ${services.length + posts.length + 6} SEO pages.`);

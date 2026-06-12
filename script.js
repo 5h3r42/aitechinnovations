@@ -11,6 +11,9 @@ const WHATSAPP_MESSAGES = {
   strategy: "Hi AITech Innovations, I'd like to book a free strategy call.",
 };
 const CHATBOT_API_ENDPOINT = "api/chatbot.php";
+const COOKIE_CONSENT_KEY = "aitech_cookie_consent";
+const CAMPAIGN_STORAGE_KEY = "aitech_campaign_attribution";
+const CLARITY_PROJECT_ID = "x1bt97hjsh";
 
 const GOOGLE_SHEETS_ENDPOINT =
   "https://script.google.com/macros/s/AKfycbwsi2ZxS5UzS-Cioi5Ll-1IHSiU3LJGoc6HdVK_J2h3_YhWMDhKP0wUdcyCXtj5qYn0/exec";
@@ -57,6 +60,144 @@ let chatbotLeadActive = false;
 let chatbotLeadStepIndex = 0;
 let chatbotLeadData = {};
 
+function sanitizeCampaignValue(value = "") {
+  return String(value)
+    .trim()
+    .slice(0, 120)
+    .replace(/[^a-zA-Z0-9 _.-]/g, "");
+}
+
+function captureCampaignAttribution() {
+  if (typeof window === "undefined") return {};
+
+  const params = new URLSearchParams(window.location.search);
+  const campaign = {
+    utm_source: sanitizeCampaignValue(params.get("utm_source")),
+    utm_medium: sanitizeCampaignValue(params.get("utm_medium")),
+    utm_campaign: sanitizeCampaignValue(params.get("utm_campaign")),
+    utm_content: sanitizeCampaignValue(params.get("utm_content")),
+    utm_term: sanitizeCampaignValue(params.get("utm_term")),
+    gclid: sanitizeCampaignValue(params.get("gclid")),
+    landing_page: window.location.pathname || "/",
+  };
+
+  const hasCampaignData = Object.entries(campaign).some(([key, value]) => key !== "landing_page" && value);
+  if (hasCampaignData) {
+    try {
+      sessionStorage.setItem(CAMPAIGN_STORAGE_KEY, JSON.stringify(campaign));
+    } catch {}
+    return campaign;
+  }
+
+  try {
+    const storedCampaign = JSON.parse(sessionStorage.getItem(CAMPAIGN_STORAGE_KEY) || "{}");
+    return storedCampaign && typeof storedCampaign === "object" ? storedCampaign : campaign;
+  } catch {
+    return campaign;
+  }
+}
+
+const campaignAttribution = captureCampaignAttribution();
+
+function getCampaignAnalyticsParameters() {
+  return {
+    campaign_source: campaignAttribution.utm_source || "",
+    campaign_medium: campaignAttribution.utm_medium || "",
+    campaign_name: campaignAttribution.utm_campaign || "",
+    campaign_content: campaignAttribution.utm_content || "",
+    campaign_term: campaignAttribution.utm_term || "",
+    landing_page: campaignAttribution.landing_page || "",
+  };
+}
+
+function getCampaignLeadNotes() {
+  const entries = [
+    ["Landing page", campaignAttribution.landing_page],
+    ["UTM source", campaignAttribution.utm_source],
+    ["UTM medium", campaignAttribution.utm_medium],
+    ["UTM campaign", campaignAttribution.utm_campaign],
+    ["UTM content", campaignAttribution.utm_content],
+    ["UTM term", campaignAttribution.utm_term],
+    ["Google click ID", campaignAttribution.gclid],
+  ].filter(([, value]) => value);
+
+  return entries.map(([label, value]) => `${label}: ${value}`).join("\n");
+}
+
+function loadClarity() {
+  if (typeof window === "undefined" || window.clarity || document.querySelector("script[data-clarity-script]")) return;
+  window.clarity = window.clarity || function () {
+    (window.clarity.q = window.clarity.q || []).push(arguments);
+  };
+  const script = document.createElement("script");
+  script.async = true;
+  script.dataset.clarityScript = "true";
+  script.src = `https://www.clarity.ms/tag/${CLARITY_PROJECT_ID}`;
+  document.head.append(script);
+}
+
+function updateGoogleConsent(granted) {
+  if (typeof window.gtag !== "function") return;
+  const state = granted ? "granted" : "denied";
+  window.gtag("consent", "update", {
+    ad_storage: state,
+    ad_user_data: state,
+    ad_personalization: state,
+    analytics_storage: state,
+  });
+}
+
+function clearTrackingCookies() {
+  for (const cookieName of ["_ga", "_gid", "_gat", "_clck", "_clsk"]) {
+    document.cookie = `${cookieName}=; Max-Age=0; path=/; SameSite=Lax`;
+    document.cookie = `${cookieName}=; Max-Age=0; path=/; domain=.aitechinnovations.com; SameSite=Lax`;
+  }
+}
+
+function setCookieConsent(choice) {
+  localStorage.setItem(COOKIE_CONSENT_KEY, choice);
+  const granted = choice === "accepted";
+  updateGoogleConsent(granted);
+  if (granted) loadClarity();
+  else clearTrackingCookies();
+}
+
+function createCookieControls() {
+  if (typeof document === "undefined") return;
+
+  const banner = document.createElement("section");
+  banner.className = "cookie-banner";
+  banner.setAttribute("aria-label", "Cookie choices");
+  banner.setAttribute("data-cookie-banner", "");
+  banner.innerHTML = `<div><strong>Your privacy choices</strong><p>We use Google Analytics and Microsoft Clarity to understand website and advertising performance. You can accept or reject optional analytics and advertising cookies.</p><a href="/privacy">Read our privacy policy</a></div><div class="cookie-actions"><button type="button" class="button secondary" data-cookie-reject>Reject optional cookies</button><button type="button" class="button primary" data-cookie-accept>Accept optional cookies</button></div>`;
+
+  const settingsButton = document.createElement("button");
+  settingsButton.type = "button";
+  settingsButton.className = "cookie-settings-button";
+  settingsButton.textContent = "Cookie settings";
+  settingsButton.setAttribute("data-cookie-settings", "");
+
+  document.body.append(banner, settingsButton);
+
+  const showBanner = () => banner.removeAttribute("hidden");
+  const hideBanner = () => banner.setAttribute("hidden", "");
+  const savedChoice = localStorage.getItem(COOKIE_CONSENT_KEY);
+  if (savedChoice) hideBanner();
+  if (savedChoice === "accepted") loadClarity();
+
+  banner.querySelector("[data-cookie-accept]")?.addEventListener("click", () => {
+    setCookieConsent("accepted");
+    hideBanner();
+  });
+  banner.querySelector("[data-cookie-reject]")?.addEventListener("click", () => {
+    const wasAccepted = localStorage.getItem(COOKIE_CONSENT_KEY) === "accepted";
+    setCookieConsent("rejected");
+    hideBanner();
+    if (wasAccepted) window.location.reload();
+  });
+  settingsButton.addEventListener("click", showBanner);
+}
+
 // GA4 event helper: centralizes lead tracking and avoids sending personal contact details to Analytics.
 function isAnalyticsDebugMode() {
   if (typeof window === "undefined") return false;
@@ -80,7 +221,10 @@ function getPageAnalyticsParameters() {
 
 function getAnalyticsDefaultParameters() {
   if (typeof window === "undefined") return {};
-  return window.aitechAnalyticsParameters || {};
+  return {
+    ...(window.aitechAnalyticsParameters || {}),
+    ...getCampaignAnalyticsParameters(),
+  };
 }
 
 function trackEvent(eventName, parameters = {}) {
@@ -368,7 +512,11 @@ async function submitChatbotLead() {
     website: "",
     businessType: chatbotLeadData.business || "",
     mainGoal: "Strategy call chatbot lead",
-    notes: [`Project interest: ${chatbotLeadData.project || "-"}`, "Source: website chatbot"].join("\n"),
+    notes: [
+      `Project interest: ${chatbotLeadData.project || "-"}`,
+      "Source: website chatbot",
+      getCampaignLeadNotes(),
+    ].join("\n"),
   };
 
   try {
@@ -394,6 +542,7 @@ async function submitChatbotLead() {
     payload.append("Business", chatbotLeadData.business || "");
     payload.append("Email", chatbotLeadData.email || "");
     payload.append("Project interest", chatbotLeadData.project || "");
+    payload.append("Campaign attribution", getCampaignLeadNotes() || "Direct / not available");
     payload.append("Full message", message);
 
     try {
@@ -548,6 +697,7 @@ window.addEventListener(
 setHeaderState();
 hydrateContactLinks();
 setChatbotActions();
+createCookieControls();
 
 chatbotOpenButton?.addEventListener("click", openChatbot);
 chatbotCloseButton?.addEventListener("click", closeChatbot);
@@ -697,6 +847,7 @@ quoteForm?.addEventListener("submit", async (event) => {
       `Budget: ${data.get("budget") || "-"}`,
       "",
       `Message: ${data.get("notes") || "-"}`,
+      getCampaignLeadNotes(),
     ].join("\n"),
   };
 
@@ -731,6 +882,7 @@ quoteForm?.addEventListener("submit", async (event) => {
   payload.append("Package", data.get("package") || "");
   payload.append("Budget", data.get("budget") || "");
   payload.append("Project notes", data.get("notes") || "");
+  payload.append("Campaign attribution", getCampaignLeadNotes() || "Direct / not available");
   payload.append("Full message", message);
 
   try {
@@ -783,6 +935,10 @@ strategyForm?.addEventListener("submit", async (event) => {
   }
 
   const serviceInterest = String(data.get("service") || "Not sure yet");
+  const formName = strategyForm.dataset.formName || "strategy_call_form";
+  const leadType = strategyForm.dataset.leadType || "strategy_call";
+  const leadSource = strategyForm.dataset.leadSource || "website_form";
+  const analyticsLocation = strategyForm.dataset.analyticsLocation || "strategy_form";
   const message = [
     "Hi AITech Innovations, I would like to request a free strategy call.",
     "",
@@ -807,6 +963,7 @@ strategyForm?.addEventListener("submit", async (event) => {
       `Phone: ${data.get("phone") || "-"}`,
       `Budget: ${data.get("budget") || "-"}`,
       `Timeline: ${data.get("timeline") || "-"}`,
+      getCampaignLeadNotes(),
     ].join("\n"),
   };
   const payload = new FormData();
@@ -823,6 +980,7 @@ strategyForm?.addEventListener("submit", async (event) => {
   payload.append("Current website", data.get("website") || "");
   payload.append("Budget", data.get("budget") || "");
   payload.append("Preferred timeline", data.get("timeline") || "");
+  payload.append("Campaign attribution", getCampaignLeadNotes() || "Direct / not available");
   payload.append("Full message", message);
 
   const submitButton = strategyForm.querySelector("button[type='submit']");
@@ -831,11 +989,11 @@ strategyForm?.addEventListener("submit", async (event) => {
 
   const trackStrategyLead = () => {
     trackGenerateLead({
-      formName: "strategy_call_form",
-      leadType: "strategy_call",
-      leadSource: "website_form",
+      formName,
+      leadType,
+      leadSource,
       serviceInterest,
-      location: "strategy_form",
+      location: analyticsLocation,
     });
   };
 

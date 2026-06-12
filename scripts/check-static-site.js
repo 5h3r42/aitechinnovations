@@ -13,6 +13,7 @@ const pages = [
   { route: "/crm-automation-services", file: "crm-automation-services.html", type: "service" },
   { route: "/appointment-booking-automation", file: "appointment-booking-automation.html", type: "service" },
   { route: "/free-strategy-call", file: "free-strategy-call.html", type: "strategy" },
+  { route: "/website-design-for-service-businesses", file: "website-design-for-service-businesses.html", type: "landing" },
   { route: "/free-ai-audit", file: "free-ai-audit.html", type: "audit" },
   { route: "/blog", file: "blog.html", type: "blog" },
   { route: "/blog/how-small-businesses-use-ai", file: "blog-how-small-businesses-use-ai.html", type: "article" },
@@ -104,11 +105,14 @@ for (const page of pages) {
   if (!html.includes("gtag('config', 'G-LTL4JXMYP2', window.aitechAnalyticsParameters)")) {
     fail(`${page.file} is missing the parameterized GA4 configuration.`);
   }
-  if (!html.includes("script.js?v=20260612-ga4-cleanup")) fail(`${page.file} is missing the current analytics script cache key.`);
+  if (!html.includes("script.js?v=20260612-ads-ready")) fail(`${page.file} is missing the current analytics script cache key.`);
+  for (const consentSignal of ["ad_storage: 'denied'", "ad_user_data: 'denied'", "ad_personalization: 'denied'", "analytics_storage: 'denied'"]) {
+    if (!html.includes(consentSignal)) fail(`${page.file} is missing Consent Mode v2 default: ${consentSignal}`);
+  }
   if (/noindex/i.test(html)) fail(`${page.file} contains a noindex directive.`);
   if (!html.includes("G-LTL4JXMYP2")) fail(`${page.file} is missing GA4.`);
   if (/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(html)) fail(`${page.file} still loads render-blocking Google Fonts.`);
-  const expectedAssetVersion = page.type === "home" ? "20260612-founder-removed" : "20260611-growth-systems";
+  const expectedAssetVersion = "20260612-ads-ready";
   if (!html.includes(expectedAssetVersion)) fail(`${page.file} is missing the current asset version.`);
 
   if (page.type !== "strategy" && page.type !== "legal" && !html.includes('href="/free-strategy-call"')) {
@@ -207,6 +211,19 @@ for (const messageKey of ["website", "ads", "automation", "strategy"]) {
 for (const helper of ["CONTACT_SETTINGS", "getSafeLinkUrl", "getAnalyticsDefaultParameters", "trackBookingClick", "trackChatbotLead", "trackGenerateLead"]) {
   if (!script.includes(helper)) fail(`script.js is missing analytics helper: ${helper}`);
 }
+for (const adsReadinessFeature of ["aitech_cookie_consent", "aitech_campaign_attribution", "campaign_source", "Campaign attribution", "data-cookie-accept", "data-cookie-reject"]) {
+  if (!script.includes(adsReadinessFeature)) fail(`script.js is missing ads-readiness feature: ${adsReadinessFeature}`);
+}
+
+const adsLanding = read("website-design-for-service-businesses.html");
+for (const requiredText of ["Turn more website visitors into useful enquiries", "From £499", "data-strategy-form", "paid_landing_page", "No client results or testimonials are invented"]) {
+  if (!adsLanding.includes(requiredText)) fail(`Paid website landing page is missing: ${requiredText}`);
+}
+
+for (const requiredHeader of ["Strict-Transport-Security", "X-Frame-Options", "X-Content-Type-Options", "Referrer-Policy", "Permissions-Policy", "Content-Security-Policy"]) {
+  if (!htaccess.includes(requiredHeader)) fail(`.htaccess is missing security header: ${requiredHeader}`);
+}
+if (!htaccess.includes("api/knowledge")) fail(".htaccess should block direct access to chatbot knowledge files.");
 
 const chatbotApi = read("api/chatbot.php");
 for (const text of ["getenv('OPENAI_API_KEY')", "function scripted_reply", "https://api.openai.com/v1/responses", "__DIR__ . '/knowledge'"]) {

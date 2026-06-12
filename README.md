@@ -42,6 +42,7 @@ ai-lead-generation-automation.html
 crm-automation-services.html
 appointment-booking-automation.html
 free-strategy-call.html
+website-design-for-service-businesses.html
 free-ai-audit.html
 blog.html
 blog-how-small-businesses-use-ai.html
@@ -66,7 +67,7 @@ Do not upload the `public/` source mirrors. Upload the root `sitemap.xml` and `r
 After deployment verify:
 
 1. `https://aitechinnovations.com/` redirects once to `https://www.aitechinnovations.com/`.
-2. All 20 sitemap URLs return `200`.
+2. All 21 sitemap URLs return `200`.
 3. Canonicals, schema, sitemap and robots use `www.aitechinnovations.com`.
 4. Website, ads, automation and strategy WhatsApp links open different contextual messages.
 5. The calendar link, fallback form, chatbot and GA4 events still work.
@@ -76,6 +77,13 @@ After deployment verify:
 Contact, WhatsApp and calendar settings are centralized near the top of `script.js`. The strategy-call form sends to the existing Google Sheets endpoint, then FormSubmit, then WhatsApp or email fallback.
 
 The chatbot frontend calls `api/chatbot.php`. It supports scripted replies without an API key. Set `OPENAI_API_KEY` in Hostinger only if unmatched questions should use the optional AI fallback; never place the key in client-side files.
+
+## Paid Ads Readiness
+
+- Use `/website-design-for-service-businesses` as the initial Google Search Ads landing page.
+- The site stores UTM parameters and `gclid` for the browser session and attaches them to successful lead delivery.
+- Consent Mode v2 defaults analytics and advertising storage to denied. Google Analytics and Microsoft Clarity receive optional-cookie permission only after acceptance.
+- The complete first-campaign structure, keywords, negatives, advert copy, budget and launch gates are documented in `ADS_LAUNCH_PLAN.md`.
 
 ## Search Console and GA4
 

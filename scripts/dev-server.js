@@ -13,6 +13,7 @@ const routes = {
   "/appointment-booking-automation": "appointment-booking-automation.html",
   "/free-ai-audit": "free-ai-audit.html",
   "/free-strategy-call": "free-strategy-call.html",
+  "/website-design-for-service-businesses": "website-design-for-service-businesses.html",
   "/website-content-services": "website-content-services.html",
   "/ads-setup-services": "ads-setup-services.html",
   "/blog": "blog.html",
