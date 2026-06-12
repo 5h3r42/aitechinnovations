@@ -8,6 +8,7 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## Completed Work
 
+- Removed and deployed the homepage founder-led delivery section on 2026-06-12, then cleaned up its unused responsive CSS.
 - Redesigned and deployed the homepage sample growth systems section on 2026-06-12 with compact 16:9 cards, corrected image dimensions, clear preview actions, and accessible full-size popouts for all three demonstration concepts.
 - Completed the client-acquisition rebuild on 2026-06-12: repositioned the agency around Website & Content, Ads & Lead Generation, and Automation & Chatbots, with one primary Free Strategy Call CTA.
 - Deployed the client-acquisition rebuild to Hostinger on 2026-06-12 and verified the non-www host redirects once to www, all 20 public routes return `200` with matching self-canonicals, and the live sitemap, robots, WebP assets, chatbot and required analytics event names are available.

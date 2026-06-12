@@ -102,7 +102,7 @@ for (const page of pages) {
   if (/noindex/i.test(html)) fail(`${page.file} contains a noindex directive.`);
   if (!html.includes("G-LTL4JXMYP2")) fail(`${page.file} is missing GA4.`);
   if (/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(html)) fail(`${page.file} still loads render-blocking Google Fonts.`);
-  const expectedAssetVersion = page.type === "home" ? "20260612-sample-previews" : "20260611-growth-systems";
+  const expectedAssetVersion = page.type === "home" ? "20260612-founder-removed" : "20260611-growth-systems";
   if (!html.includes(expectedAssetVersion)) fail(`${page.file} is missing the current asset version.`);
 
   if (page.type !== "strategy" && page.type !== "legal" && !html.includes('href="/free-strategy-call"')) {

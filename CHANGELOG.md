@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-06-12 - Remove homepage founder section
+
+### Files Changed
+
+- Updated `index.html`, `styles.css`, `scripts/check-static-site.js`, and project tracking files
+
+### Summary
+
+- Removed the founder-led delivery block and oversized company-logo panel from the homepage.
+- Removed the now-unused founder grid and logo-panel CSS.
+- Bumped the homepage stylesheet cache key.
+- Deployed the updated homepage and stylesheet to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Confirmed the homepage no longer contains the founder section or related CSS selectors.
+- Live HTTP checks confirmed the founder section is absent and the new stylesheet cache key is active.
+
+### Next Task
+
+Continue the Search Console and GA4 account setup work.
+
 ## 2026-06-12 - Improve sample systems cards and popouts
 
 ### Files Changed
