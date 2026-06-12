@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-06-12 - Improve sample systems cards and popouts
+
+### Files Changed
+
+- Updated `index.html`, `styles.css`, `scripts/check-static-site.js`, and project tracking files
+
+### Summary
+
+- Replaced tall stretched sample screenshots with compact 16:9 preview cards.
+- Shortened and aligned the card content while keeping each example clearly labelled as a demonstration concept.
+- Restored accessible full-size popouts for the clinic, solicitor and trade-business samples.
+- Deployed the updated homepage and stylesheet to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Desktop and mobile browser checks confirmed equal image ratios, no horizontal overflow, correct sample selection, close-button behaviour and Escape-key closing.
+- Live HTTP checks confirmed the new stylesheet cache key and all three preview triggers and panels are deployed.
+
+### Next Task
+
+Continue the Search Console and GA4 account setup work.
+
 ## 2026-06-12 - Rebuild site for client acquisition
 
 ### Files Changed

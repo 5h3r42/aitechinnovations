@@ -102,7 +102,8 @@ for (const page of pages) {
   if (/noindex/i.test(html)) fail(`${page.file} contains a noindex directive.`);
   if (!html.includes("G-LTL4JXMYP2")) fail(`${page.file} is missing GA4.`);
   if (/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(html)) fail(`${page.file} still loads render-blocking Google Fonts.`);
-  if (!html.includes("20260611-growth-systems")) fail(`${page.file} is missing the current asset version.`);
+  const expectedAssetVersion = page.type === "home" ? "20260612-sample-previews" : "20260611-growth-systems";
+  if (!html.includes(expectedAssetVersion)) fail(`${page.file} is missing the current asset version.`);
 
   if (page.type !== "strategy" && page.type !== "legal" && !html.includes('href="/free-strategy-call"')) {
     fail(`${page.file} is missing the primary strategy-call CTA.`);
@@ -136,6 +137,13 @@ for (const route of ["/website-content-services", "/ads-setup-services", "/ai-au
 }
 for (const image of ["preview-clinic-popout.webp", "preview-solicitor-popout.webp", "preview-roofing-popout.webp"]) {
   if (!index.includes(image)) fail(`Homepage is missing optimized image: ${image}`);
+}
+for (const preview of ["clinic", "solicitor", "roofing"]) {
+  if (!index.includes(`data-preview-trigger="${preview}"`)) fail(`Homepage is missing preview trigger: ${preview}`);
+  if (!index.includes(`data-preview-panel="${preview}"`)) fail(`Homepage is missing preview panel: ${preview}`);
+}
+for (const marker of ["data-preview-modal", "data-preview-dialog", "data-preview-close"]) {
+  if (!index.includes(marker)) fail(`Homepage is missing sample preview marker: ${marker}`);
 }
 
 const strategy = read("free-strategy-call.html");

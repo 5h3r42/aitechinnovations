@@ -22,6 +22,7 @@
 
 ## Done
 
+- Redesigned and deployed the sample growth systems cards and restored full-size clinic, solicitor and trade-business preview popouts on desktop and mobile.
 - Deployed the client-acquisition rebuild to Hostinger and verified the single non-www to www redirect, 20 live routes and self-canonicals, discovery files, optimized assets, chatbot response and required analytics event names.
 - Rebuilt the agency website around three service pillars, one Free Strategy Call CTA, contextual WhatsApp messages, the strategy-call lead workflow, honest sample systems, founder-led positioning, paid pilots, and a 30-day client-acquisition campaign.
 - Standardized the site on the www canonical host, expanded the sitemap to 20 public URLs, optimized portfolio images to WebP, removed render-blocking fonts, improved contrast and caching, and validated Lighthouse targets locally.
