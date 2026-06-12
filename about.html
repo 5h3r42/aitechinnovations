@@ -13,11 +13,24 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
     <script>
+      window.aitechAnalyticsParameters = {};
+      try {
+        const analyticsUrl = new URL(window.location.href);
+        const internalSetting = analyticsUrl.searchParams.get('internal');
+        if (internalSetting === '1') localStorage.setItem('aitech_internal_traffic', '1');
+        if (internalSetting === '0') localStorage.removeItem('aitech_internal_traffic');
+        if (internalSetting !== null) {
+          analyticsUrl.searchParams.delete('internal');
+          history.replaceState(null, '', analyticsUrl.pathname + analyticsUrl.search + analyticsUrl.hash);
+        }
+        if (localStorage.getItem('aitech_internal_traffic') === '1') {
+          window.aitechAnalyticsParameters.traffic_type = 'internal';
+        }
+      } catch (error) {}
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
-      gtag('config', 'G-LTL4JXMYP2');
+      gtag('config', 'G-LTL4JXMYP2', window.aitechAnalyticsParameters);
     </script>
     <script>
       (function(c,l,a,r,i){
@@ -72,6 +85,6 @@
       </div>
     </main>
 
-    <script src="script.js?v=20260611-growth-systems"></script>
+    <script src="script.js?v=20260612-ga4-cleanup"></script>
   </body>
 </html>

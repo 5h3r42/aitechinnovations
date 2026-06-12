@@ -1,5 +1,34 @@
 # Changelog
 
+## 2026-06-12 - Clean up GA4 conversion tracking
+
+### Files Changed
+
+- Updated `script.js`, all 20 public HTML pages, the SEO page generator, static validation, README, and project tracking files
+
+### Summary
+
+- Replaced duplicate lead aliases with one `generate_lead` event after successful strategy-form, quote-form, or chatbot delivery.
+- Replaced duplicate booking aliases with one `calendar_booking_click` event.
+- Standardized `lead_source`, `lead_type`, `service_interest`, `form_name`, and `location` without sending personal form data to GA4.
+- Added persistent `?internal=1` and `?internal=0` browser controls that send `traffic_type=internal` from the initial page view onward.
+- Kept WhatsApp, email, CTA, chatbot-open and portfolio-preview events as supporting engagement signals.
+- Deployed the updated static package to Hostinger.
+
+### Validation
+
+- `npm run generate:seo`
+- `npm run check` passed for 20 public routes
+- JavaScript syntax and `git diff --check` passed
+- Local browser tests confirmed one calendar event, one successful strategy-form lead event, and one successful chatbot lead event.
+- Lead parameters contained only normalized, non-personal values; synthetic test submissions were marked as internal tests.
+- Live HTTP checks confirmed the canonical redirect, `200` responses, current cache key, canonical events, and absence of legacy aliases.
+- Live browser testing confirmed the deployed CTA event includes `traffic_type=internal`.
+
+### Next Task
+
+Complete the documented one-time GA4 Admin setup for key events, custom dimensions, and the internal-traffic data filter.
+
 ## 2026-06-12 - Remove homepage founder section
 
 ### Files Changed

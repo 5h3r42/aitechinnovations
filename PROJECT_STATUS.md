@@ -8,6 +8,8 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## Completed Work
 
+- Cleaned up and deployed GA4 conversion tracking on 2026-06-12: successful strategy, quote, and chatbot leads now emit one canonical `generate_lead`; calendar selections emit one `calendar_booking_click`; duplicate legacy aliases were removed; and `?internal=1` / `?internal=0` manage a persistent `traffic_type=internal` browser marker.
+- Strengthened static analytics validation across all 20 pages and verified the strategy form, chatbot lead path, calendar click, parameter values, PII-safe payload, Hostinger deployment, canonical redirect, and live internal-event output.
 - Removed and deployed the homepage founder-led delivery section on 2026-06-12, then cleaned up its unused responsive CSS.
 - Redesigned and deployed the homepage sample growth systems section on 2026-06-12 with compact 16:9 cards, corrected image dimensions, clear preview actions, and accessible full-size popouts for all three demonstration concepts.
 - Completed the client-acquisition rebuild on 2026-06-12: repositioned the agency around Website & Content, Ads & Lead Generation, and Automation & Chatbots, with one primary Free Strategy Call CTA.
@@ -88,7 +90,7 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 ## In Progress
 
 - The www Search Console property and new 20-URL sitemap still need to be submitted.
-- GA4 DebugView verification, key-event marking and internal-traffic exclusion still need to be completed inside Analytics.
+- GA4 Admin still needs the one-time key-event, custom-dimension and internal-traffic-filter configuration documented in `README.md`; the reporting connection is read-only and cannot change Admin settings.
 - Chatbot deployment can work without `OPENAI_API_KEY` for scripted answers; configuring the key is optional for unmatched AI-generated responses.
 - FormSubmit fallback needs email activation before it can be relied on.
 - Portfolio examples are still demo concepts until real client screenshots are available.
@@ -97,12 +99,11 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 - FormSubmit returned an activation-required response on 2026-05-01 and sent an activation email to `support@aitechinnovations.com`.
 - Hostinger still has historical Next.js deployments listed for the domain, but the live root URL now serves the static site.
-- The founder section uses the company mark because an approved real founder photo is not available in the repository.
 
 ## Next 5 Logical Tasks
 
 1. Submit `https://www.aitechinnovations.com/sitemap.xml` in the www Search Console property.
-2. Verify lead events in GA4 DebugView, mark the three lead events as key events, and exclude internal traffic.
+2. In GA4 Admin, mark `generate_lead` and `calendar_booking_click` as key events, register the lead dimensions, test the internal-traffic filter, and then activate it.
 3. Build the first 100-account prospect list and begin the 30-day outreach campaign.
 4. Activate and retest the FormSubmit fallback.
 5. Add an approved founder photo and replace sample systems with real case studies as paid pilots complete.

@@ -81,4 +81,16 @@ The chatbot frontend calls `api/chatbot.php`. It supports scripted replies witho
 
 Add or verify the `https://www.aitechinnovations.com/` URL-prefix property in Google Search Console, submit `https://www.aitechinnovations.com/sitemap.xml`, and request indexing for the homepage, one service page and one article.
 
-In GA4, mark `generate_lead`, `chatbot_lead_submitted`, and `strategy_call_lead_submitted` as key events. Configure an internal-traffic rule for development and team visits.
+In GA4, mark only `generate_lead` and `calendar_booking_click` as key events. Keep WhatsApp, email, CTA, chatbot-open and portfolio-preview events as supporting engagement signals.
+
+To mark a browser as internal traffic, visit any page once with `?internal=1`. The setting persists in that browser and adds `traffic_type=internal` to GA4 page views and events. Use `?internal=0` to clear it. Configure the matching GA4 internal-traffic data filter in testing mode before activating it.
+
+One-time GA4 Admin setup for property `540147140`:
+
+1. Mark `generate_lead` and `calendar_booking_click` as key events.
+2. Remove key-event status from `quote_cta_click`, `whatsapp_click`, `email_click`, `chatbot_lead_submitted`, `strategy_call_lead_submitted`, and old form aliases.
+3. Register `lead_source`, `lead_type`, `service_interest`, `form_name`, and `location` as event-scoped custom dimensions.
+4. Create an internal-traffic data filter for `traffic_type=internal`, verify it in testing mode, and then activate it.
+5. If Google Ads is linked, import only `generate_lead` and `calendar_booking_click` as conversion actions.
+
+`calendar_booking_click` measures booking intent because Google Calendar does not send a confirmed appointment event back to this static site.

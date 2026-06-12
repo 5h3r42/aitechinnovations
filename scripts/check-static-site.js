@@ -99,6 +99,12 @@ for (const page of pages) {
 
   const expectedCanonical = `${siteUrl}${page.route}`;
   if (canonical !== expectedCanonical) fail(`${page.file} canonical should be ${expectedCanonical}; found ${canonical}.`);
+  if (!html.includes("aitech_internal_traffic")) fail(`${page.file} is missing the internal-traffic browser marker.`);
+  if (!html.includes("window.aitechAnalyticsParameters")) fail(`${page.file} is missing shared GA4 parameters.`);
+  if (!html.includes("gtag('config', 'G-LTL4JXMYP2', window.aitechAnalyticsParameters)")) {
+    fail(`${page.file} is missing the parameterized GA4 configuration.`);
+  }
+  if (!html.includes("script.js?v=20260612-ga4-cleanup")) fail(`${page.file} is missing the current analytics script cache key.`);
   if (/noindex/i.test(html)) fail(`${page.file} contains a noindex directive.`);
   if (!html.includes("G-LTL4JXMYP2")) fail(`${page.file} is missing GA4.`);
   if (/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(html)) fail(`${page.file} still loads render-blocking Google Fonts.`);
@@ -185,16 +191,20 @@ for (const eventName of [
   "email_click",
   "calendar_booking_click",
   "quote_cta_click",
-  "chatbot_lead_submitted",
   "generate_lead",
-  "strategy_call_lead_submitted",
 ]) {
   if (!script.includes(eventName)) fail(`script.js is missing required analytics event: ${eventName}`);
+}
+for (const legacyEventName of ["book_appointment_click", "form_submit", "submit_form", "contact_submit", "lead_generated", "chatbot_lead_submitted", "strategy_call_lead_submitted"]) {
+  if (script.includes(`\"${legacyEventName}\"`)) fail(`script.js should not emit legacy analytics event: ${legacyEventName}`);
+}
+for (const parameterName of ["lead_source", "lead_type", "service_interest", "form_name", "location"]) {
+  if (!script.includes(parameterName)) fail(`script.js is missing lead parameter: ${parameterName}`);
 }
 for (const messageKey of ["website", "ads", "automation", "strategy"]) {
   if (!script.includes(`${messageKey}:`)) fail(`script.js is missing WhatsApp message context: ${messageKey}`);
 }
-for (const helper of ["CONTACT_SETTINGS", "getSafeLinkUrl", "trackBookingClick", "trackChatbotLead", "trackGenerateLead"]) {
+for (const helper of ["CONTACT_SETTINGS", "getSafeLinkUrl", "getAnalyticsDefaultParameters", "trackBookingClick", "trackChatbotLead", "trackGenerateLead"]) {
   if (!script.includes(helper)) fail(`script.js is missing analytics helper: ${helper}`);
 }
 

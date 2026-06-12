@@ -78,6 +78,11 @@ function getPageAnalyticsParameters() {
   };
 }
 
+function getAnalyticsDefaultParameters() {
+  if (typeof window === "undefined") return {};
+  return window.aitechAnalyticsParameters || {};
+}
+
 function trackEvent(eventName, parameters = {}) {
   const debugMode = isAnalyticsDebugMode();
 
@@ -87,13 +92,14 @@ function trackEvent(eventName, parameters = {}) {
   }
 
   const eventParameters = {
+    ...getAnalyticsDefaultParameters(),
     ...parameters,
     ...getPageAnalyticsParameters(),
   };
 
   if (debugMode) {
     eventParameters.debug_mode = true;
-    console.debug("[analytics]", eventName, eventParameters);
+    console.debug("[analytics]", eventName, JSON.stringify(eventParameters));
   }
 
   if (typeof window === "undefined" || typeof window.gtag !== "function") {
@@ -141,14 +147,10 @@ function trackWhatsappClick(location, linkUrl, serviceInterest = "general") {
 }
 
 function trackBookingClick(location, linkUrl) {
-  const parameters = {
+  return trackEvent("calendar_booking_click", {
     location,
     link_url: getSafeLinkUrl(linkUrl),
-  };
-
-  return ["book_appointment_click", "calendar_booking_click"]
-    .map((eventName) => trackEvent(eventName, parameters))
-    .some(Boolean);
+  });
 }
 
 function trackPhoneClick(location, phoneTarget) {
@@ -165,16 +167,23 @@ function trackEmailClick(location, emailTarget) {
   });
 }
 
-function trackGenerateLead(formName, leadType = "contact_form") {
-  const leadParameters = {
+function normalizeServiceInterest(value = "") {
+  const normalizedValue = String(value).trim().toLowerCase();
+  if (normalizedValue.includes("website")) return "website_content";
+  if (normalizedValue.includes("ads") || normalizedValue.includes("lead generation")) return "ads_lead_generation";
+  if (normalizedValue.includes("automation") || normalizedValue.includes("chatbot")) return "automation_chatbots";
+  if (normalizedValue.includes("connected")) return "connected_growth_system";
+  return "general";
+}
+
+function trackGenerateLead({ formName, leadType, leadSource, serviceInterest, location }) {
+  return trackEvent("generate_lead", {
     form_name: formName,
     lead_type: leadType,
-  };
-  const leadEvents = ["generate_lead", "form_submit", "submit_form", "contact_submit", "lead_generated"];
-
-  return leadEvents
-    .map((eventName) => trackEvent(eventName, leadParameters))
-    .some(Boolean);
+    lead_source: leadSource,
+    service_interest: normalizeServiceInterest(serviceInterest),
+    location,
+  });
 }
 
 function trackChatbotOpened() {
@@ -182,13 +191,13 @@ function trackChatbotOpened() {
 }
 
 function trackChatbotLead() {
-  const parameters = {
-    lead_type: "chatbot",
-  };
-
-  return ["chatbot_lead", "chatbot_lead_submitted"]
-    .map((eventName) => trackEvent(eventName, parameters))
-    .some(Boolean);
+  return trackGenerateLead({
+    formName: "chatbot_lead_capture",
+    leadType: "strategy_call",
+    leadSource: "chatbot",
+    serviceInterest: "general",
+    location: "chatbot",
+  });
 }
 
 function getAnalyticsLocation(element) {
@@ -696,7 +705,13 @@ quoteForm?.addEventListener("submit", async (event) => {
   const trackLeadOnce = () => {
     if (leadEventTracked) return;
     leadEventTracked = true;
-    trackGenerateLead("quote_form");
+    trackGenerateLead({
+      formName: "quote_form",
+      leadType: "website_enquiry",
+      leadSource: "website_form",
+      serviceInterest: "website_content",
+      location: "quote_form",
+    });
   };
 
   submitButton.disabled = true;
@@ -815,11 +830,12 @@ strategyForm?.addEventListener("submit", async (event) => {
   strategyFormStatus.textContent = "Sending your strategy call request...";
 
   const trackStrategyLead = () => {
-    trackGenerateLead("strategy_call_form", "strategy_call");
-    trackEvent("strategy_call_lead_submitted", {
-      form_name: "strategy_call_form",
-      lead_type: "strategy_call",
-      service_interest: serviceInterest,
+    trackGenerateLead({
+      formName: "strategy_call_form",
+      leadType: "strategy_call",
+      leadSource: "website_form",
+      serviceInterest,
+      location: "strategy_form",
     });
   };
 

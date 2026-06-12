@@ -3,13 +3,12 @@
 ## Today
 
 - Submit `https://www.aitechinnovations.com/sitemap.xml` in the www Google Search Console property.
-- Verify `generate_lead`, `chatbot_lead_submitted`, and `strategy_call_lead_submitted` in GA4 DebugView and mark them as key events.
+- In GA4 Admin, mark only `generate_lead` and `calendar_booking_click` as key events, register the five lead dimensions, and activate the tested internal-traffic filter.
 - Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
 
 ## This Week
 
 - Build the first 100 qualified UK service-business prospect list and begin 10-15 personalised contacts per working day.
-- Configure a GA4 internal-traffic rule for development and team visits.
 - Replace demo work with real portfolio screenshots when client work is available.
 - Add an approved founder photo when available.
 
@@ -22,6 +21,7 @@
 
 ## Done
 
+- Cleaned up and deployed GA4 conversion tracking so successful forms and chatbot captures emit one `generate_lead`, calendar selections emit one `calendar_booking_click`, supporting clicks remain non-conversion events, and marked browsers send `traffic_type=internal`.
 - Removed and deployed the founder-led delivery block from the homepage and cleaned up its unused styles.
 - Redesigned and deployed the sample growth systems cards and restored full-size clinic, solicitor and trade-business preview popouts on desktop and mobile.
 - Deployed the client-acquisition rebuild to Hostinger and verified the single non-www to www redirect, 20 live routes and self-canonicals, discovery files, optimized assets, chatbot response and required analytics event names.
