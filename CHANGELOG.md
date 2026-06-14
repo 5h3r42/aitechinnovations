@@ -1,5 +1,38 @@
 # Changelog
 
+## 2026-06-14 - Implement Resend lead emails
+
+### Files Changed
+
+- Updated `public/script.js`, `scripts/check-static-site.js`, `tsconfig.json`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+- Updated `supabase/functions/send-lead-email/index.ts` and `deno.json`
+- Added `supabase/functions/send-lead-email/email-content.ts` and `email-content.test.ts`
+
+### Summary
+
+- Replaced the failed Deno SMTP dependency with direct Resend API calls from the Supabase Edge Function.
+- Added the required admin notification and customer confirmation email content, HTML escaping, plain-text alternatives, and Google Calendar booking link.
+- Expanded the Supabase insert to store the structured strategy-form fields, source, notes, full message, and a browser-generated UUID without requiring an anonymous select policy.
+- Authenticated Edge Function calls with the Supabase publishable key and reloaded each saved lead through the server-side Supabase client before sending email.
+- Kept Google Sheets and FormSubmit unchanged as secondary delivery paths and made email failures non-destructive to saved leads.
+- Kept the Next.js build static by excluding Deno Edge Function files from the site TypeScript program.
+
+### Validation
+
+- Email-content tests passed for all required fields, customer copy, booking link, signature, and HTML escaping.
+- Deno type checking and lint passed for the Edge Function.
+- `npm run lint`, `npm run build`, `npm run check`, `node --check public/script.js`, and `git diff --check` passed.
+- Static checks confirm the order is validation, Supabase insert, Edge Function email attempt, then Google Sheets backup.
+- The Resend sending domain is verified, `RESEND_API_KEY` is configured in Supabase, and `send-lead-email` is deployed.
+- Live checks confirmed successful CORS preflight and publishable-key authentication; a request without a lead ID returned the expected `400` validation response without sending email.
+- Deployed the refreshed `out/` static export to Hostinger; all 21 live routes returned `200`, the new browser workflow was present, HSTS/CSP remained active, and the PHP chatbot returned a scripted response.
+- Controlled production lead `745afcc6-1178-463d-a91b-375da9e1a3c1` returned `201` from Supabase and `200` from the Edge Function; Resend accepted separate admin and customer emails with distinct IDs.
+- The matching Google Sheets backup returned `200` with `ok: true` and `emailStatus: SENT`.
+
+### Next Task
+
+Submit the updated sitemap in the www Google Search Console property, then continue the paused Google Ads setup.
+
 ## 2026-06-14 - Make Supabase the primary strategy lead database
 
 ### Files Changed

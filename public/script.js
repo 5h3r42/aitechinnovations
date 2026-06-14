@@ -433,7 +433,19 @@ function validateLeadForm(form) {
   return false;
 }
 
-async function insertLeadIntoSupabase({ name, email, phone, message }) {
+async function insertLeadIntoSupabase({
+  name,
+  business,
+  email,
+  phone,
+  service,
+  website,
+  budget,
+  timeline,
+  source,
+  message,
+  notes,
+}) {
   const supabaseUrl = String(SUPABASE_CONFIG.url || "").replace(/\/$/, "");
   const publishableKey = String(SUPABASE_CONFIG.publishableKey || "");
 
@@ -442,6 +454,20 @@ async function insertLeadIntoSupabase({ name, email, phone, message }) {
   }
 
   const leadsEndpoint = supabaseUrl.endsWith("/rest/v1") ? `${supabaseUrl}/leads` : `${supabaseUrl}/rest/v1/leads`;
+  const lead = {
+    id: crypto.randomUUID(),
+    name: String(name),
+    business: String(business),
+    email: String(email),
+    phone: String(phone),
+    service: String(service),
+    website: String(website),
+    budget: String(budget),
+    timeline: String(timeline),
+    source: String(source),
+    message: String(message),
+    notes: String(notes),
+  };
   const response = await fetch(leadsEndpoint, {
     method: "POST",
     headers: {
@@ -450,17 +476,37 @@ async function insertLeadIntoSupabase({ name, email, phone, message }) {
       "Content-Type": "application/json",
       Prefer: "return=minimal",
     },
-    body: JSON.stringify({
-      name,
-      email,
-      phone,
-      message,
-      status: "New",
-    }),
+    body: JSON.stringify({ ...lead, status: "New" }),
   });
 
   if (!response.ok) {
     throw new Error(`Supabase lead insert failed with status ${response.status}`);
+  }
+
+  return lead;
+}
+
+async function invokeLeadEmailFunction(lead) {
+  const supabaseUrl = String(SUPABASE_CONFIG.url || "").replace(/\/$/, "");
+  const publishableKey = String(SUPABASE_CONFIG.publishableKey || "");
+
+  if (!supabaseUrl || !publishableKey) {
+    throw new Error("Supabase browser configuration is missing");
+  }
+
+  const projectUrl = supabaseUrl.endsWith("/rest/v1") ? supabaseUrl.slice(0, -8) : supabaseUrl;
+  const response = await fetch(`${projectUrl}/functions/v1/send-lead-email`, {
+    method: "POST",
+    headers: {
+      apikey: publishableKey,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(lead),
+  });
+
+  if (!response.ok) {
+    const responseBody = await response.text();
+    throw new Error(`Lead email function failed with status ${response.status}: ${responseBody.slice(0, 500)}`);
   }
 }
 
@@ -1038,20 +1084,36 @@ strategyForm?.addEventListener("submit", async (event) => {
     });
   };
 
+  let savedLead;
   try {
-    await insertLeadIntoSupabase({
+    savedLead = await insertLeadIntoSupabase({
       name: data.get("name") || "",
+      business: data.get("business") || "",
       email: data.get("email") || "",
       phone: data.get("phone") || "",
+      service: serviceInterest,
+      website: data.get("website") || "",
+      budget: data.get("budget") || "",
+      timeline: data.get("timeline") || "",
+      source: leadSource,
       message,
+      notes: [`Primary goal: ${data.get("goal") || "-"}`, getCampaignLeadNotes()].filter(Boolean).join("\n"),
     });
-  } catch {
+    trackStrategyLead();
+  } catch (error) {
+    console.error("Supabase lead save failed:", error);
     strategyFormStatus.textContent = "We could not save your request. Please try again. Your form has not been cleared.";
     submitButton.disabled = false;
     return;
   }
 
   strategyFormStatus.textContent = "Sending your strategy call request...";
+
+  try {
+    await invokeLeadEmailFunction(savedLead);
+  } catch (error) {
+    console.error("Lead confirmation email failed:", error);
+  }
 
   try {
     if (!GOOGLE_SHEETS_ENDPOINT) throw new Error("Google Sheets endpoint is not configured");
@@ -1063,7 +1125,6 @@ strategyForm?.addEventListener("submit", async (event) => {
     });
     strategyForm.reset();
     strategyFormStatus.textContent = "Thanks. We will follow up within one business day.";
-    trackStrategyLead();
   } catch {
     try {
       const response = await fetch(FORM_ENDPOINT, {
@@ -1074,15 +1135,16 @@ strategyForm?.addEventListener("submit", async (event) => {
       if (!response.ok) throw new Error("Form service failed");
       strategyForm.reset();
       strategyFormStatus.textContent = "Thanks. We will follow up within one business day.";
-      trackStrategyLead();
     } catch {
       const whatsappUrl = buildWhatsAppUrl(message);
       if (whatsappUrl) {
         window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-        strategyFormStatus.textContent = "Sending was unavailable, so your request opened in WhatsApp.";
+        strategyForm.reset();
+        strategyFormStatus.textContent = "Thanks. Your request was saved. Backup sending was unavailable, so WhatsApp opened as an extra contact option.";
       } else {
         window.location.href = buildEmailUrl(subject, message);
-        strategyFormStatus.textContent = "Sending was unavailable, so your request opened in your email app.";
+        strategyForm.reset();
+        strategyFormStatus.textContent = "Thanks. Your request was saved. Backup sending was unavailable, so your email app opened as an extra contact option.";
       }
     }
   } finally {

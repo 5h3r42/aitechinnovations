@@ -149,8 +149,11 @@ for (const feature of [
   "window.aitechSupabaseConfig",
   "validateLeadForm",
   "insertLeadIntoSupabase",
+  "invokeLeadEmailFunction",
   "/rest/v1/leads",
+  "/functions/v1/send-lead-email",
   'endsWith("/rest/v1")',
+  "crypto.randomUUID()",
   'status: "New"',
   "We could not save your request",
 ]) {
@@ -160,9 +163,16 @@ for (const feature of [
 const strategyHandler = script.slice(script.indexOf('strategyForm?.addEventListener("submit"'));
 const validationIndex = strategyHandler.indexOf("validateLeadForm");
 const supabaseIndex = strategyHandler.indexOf("await insertLeadIntoSupabase");
+const emailIndex = strategyHandler.indexOf("await invokeLeadEmailFunction");
 const sheetsIndex = strategyHandler.indexOf("await fetch(GOOGLE_SHEETS_ENDPOINT");
-if (validationIndex < 0 || supabaseIndex < 0 || sheetsIndex < 0 || !(validationIndex < supabaseIndex && supabaseIndex < sheetsIndex)) {
-  fail("Strategy form must validate, insert into Supabase, then continue to Google Sheets in that order.");
+if (
+  validationIndex < 0 ||
+  supabaseIndex < 0 ||
+  emailIndex < 0 ||
+  sheetsIndex < 0 ||
+  !(validationIndex < supabaseIndex && supabaseIndex < emailIndex && emailIndex < sheetsIndex)
+) {
+  fail("Strategy form must validate, insert into Supabase, invoke lead email, then continue to Google Sheets in that order.");
 }
 
 const landing = readOutput("website-design-for-service-businesses/index.html");

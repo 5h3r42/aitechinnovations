@@ -21,6 +21,9 @@
 
 ## Done
 
+- Deployed the refreshed 21-route static export to Hostinger and completed a controlled production lead test: Supabase saved the lead, the Edge Function returned success, Resend accepted the admin and customer emails, and Google Sheets accepted the backup payload.
+- Verified the AITech Innovations sending domain in Resend, added `RESEND_API_KEY` to Supabase, deployed `send-lead-email`, and confirmed its live CORS and publishable-key request handling.
+- Implemented Resend delivery for saved strategy-call leads through a Supabase Edge Function, including admin and customer emails, server-side lead lookup, non-blocking email failure handling, and retention of Google Sheets and FormSubmit backups.
 - Made Supabase `public.leads` the primary database for strategy-call forms, with native validation, required lead fields, a clear non-destructive failure state, and the existing Google Sheets, FormSubmit, WhatsApp, and email workflow retained after a successful insert.
 - Configured GA4 property `540147140`: retained `generate_lead` and `calendar_booking_click` as the business key events, removed key-event status from supporting and legacy events, registered all five lead dimensions, and activated the verified internal-traffic exclusion filter.
 - Added the full strategy-call enquiry form to the homepage with homepage-specific lead attribution, and moved the Ask us launcher to the right edge on desktop and mobile.
