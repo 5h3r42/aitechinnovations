@@ -3,7 +3,6 @@
 ## Today
 
 - Submit `https://www.aitechinnovations.com/sitemap.xml` in the www Google Search Console property.
-- In GA4 Admin, mark only `generate_lead` and `calendar_booking_click` as key events, register the five lead dimensions, and activate the tested internal-traffic filter.
 - Sign in to Google Ads, import `generate_lead` as the primary conversion, enable auto-tagging, and build the paused Kent Search campaign from `ADS_LAUNCH_PLAN.md`.
 - Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
 
@@ -22,6 +21,7 @@
 
 ## Done
 
+- Configured GA4 property `540147140`: retained `generate_lead` and `calendar_booking_click` as the business key events, removed key-event status from supporting and legacy events, registered all five lead dimensions, and activated the verified internal-traffic exclusion filter.
 - Added the full strategy-call enquiry form to the homepage with homepage-specific lead attribution, and moved the Ask us launcher to the right edge on desktop and mobile.
 - Migrated the full 21-route website to Next.js 16 App Router with React 19 and TypeScript, retained static Hostinger hosting and the PHP chatbot, and deployed the generated `out/` site.
 - Verified the Next.js migration with a production build, TypeScript, ESLint, dependency audit, PHP syntax, static SEO checks, desktop/mobile browser testing, all 21 local and live routes, legacy redirects, security headers and chatbot behavior.

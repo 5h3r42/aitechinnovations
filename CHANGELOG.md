@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-06-14 - Complete GA4 Admin configuration
+
+### Files Changed
+
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+- Updated GA4 property `540147140` directly in Google Analytics Admin
+
+### Summary
+
+- Marked `generate_lead` and `calendar_booking_click` as the business key events.
+- Removed key-event status from `quote_cta_click`, `whatsapp_click`, `email_click`, `chatbot_lead_submitted`, `close_convert_lead`, and `qualify_lead`.
+- Registered event-scoped custom dimensions for `lead_source`, `lead_type`, `service_interest`, `form_name`, and `location`.
+- Activated the `Internal Traffic` exclusion filter for `traffic_type=internal` after validating it in Testing mode.
+
+### Validation
+
+- The GA4 key-events table shows `generate_lead` and `calendar_booking_click`; the remaining `purchase` row is Google's disabled system default with no stream data.
+- The custom-definitions table shows all five lead dimensions with the correct event parameters.
+- The Data API showed the testing filter matched 49 events from 2 internal users before activation.
+- The data-filter table shows `Internal Traffic`, operation `Exclude`, state `Active`.
+
+### Next Task
+
+Import the GA4 conversions into Google Ads and create the documented Kent Search campaign in paused state.
+
 ## 2026-06-14 - Add homepage strategy form and align chatbot launcher
 
 ### Files Changed

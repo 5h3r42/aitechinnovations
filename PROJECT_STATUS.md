@@ -8,6 +8,7 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## Completed Work
 
+- Completed the GA4 Admin configuration for property `540147140` on 2026-06-14: enabled `generate_lead` and `calendar_booking_click` as business key events, removed supporting/legacy key-event statuses, registered five event-scoped lead dimensions, and activated the tested internal-traffic exclusion filter after confirming 49 matched events from 2 internal users.
 - Added and deployed the strategy-call lead form on the homepage on 2026-06-14, with homepage-specific GA4/lead-delivery context, calendar and WhatsApp alternatives, and right-aligned Ask us positioning across desktop and mobile.
 - Migrated the production site to Next.js 16 App Router with React 19 and TypeScript on 2026-06-14 while preserving the existing design, content, PHP chatbot, consent controls, campaign attribution, forms and GA4 events.
 - Added a Hostinger-compatible static export workflow: all 21 routes are prerendered as trailing-slash directories, former `.html` canonicals redirect permanently, and `out/` contains the complete deployment including PHP and security rules.
@@ -97,7 +98,6 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 ## In Progress
 
 - The www Search Console property and updated 21-URL sitemap still need to be submitted.
-- GA4 Admin still needs the one-time key-event, custom-dimension and internal-traffic-filter configuration documented in `README.md`; the reporting connection is read-only and cannot change Admin settings.
 - Google Ads still needs account sign-in, conversion import, billing review and creation of the paused campaign documented in `ADS_LAUNCH_PLAN.md`; no advertising spend has been activated.
 - Chatbot deployment can work without `OPENAI_API_KEY` for scripted answers; configuring the key is optional for unmatched AI-generated responses.
 - FormSubmit fallback needs email activation before it can be relied on.
@@ -110,7 +110,7 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 ## Next 5 Logical Tasks
 
 1. Submit the updated 21-URL `https://www.aitechinnovations.com/sitemap.xml` in the www Search Console property.
-2. In GA4 Admin, mark `generate_lead` and `calendar_booking_click` as key events, register the lead dimensions, test the internal-traffic filter, and then activate it.
-3. Sign in to Google Ads, import the primary conversion, create the paused Kent Search campaign from `ADS_LAUNCH_PLAN.md`, and review it before enabling spend.
-4. Build the first 100-account prospect list and begin the 30-day outreach campaign.
-5. Activate and retest the FormSubmit fallback.
+2. Sign in to Google Ads, import `generate_lead` as the primary conversion and `calendar_booking_click` as secondary, then create the paused Kent Search campaign from `ADS_LAUNCH_PLAN.md`.
+3. Build the first 100-account prospect list and begin the 30-day outreach campaign.
+4. Activate and retest the FormSubmit fallback.
+5. Replace sample work with approved client case studies as pilot projects complete.
