@@ -149,5 +149,16 @@ for (const text of ["Turn more website visitors into useful enquiries", "From £
   if (!landing.includes(text)) fail(`Paid landing page is missing: ${text}`);
 }
 
+const homepage = readOutput("index.html");
+for (const marker of [
+  'id="homepage-strategy-form"',
+  'data-form-name="homepage_strategy_form"',
+  'data-lead-source="homepage_form"',
+  'data-analytics-location="homepage_form"',
+  "Request your free strategy call.",
+]) {
+  if (!homepage.includes(marker)) fail(`Homepage strategy form is missing: ${marker}`);
+}
+
 if (failed) process.exit(1);
 console.log(`Next.js static export check passed for ${pages.length} public routes.`);

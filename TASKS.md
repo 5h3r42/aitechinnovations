@@ -22,6 +22,7 @@
 
 ## Done
 
+- Added the full strategy-call enquiry form to the homepage with homepage-specific lead attribution, and moved the Ask us launcher to the right edge on desktop and mobile.
 - Migrated the full 21-route website to Next.js 16 App Router with React 19 and TypeScript, retained static Hostinger hosting and the PHP chatbot, and deployed the generated `out/` site.
 - Verified the Next.js migration with a production build, TypeScript, ESLint, dependency audit, PHP syntax, static SEO checks, desktop/mobile browser testing, all 21 local and live routes, legacy redirects, security headers and chatbot behavior.
 - Built and deployed the paid-ads acquisition foundation: Consent Mode v2 and reversible cookie choices, campaign attribution through lead delivery, a focused website-design landing page, a complete Kent Search campaign plan, stronger security headers, protected chatbot knowledge, and chatbot abuse controls.

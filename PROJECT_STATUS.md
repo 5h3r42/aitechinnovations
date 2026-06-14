@@ -8,6 +8,7 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## Completed Work
 
+- Added and deployed the strategy-call lead form on the homepage on 2026-06-14, with homepage-specific GA4/lead-delivery context, calendar and WhatsApp alternatives, and right-aligned Ask us positioning across desktop and mobile.
 - Migrated the production site to Next.js 16 App Router with React 19 and TypeScript on 2026-06-14 while preserving the existing design, content, PHP chatbot, consent controls, campaign attribution, forms and GA4 events.
 - Added a Hostinger-compatible static export workflow: all 21 routes are prerendered as trailing-slash directories, former `.html` canonicals redirect permanently, and `out/` contains the complete deployment including PHP and security rules.
 - Deployed the Next.js static export to Hostinger and verified the live Next assets, 21 routes, canonicals, sitemap, www redirect, legacy redirects, security headers, protected chatbot knowledge and successful chatbot response.

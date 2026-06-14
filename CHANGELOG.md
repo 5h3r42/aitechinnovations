@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-06-14 - Add homepage strategy form and align chatbot launcher
+
+### Files Changed
+
+- Updated the homepage content, shared styles, static validation and project tracking files
+
+### Summary
+
+- Added the full strategy-call enquiry form to the homepage before the final CTA.
+- Reused the existing Google Sheets, FormSubmit, WhatsApp and email fallback workflow.
+- Added homepage-specific `form_name`, `lead_source` and analytics location values without introducing duplicate lead events.
+- Moved the Ask us launcher closer to the right edge and corrected its internal alignment on desktop and mobile.
+
+### Validation
+
+- Production build, static SEO checks, ESLint and `git diff --check` passed
+- Browser checks confirmed all ten form controls, live status region and homepage tracking attributes
+- Desktop and 375px mobile checks passed without horizontal overflow
+- Ask us launcher alignment was verified at the right edge on desktop and mobile
+
+### Next Task
+
+Complete the GA4 Admin and Google Ads account setup before activating advertising spend.
+
 ## 2026-06-14 - Migrate production website to Next.js
 
 ### Files Changed
