@@ -1,104 +1,64 @@
 # AITech Innovations
 
-Static website for a founder-led digital growth systems agency serving UK service businesses.
-
-## Offer
-
-- Website & Content from £499
-- Google or Meta Ads Setup from £399 plus ad spend
-- Automation & Chatbots from £499
-- Combined systems quoted after a free strategy call
+Next.js website for a digital growth systems agency serving UK service businesses.
 
 ## Stack
 
-- HTML
-- CSS
-- Vanilla JavaScript
+- Next.js 16 App Router
+- React 19 and TypeScript
+- Static export for Hostinger shared hosting
+- Existing vanilla JavaScript conversion and lead workflows
 - PHP chatbot endpoint
-- Hostinger static hosting
 
-## Local Validation
+The project uses Next.js for routing, metadata and static generation. `content/pages/` contains the proven acquisition copy and page markup used by the build-time renderer, while shared styles remain in `styles.css` and browser behavior is centralized in `public/script.js`.
+
+## Development
+
+Requires Node.js 20.9 or newer.
 
 ```sh
-npm run generate:seo
-npm run check
+npm install
 npm run dev
 ```
 
-Local preview: `http://127.0.0.1:4173`.
+Open `http://localhost:3000`.
+
+## Validation
+
+```sh
+npm run build
+npm run check
+npm run lint
+npm audit --omit=dev
+```
+
+`npm run build` creates the complete Hostinger deployment in `out/`. The build contains 21 prerendered public routes, Next.js assets, sitemap, robots file, security rules, images, the shared browser script and the PHP chatbot API.
 
 ## Hostinger Deployment
 
-Upload the production files to `public_html`:
+Deploy the contents of `out/` directly into Hostinger `public_html`. Do not upload `node_modules`, `.next`, the source repository or `package.json` to `public_html`.
 
-```text
-.htaccess
-index.html
-website-content-services.html
-ads-setup-services.html
-ai-automation-services.html
-ai-chatbot-development.html
-ai-lead-generation-automation.html
-crm-automation-services.html
-appointment-booking-automation.html
-free-strategy-call.html
-website-design-for-service-businesses.html
-free-ai-audit.html
-blog.html
-blog-how-small-businesses-use-ai.html
-blog-what-is-ai-workflow-automation.html
-blog-ai-chatbots-for-customer-service.html
-about.html
-website-design-maidstone.html
-website-design-kent.html
-website-design-london.html
-privacy.html
-terms.html
-styles.css
-script.js
-sitemap.xml
-robots.txt
-api/
-assets/
-```
-
-Do not upload the `public/` source mirrors. Upload the root `sitemap.xml` and `robots.txt` so they resolve at the domain root.
+The site remains a static Hostinger deployment. Next.js and React run at build time and in the browser; no Node.js production server is required. Hostinger continues to execute `out/api/chatbot.php` as PHP.
 
 After deployment verify:
 
-1. `https://aitechinnovations.com/` redirects once to `https://www.aitechinnovations.com/`.
+1. Non-www redirects once to `https://www.aitechinnovations.com`.
 2. All 21 sitemap URLs return `200`.
-3. Canonicals, schema, sitemap and robots use `www.aitechinnovations.com`.
-4. Website, ads, automation and strategy WhatsApp links open different contextual messages.
-5. The calendar link, fallback form, chatbot and GA4 events still work.
+3. Canonicals, schema, sitemap and robots use the www hostname and clean routes.
+4. Cookie consent, contextual WhatsApp, email, calendar and lead forms still work.
+5. The chatbot endpoint responds and `/api/knowledge/` remains blocked.
+6. GA4 records only the documented lead and supporting events.
 
-## Contact and Lead Settings
+## Contact And Analytics
 
-Contact, WhatsApp and calendar settings are centralized near the top of `script.js`. The strategy-call form sends to the existing Google Sheets endpoint, then FormSubmit, then WhatsApp or email fallback.
+Contact, WhatsApp, calendar, lead delivery, campaign attribution and analytics event settings are centralized near the top of `public/script.js`.
 
-The chatbot frontend calls `api/chatbot.php`. It supports scripted replies without an API key. Set `OPENAI_API_KEY` in Hostinger only if unmatched questions should use the optional AI fallback; never place the key in client-side files.
+GA4 property: `540147140`
 
-## Paid Ads Readiness
+Measurement ID: `G-LTL4JXMYP2`
 
-- Use `/website-design-for-service-businesses` as the initial Google Search Ads landing page.
-- The site stores UTM parameters and `gclid` for the browser session and attaches them to successful lead delivery.
-- Consent Mode v2 defaults analytics and advertising storage to denied. Google Analytics and Microsoft Clarity receive optional-cookie permission only after acceptance.
-- The complete first-campaign structure, keywords, negatives, advert copy, budget and launch gates are documented in `ADS_LAUNCH_PLAN.md`.
+Mark only `generate_lead` and `calendar_booking_click` as GA4 key events. Use `?internal=1` to persist the internal traffic marker in a browser and `?internal=0` to clear it.
 
-## Search Console and GA4
+## Paid Ads
 
-Add or verify the `https://www.aitechinnovations.com/` URL-prefix property in Google Search Console, submit `https://www.aitechinnovations.com/sitemap.xml`, and request indexing for the homepage, one service page and one article.
-
-In GA4, mark only `generate_lead` and `calendar_booking_click` as key events. Keep WhatsApp, email, CTA, chatbot-open and portfolio-preview events as supporting engagement signals.
-
-To mark a browser as internal traffic, visit any page once with `?internal=1`. The setting persists in that browser and adds `traffic_type=internal` to GA4 page views and events. Use `?internal=0` to clear it. Configure the matching GA4 internal-traffic data filter in testing mode before activating it.
-
-One-time GA4 Admin setup for property `540147140`:
-
-1. Mark `generate_lead` and `calendar_booking_click` as key events.
-2. Remove key-event status from `quote_cta_click`, `whatsapp_click`, `email_click`, `chatbot_lead_submitted`, `strategy_call_lead_submitted`, and old form aliases.
-3. Register `lead_source`, `lead_type`, `service_interest`, `form_name`, and `location` as event-scoped custom dimensions.
-4. Create an internal-traffic data filter for `traffic_type=internal`, verify it in testing mode, and then activate it.
-5. If Google Ads is linked, import only `generate_lead` and `calendar_booking_click` as conversion actions.
-
-`calendar_booking_click` measures booking intent because Google Calendar does not send a confirmed appointment event back to this static site.
+Use `/website-design-for-service-businesses/` for the first Google Search campaign. Campaign structure, budget, keywords, negative keywords, advert copy and stop rules are documented in `ADS_LAUNCH_PLAN.md`.

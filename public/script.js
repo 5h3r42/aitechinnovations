@@ -10,7 +10,7 @@ const WHATSAPP_MESSAGES = {
   automation: "Hi AITech Innovations, I'd like to discuss automation or a chatbot.",
   strategy: "Hi AITech Innovations, I'd like to book a free strategy call.",
 };
-const CHATBOT_API_ENDPOINT = "api/chatbot.php";
+const CHATBOT_API_ENDPOINT = "/api/chatbot.php";
 const COOKIE_CONSENT_KEY = "aitech_cookie_consent";
 const CAMPAIGN_STORAGE_KEY = "aitech_campaign_attribution";
 const CLARITY_PROJECT_ID = "x1bt97hjsh";

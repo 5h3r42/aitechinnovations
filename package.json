@@ -2,11 +2,31 @@
   "name": "aitechinnovations",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
-    "dev": "node scripts/dev-server.js",
-    "generate:seo": "node scripts/generate-seo-pages.js",
+    "dev": "next dev",
+    "build": "next build && node scripts/prepare-hostinger-output.mjs",
+    "start": "next start",
+    "lint": "eslint .",
     "check": "node scripts/check-static-site.js"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "next": "16.2.9",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "server-only": "0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "16.2.9",
+    "typescript": "^5.8.0"
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
+  }
 }

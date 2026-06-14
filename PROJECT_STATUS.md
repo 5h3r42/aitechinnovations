@@ -1,6 +1,6 @@
 # Project Status
 
-Date: 2026-06-12
+Date: 2026-06-14
 
 ## Current Phase
 
@@ -8,11 +8,14 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## Completed Work
 
+- Migrated the production site to Next.js 16 App Router with React 19 and TypeScript on 2026-06-14 while preserving the existing design, content, PHP chatbot, consent controls, campaign attribution, forms and GA4 events.
+- Added a Hostinger-compatible static export workflow: all 21 routes are prerendered as trailing-slash directories, former `.html` canonicals redirect permanently, and `out/` contains the complete deployment including PHP and security rules.
+- Deployed the Next.js static export to Hostinger and verified the live Next assets, 21 routes, canonicals, sitemap, www redirect, legacy redirects, security headers, protected chatbot knowledge and successful chatbot response.
 - Completed and deployed the website-side paid-ads readiness work on 2026-06-12: added a focused `/website-design-for-service-businesses` landing page, Consent Mode v2 with reversible cookie controls, UTM/GCLID session attribution, campaign context in lead delivery, honest pilot positioning, and a decision-complete Kent Google Search campaign plan.
 - Added and verified HSTS, CSP, clickjacking, MIME-sniffing, referrer and permissions headers; blocked direct access to chatbot knowledge JSON; and added same-origin enforcement, request-size limits, no-store responses and IP-based rate limiting to the chatbot endpoint.
 - Live validation confirmed 21 routes in the sitemap, the paid landing page at `200`, mobile width without overflow, current CSS/JS cache keys, successful synthetic lead delivery, and one `generate_lead` in GA4 Realtime.
 - Cleaned up and deployed GA4 conversion tracking on 2026-06-12: successful strategy, quote, and chatbot leads now emit one canonical `generate_lead`; calendar selections emit one `calendar_booking_click`; duplicate legacy aliases were removed; and `?internal=1` / `?internal=0` manage a persistent `traffic_type=internal` browser marker.
-- Strengthened static analytics validation across all 20 pages and verified the strategy form, chatbot lead path, calendar click, parameter values, PII-safe payload, Hostinger deployment, canonical redirect, and live internal-event output.
+- Strengthened static analytics validation across all 21 pages and verified the strategy form, chatbot lead path, calendar click, parameter values, PII-safe payload, Hostinger deployment, canonical redirect, and live internal-event output.
 - Removed and deployed the homepage founder-led delivery section on 2026-06-12, then cleaned up its unused responsive CSS.
 - Redesigned and deployed the homepage sample growth systems section on 2026-06-12 with compact 16:9 cards, corrected image dimensions, clear preview actions, and accessible full-size popouts for all three demonstration concepts.
 - Completed the client-acquisition rebuild on 2026-06-12: repositioned the agency around Website & Content, Ads & Lead Generation, and Automation & Chatbots, with one primary Free Strategy Call CTA.
@@ -80,7 +83,7 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 - A temporary generic Hostinger Node deployment was used to serve the static files without bringing Next.js back into the repository.
 - HTML caching headers were added to reduce the risk of stale homepage HTML after future deployments.
 - Static migration from the previous Next.js structure has been committed into the project state.
-- Static HTML/CSS/JavaScript site structure is in place.
+- Next.js App Router and static-export structure are in place, with the existing HTML content, CSS and browser workflows preserved during migration.
 - Homepage includes hero, services, pricing, demo work, process, proof, quote form, FAQ, and footer sections.
 - Privacy and terms pages are present.
 - Contact settings are centralized in `script.js`.
@@ -102,7 +105,6 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 ## Known Issues
 
 - FormSubmit returned an activation-required response on 2026-05-01 and sent an activation email to `support@aitechinnovations.com`.
-- Hostinger still has historical Next.js deployments listed for the domain, but the live root URL now serves the static site.
 
 ## Next 5 Logical Tasks
 

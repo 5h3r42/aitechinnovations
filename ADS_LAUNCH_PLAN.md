@@ -7,7 +7,7 @@ Generate qualified website consultation enquiries from UK service businesses wit
 ## First Campaign
 
 - Campaign: `Website Design - Kent - Search`
-- Landing page: `https://www.aitechinnovations.com/website-design-for-service-businesses`
+- Landing page: `https://www.aitechinnovations.com/website-design-for-service-businesses/`
 - Offer: Conversion-focused service-business websites from £499
 - Location: Kent, with presence targeting set to people in or regularly in the selected locations
 - Schedule: Monday-Friday, 08:00-19:00 UK time
@@ -135,4 +135,3 @@ Do not enable spend until all are true:
 - After the first 100 clicks or £250 spend, review landing-page conversion rate and lead quality.
 - Pause and revise if spend reaches £300 without a qualified enquiry.
 - Expand geography or services only after the first campaign creates at least one qualified opportunity.
-

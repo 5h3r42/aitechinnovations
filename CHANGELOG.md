@@ -1,5 +1,37 @@
 # Changelog
 
+## 2026-06-14 - Migrate production website to Next.js
+
+### Files Changed
+
+- Added the Next.js App Router, shared page renderer, route data, TypeScript configuration, ESLint configuration and Hostinger output preparation script
+- Moved browser assets, analytics behavior and the PHP chatbot under `public/`
+- Moved the existing production page markup under `content/pages/` for build-time rendering
+- Updated package dependencies, static validation, sitemap, Hostinger rewrites, README, project instructions and tracking files
+
+### Summary
+
+- Migrated all 21 public routes to Next.js 16, React 19 and TypeScript without redesigning or reducing the existing acquisition content.
+- Added per-route Next metadata, Hostinger-native trailing-slash canonicals, static generation and JSON-LD preservation.
+- Kept Hostinger shared hosting through `output: "export"`; the generated `out/` directory includes the PHP chatbot endpoint and all public assets.
+- Preserved Consent Mode v2, GA4 events, UTM/GCLID attribution, forms, contextual WhatsApp messages, cookie controls and portfolio popouts.
+- Standardized the former About and location `.html` URLs on clean routes with permanent redirects.
+- Deployed the generated static export to Hostinger.
+
+### Validation
+
+- `npm run build`, `npm run check` and `npm run lint` passed
+- `npm audit --omit=dev` reported zero vulnerabilities
+- PHP syntax and `git diff --check` passed
+- All 21 routes returned `200` locally and live with Next.js assets and matching canonicals
+- Desktop and 375px mobile browser checks passed without horizontal overflow or console warnings
+- Cookie controls, mobile navigation, sample preview popout, strategy form structure and chatbot endpoint were verified
+- Live non-www and former `.html` redirects, sitemap, security headers and protected knowledge files were verified
+
+### Next Task
+
+Complete the GA4 Admin and Google Ads account configuration, then launch the documented Kent Search campaign only after reviewing billing and budget.
+
 ## 2026-06-12 - Prepare website for paid customer acquisition
 
 ### Files Changed
