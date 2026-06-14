@@ -38,6 +38,11 @@ gtag('js', new Date());
 gtag('config', 'G-LTL4JXMYP2', window.aitechAnalyticsParameters);
 `;
 
+const supabaseBrowserConfig = `window.aitechSupabaseConfig = ${JSON.stringify({
+  url: process.env.NEXT_PUBLIC_SUPABASE_URL || "",
+  publishableKey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "",
+}).replaceAll("<", "\\u003c")};`;
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.aitechinnovations.com"),
   icons: { icon: "/assets/logo.webp" },
@@ -50,6 +55,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Script id="aitech-consent-bootstrap" strategy="beforeInteractive">
           {consentBootstrap}
         </Script>
+        <script id="aitech-supabase-config" dangerouslySetInnerHTML={{ __html: supabaseBrowserConfig }} />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"
           strategy="afterInteractive"

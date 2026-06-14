@@ -130,6 +130,7 @@ for (const marker of [
   "RewriteRule ^about\\.html$ /about/",
   "Strict-Transport-Security",
   "Content-Security-Policy",
+  "https://*.supabase.co",
   "api/knowledge",
 ]) {
   if (!htaccess.includes(marker)) fail(`.htaccess is missing: ${marker}`);
@@ -144,12 +145,36 @@ for (const feature of ["/api/chatbot.php", "aitech_cookie_consent", "aitech_camp
   if (!script.includes(feature)) fail(`script.js is missing required feature: ${feature}`);
 }
 
+for (const feature of [
+  "window.aitechSupabaseConfig",
+  "validateLeadForm",
+  "insertLeadIntoSupabase",
+  "/rest/v1/leads",
+  'endsWith("/rest/v1")',
+  'status: "New"',
+  "We could not save your request",
+]) {
+  if (!script.includes(feature)) fail(`script.js is missing Supabase lead feature: ${feature}`);
+}
+
+const strategyHandler = script.slice(script.indexOf('strategyForm?.addEventListener("submit"'));
+const validationIndex = strategyHandler.indexOf("validateLeadForm");
+const supabaseIndex = strategyHandler.indexOf("await insertLeadIntoSupabase");
+const sheetsIndex = strategyHandler.indexOf("await fetch(GOOGLE_SHEETS_ENDPOINT");
+if (validationIndex < 0 || supabaseIndex < 0 || sheetsIndex < 0 || !(validationIndex < supabaseIndex && supabaseIndex < sheetsIndex)) {
+  fail("Strategy form must validate, insert into Supabase, then continue to Google Sheets in that order.");
+}
+
 const landing = readOutput("website-design-for-service-businesses/index.html");
 for (const text of ["Turn more website visitors into useful enquiries", "From £499", "data-strategy-form", "paid_landing_page"]) {
   if (!landing.includes(text)) fail(`Paid landing page is missing: ${text}`);
 }
 
 const homepage = readOutput("index.html");
+if (!homepage.includes("window.aitechSupabaseConfig")) {
+  fail("Homepage is missing the static Supabase browser configuration.");
+}
+if (/service_role/i.test(homepage)) fail("Homepage must not expose a Supabase service-role key.");
 for (const marker of [
   'id="homepage-strategy-form"',
   'data-form-name="homepage_strategy_form"',

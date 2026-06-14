@@ -18,6 +18,7 @@ const CLARITY_PROJECT_ID = "x1bt97hjsh";
 const GOOGLE_SHEETS_ENDPOINT =
   "https://script.google.com/macros/s/AKfycbwsi2ZxS5UzS-Cioi5Ll-1IHSiU3LJGoc6HdVK_J2h3_YhWMDhKP0wUdcyCXtj5qYn0/exec";
 const FORM_ENDPOINT = `https://formsubmit.co/ajax/${CONTACT_SETTINGS.email}`;
+const SUPABASE_CONFIG = window.aitechSupabaseConfig || {};
 
 const navToggle = document.querySelector("[data-nav-toggle]");
 const nav = document.querySelector("[data-nav]");
@@ -423,6 +424,44 @@ function buildEmailUrl(subject, message = "") {
   const query = [`subject=${encodeURIComponent(subject)}`];
   if (message) query.push(`body=${encodeURIComponent(message)}`);
   return `mailto:${CONTACT_SETTINGS.email}?${query.join("&")}`;
+}
+
+function validateLeadForm(form) {
+  if (!(form instanceof HTMLFormElement)) return false;
+  if (form.checkValidity()) return true;
+  form.reportValidity();
+  return false;
+}
+
+async function insertLeadIntoSupabase({ name, email, phone, message }) {
+  const supabaseUrl = String(SUPABASE_CONFIG.url || "").replace(/\/$/, "");
+  const publishableKey = String(SUPABASE_CONFIG.publishableKey || "");
+
+  if (!supabaseUrl || !publishableKey) {
+    throw new Error("Supabase browser configuration is missing");
+  }
+
+  const leadsEndpoint = supabaseUrl.endsWith("/rest/v1") ? `${supabaseUrl}/leads` : `${supabaseUrl}/rest/v1/leads`;
+  const response = await fetch(leadsEndpoint, {
+    method: "POST",
+    headers: {
+      apikey: publishableKey,
+      Authorization: `Bearer ${publishableKey}`,
+      "Content-Type": "application/json",
+      Prefer: "return=minimal",
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      phone,
+      message,
+      status: "New",
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Supabase lead insert failed with status ${response.status}`);
+  }
 }
 
 function setChatbotActions() {
@@ -927,6 +966,8 @@ quoteForm?.addEventListener("submit", async (event) => {
 
 strategyForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
+  if (!validateLeadForm(strategyForm)) return;
+
   const data = new FormData(strategyForm);
 
   if (String(data.get("_honey") || "").trim()) {
@@ -985,7 +1026,7 @@ strategyForm?.addEventListener("submit", async (event) => {
 
   const submitButton = strategyForm.querySelector("button[type='submit']");
   submitButton.disabled = true;
-  strategyFormStatus.textContent = "Sending your strategy call request...";
+  strategyFormStatus.textContent = "Saving your strategy call request...";
 
   const trackStrategyLead = () => {
     trackGenerateLead({
@@ -996,6 +1037,21 @@ strategyForm?.addEventListener("submit", async (event) => {
       location: analyticsLocation,
     });
   };
+
+  try {
+    await insertLeadIntoSupabase({
+      name: data.get("name") || "",
+      email: data.get("email") || "",
+      phone: data.get("phone") || "",
+      message,
+    });
+  } catch {
+    strategyFormStatus.textContent = "We could not save your request. Please try again. Your form has not been cleared.";
+    submitButton.disabled = false;
+    return;
+  }
+
+  strategyFormStatus.textContent = "Sending your strategy call request...";
 
   try {
     if (!GOOGLE_SHEETS_ENDPOINT) throw new Error("Google Sheets endpoint is not configured");

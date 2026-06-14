@@ -8,6 +8,7 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## Completed Work
 
+- Made Supabase `public.leads` the primary database for valid strategy-call submissions on 2026-06-14, storing `name`, `email`, `phone`, the full strategy-call message, and `status = New` before the existing secondary delivery workflow runs; deployed the change to Hostinger with the required Supabase CSP allowance.
 - Completed the GA4 Admin configuration for property `540147140` on 2026-06-14: enabled `generate_lead` and `calendar_booking_click` as business key events, removed supporting/legacy key-event statuses, registered five event-scoped lead dimensions, and activated the tested internal-traffic exclusion filter after confirming 49 matched events from 2 internal users.
 - Added and deployed the strategy-call lead form on the homepage on 2026-06-14, with homepage-specific GA4/lead-delivery context, calendar and WhatsApp alternatives, and right-aligned Ask us positioning across desktop and mobile.
 - Migrated the production site to Next.js 16 App Router with React 19 and TypeScript on 2026-06-14 while preserving the existing design, content, PHP chatbot, consent controls, campaign attribution, forms and GA4 events.

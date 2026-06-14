@@ -1,5 +1,33 @@
 # Changelog
 
+## 2026-06-14 - Make Supabase the primary strategy lead database
+
+### Files Changed
+
+- Updated `app/layout.tsx`, `public/script.js`, `scripts/check-static-site.js`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Added static-exported Supabase browser configuration using the public URL and publishable key.
+- Normalized both project-root and existing `/rest/v1/` Supabase URL formats before building the leads endpoint.
+- Allowed HTTPS connections to Supabase in the deployed Content Security Policy.
+- Added native form validation and a required `public.leads` insert before any secondary delivery step.
+- Stored `name`, `email`, `phone`, the full strategy-call message, and `status = New`.
+- Retained the Google Sheets, FormSubmit, WhatsApp, and email fallback workflow after a successful Supabase insert.
+- Kept form values intact and displayed a clear retry message when Supabase fails.
+- Deployed the generated static export to Hostinger after correcting and verifying the Supabase CSP allowance.
+
+### Validation
+
+- `npm run build`, `npm run check`, `npm run lint`, and `git diff --check` passed.
+- Static checks confirm validation, Supabase, and Google Sheets run in the required order and no service-role key is exported.
+- Live Hostinger checks confirmed the Supabase CSP allowance, all 21 sitemap routes at `200`, the canonical redirect, chatbot response, and protected knowledge files.
+- Interactive browser validation was unavailable because the in-app browser was not available in this session.
+
+### Next Task
+
+Verify the `public.leads` insert-only RLS policy and submit one controlled live strategy-call test lead after deployment.
+
 ## 2026-06-14 - Complete GA4 Admin configuration
 
 ### Files Changed

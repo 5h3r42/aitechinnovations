@@ -21,6 +21,7 @@
 
 ## Done
 
+- Made Supabase `public.leads` the primary database for strategy-call forms, with native validation, required lead fields, a clear non-destructive failure state, and the existing Google Sheets, FormSubmit, WhatsApp, and email workflow retained after a successful insert.
 - Configured GA4 property `540147140`: retained `generate_lead` and `calendar_booking_click` as the business key events, removed key-event status from supporting and legacy events, registered all five lead dimensions, and activated the verified internal-traffic exclusion filter.
 - Added the full strategy-call enquiry form to the homepage with homepage-specific lead attribution, and moved the Ask us launcher to the right edge on desktop and mobile.
 - Migrated the full 21-route website to Next.js 16 App Router with React 19 and TypeScript, retained static Hostinger hosting and the PHP chatbot, and deployed the generated `out/` site.
