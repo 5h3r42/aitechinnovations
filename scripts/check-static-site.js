@@ -185,6 +185,17 @@ if (!homepage.includes("window.aitechSupabaseConfig")) {
   fail("Homepage is missing the static Supabase browser configuration.");
 }
 if (/service_role/i.test(homepage)) fail("Homepage must not expose a Supabase service-role key.");
+const homepagePricingSection = homepage.match(/<section[^>]*id="pricing"[^>]*>[\s\S]*?<\/section>/i)?.[0] ?? "";
+if ((homepage.match(/id="pricing"/g) ?? []).length !== 1) fail("Homepage must contain exactly one pricing section.");
+if ((homepagePricingSection.match(/<article class="detailed-price-card/g) ?? []).length !== 3) {
+  fail("Homepage pricing must contain exactly three package cards.");
+}
+for (const marker of ["STARTING PACKAGES", "Website Starter", "Lead Generation Website", "Industry Demo-Style Website", "All prices are starting prices. Final scope is confirmed after your strategy call."]) {
+  if (!homepagePricingSection.includes(marker)) fail(`Homepage pricing is missing: ${marker}`);
+}
+if (/Automation \/ Ads Setup|Combined Growth System|From £399|From £899|From £1,499|Custom quote/i.test(homepagePricingSection)) {
+  fail("Homepage pricing contains an outdated or conflicting package.");
+}
 for (const marker of [
   'id="homepage-strategy-form"',
   'data-form-name="homepage_strategy_form"',

@@ -1,9 +1,9 @@
 {
-  "pricing_policy": "Published prices are starting points. Final price depends on scope, content, integrations, tracking and launch requirements. Combined systems receive a custom quote after consultation.",
+  "pricing_policy": "Website package prices are starting points. Final scope is confirmed after a free strategy call. Work outside the three website packages, including ads setup or advanced automation, receives a custom quote.",
   "offers": [
-    {"name": "Website & Content", "guidance": "From £499", "includes": ["Website or landing page", "Copy support", "Basic SEO", "Enquiry routes", "GA4 tracking"]},
-    {"name": "Ads & Lead Generation", "guidance": "From £399 plus ad spend", "includes": ["Google or Meta setup", "Initial targeting", "Advert setup", "Landing page review", "Conversion tracking", "Launch handover"], "excludes": ["Ad spend", "Ongoing monthly management"]},
-    {"name": "Automation & Chatbots", "guidance": "From £499", "includes": ["Defined workflow or chatbot", "Lead capture or follow-up logic", "Human handoff", "Testing and launch support"]}
+    {"name": "Website Starter", "guidance": "From £499", "best_for": "Single-service businesses needing a professional online presence.", "includes": ["One-page website or focused landing page", "Mobile-responsive design", "Clear service copy", "Enquiry/contact form", "Basic SEO setup", "Analytics-ready structure", "Launch support"]},
+    {"name": "Lead Generation Website", "guidance": "From £995", "best_for": "Service businesses that want more enquiries from their website.", "includes": ["3–5 page website", "Homepage, services, about, contact/booking sections", "Lead-focused copywriting", "Enquiry form", "Strategy-call or booking CTA", "Basic local SEO structure", "Mobile optimisation", "Launch support"]},
+    {"name": "Industry Demo-Style Website", "guidance": "From £1,495", "best_for": "Businesses that want a premium website similar to the live demos.", "includes": ["Premium industry-specific design", "Multiple service sections", "Lead capture forms", "Booking or enquiry flow", "Trust sections and FAQs", "Mobile-first layout", "Basic dashboard-ready structure", "Launch support"]}
   ],
   "pilot_offer": "Two discounted paid pilot projects are available for suitable UK service businesses that agree to honest feedback and approved case-study documentation.",
   "guardrails": ["Do not invent exact custom prices.", "Do not guarantee revenue, lead volume, conversion rates or cost savings.", "Explain that ad spend is separate.", "Recommend the free strategy call when scope is unclear."]

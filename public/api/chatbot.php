@@ -134,15 +134,15 @@ function scripted_reply(string $message, array $knowledgeBase): string
     }
 
     if (message_matches($normalized, ['price', 'pricing', 'cost', 'how much', 'package', 'quote', 'budget'])) {
-        return 'Website and content projects start from £499. Google or Meta ads setup starts from £399 plus ad spend and covers setup and launch, not monthly management. Automation and chatbot projects start from £499. Combined systems receive a custom quote after a free strategy call.';
+        return 'Our three website packages are Website Starter from £499, Lead Generation Website from £995, and Industry Demo-Style Website from £1,495. Work outside these packages, including ads setup or advanced automation, receives a custom quote after a free strategy call.';
     }
 
     if (message_matches($normalized, ['automate', 'automation', 'customer support', 'support chatbot', 'chatbot', 'faq', 'follow up', 'follow-up', 'booking flow', 'admin'])) {
-        return 'Automation and chatbot projects can improve repeated enquiry replies, lead capture, CRM updates, booking handoff and follow-up. Projects start from £499, and the best first workflow can be identified on the free strategy call.';
+        return 'Automation and chatbot work sits outside the three website packages and is scoped after a free strategy call. It can improve repeated enquiry replies, lead capture, CRM updates, booking handoff and follow-up.';
     }
 
     if (message_matches($normalized, ['ads', 'advert', 'advertising', 'google ads', 'meta ads', 'facebook ads', 'campaign'])) {
-        return 'AITech Innovations provides initial Google or Meta campaign setup from £399 plus ad spend. The service can include targeting, advert setup, a focused landing page, conversion tracking and launch handover. Ongoing monthly management is separate, and lead results are not guaranteed.';
+        return 'AITech Innovations can scope initial Google or Meta campaign setup after a free strategy call. Ad spend and ongoing monthly management are separate, and lead results are not guaranteed.';
     }
 
     if (message_matches($normalized, ['service', 'services', 'offer', 'website', 'web design', 'redesign', 'landing page', 'seo', 'hostinger'])) {

@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-07-10 - Standardise website pricing to three packages
+
+### Files Changed
+
+- Updated `content/pages/index.html`, the directly conflicting website/location/ads pages, and pricing knowledge content in `public/api/`
+- Updated `styles.css` and `scripts/check-static-site.js`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Reduced the homepage to one canonical `STARTING PACKAGES` section with exactly three cards: Website Starter, Lead Generation Website, and Industry Demo-Style Website.
+- Kept the middle Lead Generation Website package featured and aligned all package CTAs to the strategy-call route.
+- Removed legacy homepage package prices and aligned directly conflicting £899, £1,499 and £399 references across visible service/location pages, forms and pricing guidance. Ads and advanced automation remain custom-quoted outside the three website packages.
+
+### Validation
+
+- `npm run lint`, `npm run check`, `npm test`, `npm run build`, and `git diff --check` passed.
+- Desktop and 390px browser checks confirmed one homepage pricing section, three cards, one featured card, working CTA destinations and no horizontal overflow.
+- Static and source scans found no remaining visible £399, £899 or £1,499 legacy pricing references.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
 ## 2026-07-10 - Polish consultation form and pricing section
 
 ### Files Changed

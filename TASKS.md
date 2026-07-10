@@ -20,6 +20,7 @@
 
 ## Done
 
+- Standardised website pricing to the canonical three-package model: Website Starter from £499, Lead Generation Website from £995, and Industry Demo-Style Website from £1,495. Removed conflicting homepage prices, aligned directly conflicting service/location pages and pricing knowledge, and verified one homepage pricing section with three cards and no mobile overflow.
 - Polished the homepage consultation form and replaced the vague pricing cards with five detailed starting-price packages, clear inclusions, package-specific strategy-call CTAs, and honest scope notes. Verified desktop/390px layouts and no horizontal overflow.
 - Implemented the Week 1 conversion foundation: clearer homepage positioning, standard 20-minute strategy-call CTAs, founder-led trust block, lower-friction forms, calendar-first strategy-call page, call agenda, ownership/support FAQs, and clearer live-demo positioning.
 - Replaced the homepage generic sample systems with a responsive “Sample systems” live-demo showcase for Canterbury Smile Studio, Luxe Aesthetics Studio, Canterbury Home Repairs, Canterbury & Coast Property, and Canterbury Ledger & Tax, plus the “Your business here” strategy-call CTA.

@@ -9,13 +9,13 @@
     },
     {
       "name": "Ads & Lead Generation",
-      "starting_price": "From £399 plus ad spend",
+      "starting_price": "Custom quote after strategy call",
       "services": ["Google or Meta campaign setup", "Initial audience, location or keyword targeting", "Advert copy and creative guidance", "Landing page and conversion tracking", "Campaign launch and handover"],
       "scope": "Setup and launch only. Ongoing monthly management is not included unless separately agreed. Results are not guaranteed."
     },
     {
       "name": "Automation & Chatbots",
-      "starting_price": "From £499",
+      "starting_price": "Custom quote after strategy call",
       "services": ["Website chatbots", "CRM and lead follow-up workflows", "Booking automation", "Business process automation", "Human handoff and exception planning"]
     }
   ],
