@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-07-10 - Align consultation section columns
+
+### Files Changed
+
+- Updated `styles.css`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Removed desktop vertical centring from the homepage strategy-call two-column layout.
+- Top-aligned the left eyebrow, copy and CTAs with the form card while preserving desktop column widths and the mobile stacked layout.
+
+### Validation
+
+- `npm run lint`, `npm run check`, `npm test`, `npm run build`, and `git diff --check` passed.
+- At 1440px, the left eyebrow and form card top edges differed by 1px; at 390px the layout remained stacked and the document stayed within the viewport.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
 ## 2026-07-10 - Standardise website pricing to three packages
 
 ### Files Changed

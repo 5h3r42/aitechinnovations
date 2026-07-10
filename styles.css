@@ -916,8 +916,8 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); box-sha
 .strategy-form .form-actions { display: flex; align-items: center; gap: 16px; }
 .strategy-form .form-actions p { font-size: 0.9rem; }
 .homepage-form-section { background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%); }
-.homepage-form-grid { grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: center; }
-.homepage-form-grid .section-heading { align-self: center; }
+.homepage-form-grid { grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; }
+.homepage-form-grid .section-heading { align-self: start; }
 .homepage-form-grid .contact-options { display: grid; gap: 12px; margin-top: 26px; }
 .homepage-form-grid .contact-options a { width: fit-content; }
 .homepage-form-grid .cta-reassurance { margin: 18px 0 0; line-height: 1.45; }
