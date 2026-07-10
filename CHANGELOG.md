@@ -1,5 +1,261 @@
 # Changelog
 
+## 2026-07-10 - Polish consultation form and pricing section
+
+### Files Changed
+
+- Updated `content/pages/index.html` and `styles.css`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Rebalanced the homepage consultation section with a cleaner two-column layout, aligned form grid, controlled card width, and consistent CTA/reassurance spacing.
+- Replaced the vague pricing cards with Website Starter, Lead Generation Website, Industry Demo-Style Website, Automation / Ads Setup, and Combined Growth System packages.
+- Added detailed package inclusions, starting-price language, relevant strategy-call CTAs, and a clear final-scope/results caveat.
+
+### Validation
+
+- `npm run lint`, `npm run check`, `npm test`, `npm run build`, and `git diff --check` passed.
+- Browser checks passed at desktop and 390px mobile widths; five pricing cards were present, all package CTAs routed to `/free-strategy-call/`, and no horizontal overflow was reported.
+- The homepage form required only name, business, email and primary goal; the calendar CTA, demo new-tab attributes, and reassurance text were verified.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
+## 2026-07-10 - Improve homepage conversion foundation
+
+### Files Changed
+
+- Updated `content/pages/index.html`, `content/pages/free-strategy-call.html`, and sitewide primary CTA copy in `content/pages/*.html`
+- Updated `styles.css` and `scripts/check-static-site.js`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Rewrote the homepage hero around websites and lead systems for UK service businesses.
+- Standardised primary CTAs to “Book a free 20-minute strategy call” and added the requested reassurance line.
+- Added founder-led trust messaging, lower-friction strategy forms, a calendar-first call page, call agenda, ownership/support FAQs, and clearer Sample systems positioning.
+
+### Validation
+
+- `npm run lint`, `npm run check`, `npm test`, `npm run build`, and `git diff --check` passed.
+- Browser checks passed at desktop and 390px mobile widths; homepage and strategy-call pages reported zero horizontal overflow.
+- Homepage and strategy-call forms now require only name, business, email and primary goal; budget and timeline are optional.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
+## 2026-07-10 - Replace sample systems with live demo showcase
+
+### Files Changed
+
+- Updated `content/pages/index.html` and `styles.css`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Removed the old generic three-card sample systems section and preview modal from the homepage.
+- Added five live demo cards with the exact demo names, URLs, copy, new-tab attributes, and “View live demo” CTAs.
+- Added the requested benefit badges and the “Your business here” free strategy-call CTA.
+
+### Validation
+
+- `npm run lint`, `npm run check`, `npm test`, and `npm run build` passed.
+- Browser checks passed at desktop and 390px mobile widths with no horizontal overflow; all five demo links use `target="_blank"` and `rel="noopener noreferrer"`.
+- All five demo domains and `/free-strategy-call/` returned HTTP 200.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
+## 2026-06-15 - Activate and verify FormSubmit fallback
+
+### Files Changed
+
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Activated FormSubmit for `support@aitechinnovations.com` through the mailbox confirmation message.
+- Ran a clearly labelled fallback-only test from the live website origin.
+- Kept the primary Supabase, Resend and Google Sheets workflow untouched and created no sales lead.
+
+### Validation
+
+- FormSubmit returned `HTTP 200` with `success: true` after activation.
+- The connected Gmail app still requires reauthentication, so direct inbox receipt was not independently inspected by Codex.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
+## 2026-06-15 - Launch outbound prospect acquisition workspace
+
+### Files Changed
+
+- Added `components/admin/prospect-dashboard.tsx`, `prospect-types.ts`, `prospect-import.ts`, and `prospect-import.test.ts`
+- Added `supabase/migrations/20260615123000_outbound_prospects.sql` and `20260615150000_seed_outbound_prospects.sql`
+- Added `scripts/build-prospect-research.mjs`, `data/outbound-prospects-2026-06-15.csv`, and `CASE_STUDY_INTAKE_CHECKLIST.md`
+- Updated `components/admin/lead-dashboard.tsx`, `styles.css`, `package.json`, `scripts/check-static-site.js`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Added top-level Inbound Leads and Outbound Prospects workspaces without mixing outbound records into inbound queues, counts, conversions, forms, or Resend.
+- Added admin-only prospect storage, immutable activities, atomic workflow RPCs, CSV/manual workflows, duplicate-domain checks, filters, pagination, drafts, and archive/restore.
+- Researched and imported 100 public service-business websites across Kent and London, with a broad clinic, legal, accountancy, property, care, consultancy, and trades mix.
+- Stored three website findings, opportunity scoring, source/contact routes, and personalised email and contact-form drafts as `Draft Ready`; no outreach or follow-up was sent.
+- Added a case-study intake checklist and retained all existing demonstration labels and claims.
+
+### Validation
+
+- Production RLS checks confirmed anonymous and non-admin access is blocked, admin inserts work, atomic activity logging works, and activities cannot be changed after creation.
+- The CSV passed importer validation with 100 unique domains: 59 Kent, 41 London, 65 public emails, 80 public phones, and 92 public contact routes.
+- Production table statistics report 100 prospects and 100 prospect activities, separate from seven inbound leads.
+- All 13 tests, ESLint, TypeScript, the static build, and the 21-route checker passed.
+- Hostinger serves `/admin/leads/` at `200` with `noindex`; the route remains absent from the sitemap and the deployed bundle contains the responsive outbound workspace at 1440px and 390px.
+- Search Console, Google Ads, and FormSubmit account changes were not made because the in-app browser was unavailable and the Gmail connector required reauthentication. Advertising remained paused and no outreach was sent.
+
+### Next Task
+
+Reauthenticate the account sessions, submit the sitemap, complete the paused Google Ads setup, and activate/test FormSubmit.
+
+## 2026-06-15 - Launch actionable lead follow-up workflow
+
+### Files Changed
+
+- Updated `components/admin/admin-icons.tsx`, `lead-collection.tsx`, `lead-dashboard.tsx`, `lead-detail-panel.tsx`, and `lead-types.ts`
+- Added `components/admin/lead-workflow.ts`, `lead-workflow.test.ts`, `supabase/migrations/20260615090000_actionable_lead_workflow.sql`, and `20260615111500_lead_activity_actor_retention.sql`
+- Updated `styles.css`, `package.json`, `tsconfig.json`, `scripts/check-static-site.js`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Replaced the summary-first admin screen with Overdue, Due Today, and Upcoming sales queues using Europe/London calendar boundaries.
+- Added editable next-action type/date/time, three-day first-contact and proposal suggestions, four-day second follow-up suggestions, and active lead filters for status, service, source, and due state.
+- Added append-only call, email, WhatsApp, meeting, note, proposal, status, archive, restore, and next-action timeline records with atomic admin RPCs.
+- Added quick contact actions, structured outcome logging, active/archived views, archive reasons, restoration, and exclusion of archived leads from active queues and counts.
+- Backfilled existing active leads as Review lead due immediately and archived three clearly labelled historical test records plus the controlled release records.
+
+### Validation
+
+- `npm test`, TypeScript, ESLint, static export build, and the 21-route static checker passed.
+- Anonymous insert remained available while anonymous reads/updates were blocked; non-admin users received no lead or activity rows; protected lead columns rejected admin updates; timeline updates/deletes were blocked.
+- Desktop and 390px mocked browser checks passed without horizontal overflow, including the full-screen mobile lead workspace.
+- Live browser validation passed session restoration, activity logging with status/next action, archive, archived lookup, restore, final archive, and sign-out with no page errors.
+- Hostinger serves the new workflow at `https://www.aitechinnovations.com/admin/leads/` with `200`, `noindex,nofollow`, and no admin sitemap entry.
+
+### Next Task
+
+Submit the updated sitemap in the www Google Search Console property, then continue the paused Google Ads setup.
+
+## 2026-06-15 - Fix admin password recovery redirect
+
+### Files Changed
+
+- Updated `components/admin/lead-dashboard.tsx`, `styles.css`, `scripts/check-static-site.js`, `ADMIN_LEADS_SETUP.md`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+- Updated the production Supabase Auth Site URL and redirect allow list
+
+### Summary
+
+- Replaced the default `http://localhost:3000` recovery destination with `https://www.aitechinnovations.com/admin/leads/`.
+- Added an admin sign-in “Forgot password?” action using an explicit production `redirectTo` value.
+- Added a responsive recovery form that detects `PASSWORD_RECOVERY`, validates matching 12-character passwords, calls `updateUser({ password })`, signs out, and returns to the normal sign-in screen.
+- Revoked the recovery session whose access and refresh tokens were shared in chat.
+
+### Validation
+
+- Supabase Auth reports the live admin URL for both `site_url` and `uri_allow_list`, with public sign-up still disabled.
+- A controlled recovery link redirected to the live admin route, displayed the password form at 390px without overflow, updated the password, and allowed login with the new password.
+- The temporary test session was globally revoked, the previous password was restored, and login with it returned `200`.
+- `npm run lint`, `npm run build`, `npm run check`, regression markers, and `git diff --check` passed.
+
+### Next Task
+
+Use the live admin page’s “Forgot password?” action to choose a private replacement password, then store it in a password manager.
+
+## 2026-06-15 - Launch admin lead dashboard
+
+### Files Changed
+
+- Updated `lib/supabase.ts`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+- Applied `supabase/migrations/20260614_admin_leads_rls.sql` to production Supabase
+- Deployed the existing admin dashboard export and assets to Hostinger
+
+### Summary
+
+- Preserved anonymous insert-only access for public lead forms while restricting reads and workflow-field updates to authenticated users with trusted `app_metadata.role = "admin"`.
+- Disabled public Supabase Auth sign-up and created the confirmed `support@aitechinnovations.com` administrator account.
+- Fixed the admin Auth client to normalize configured `/rest/v1` URLs to the Supabase project base URL before calling `createClient`.
+- Deployed `/admin/leads/` as a static, noindex route without adding it to the 21-URL public sitemap.
+
+### Validation
+
+- Anonymous insert returned `201`; anonymous read/update returned `401`; non-admin reads returned no rows; public sign-up returned `signup_disabled`; protected-field admin updates returned `403`.
+- The real admin account loaded all four production leads and passed search, status update/restoration, notes save/restoration, session restoration, sign-out, unauthorised-account handling, and 390px mobile validation.
+- A temporary 51-row dataset verified 50-row pagination across two pages and was fully removed afterward.
+- `npm run lint`, `npm run build`, `npm run check`, Deno email tests, JavaScript syntax checking, migration parity, URL-normalization checks, and `git diff --check` passed.
+- Live `/admin/leads/` returns `200`, contains `noindex,nofollow`, remains absent from the sitemap, loads four leads on desktop/mobile, and reports no browser errors or horizontal overflow.
+
+### Next Task
+
+Submit the updated sitemap in the www Google Search Console property, then continue the paused Google Ads setup.
+
+## 2026-06-15 - Repair Resend form delivery
+
+### Files Changed
+
+- Updated `app/layout.tsx`, `public/script.js`, `supabase/functions/send-lead-email/index.ts`, `scripts/check-static-site.js`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Confirmed the morning submission did not create a Supabase lead, so it never entered the Resend workflow; the shared script was also served with a 30-day immutable cache under an unchanged URL.
+- Added a new shared-script cache key so browsers load the repaired delivery workflow immediately.
+- Moved the website-and-content quote handler onto the same validation, Supabase insert, Resend, Google Sheets, and FormSubmit sequence as the strategy forms.
+- Added three bounded browser retries with request timeouts and three Resend retries for transient network, `429`, and `5xx` failures.
+- Added deterministic Resend idempotency keys so retries and repeated function calls do not send duplicate admin or customer emails.
+- Deployed Edge Function version 9 and the scoped static export to Hostinger; the unfinished `/admin/leads/` route was excluded and remains unavailable in production.
+
+### Validation
+
+- The Supabase/Resend workflow checker, `npm run lint`, `npm run build`, `npm run check`, Deno tests/lint/type checking, JavaScript syntax checking, and `git diff --check` passed.
+- Live pages serve `/script.js?v=20260615-lead-delivery`, and the deployed script contains the retry, quote-form Supabase, and ID-only function-call changes.
+- Controlled production lead `55ab4e4f-32f7-440b-939b-c8f56eb338c5` returned `201` from Supabase and `200` from the Edge Function.
+- Resend accepted distinct admin and customer messages; repeating the function call returned the same provider IDs, confirming idempotency.
+- Google Sheets returned `200` with `ok: true`, and the controlled lead remains saved in Supabase.
+
+### Next Task
+
+Submit the updated sitemap in the www Google Search Console property, then continue the paused Google Ads setup.
+
+## 2026-06-14 - Build internal lead management dashboard
+
+### Files Changed
+
+- Added `app/admin/leads/page.tsx`, `components/admin/admin-icons.tsx`, `lead-collection.tsx`, `lead-dashboard.tsx`, `lead-detail-panel.tsx`, and `lead-types.ts`
+- Added `supabase/migrations/20260614_admin_leads_rls.sql` and `ADMIN_LEADS_SETUP.md`
+- Updated `styles.css`, `lib/supabase.ts`, `public/script.js`, `scripts/check-static-site.js`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Added a statically exported, noindex `/admin/leads/` route with Supabase email/password sign-in, session restoration, trusted `app_metadata.role = "admin"` gating, unauthorised-account handling, and sign-out.
+- Added newest-first 50-row pagination, debounced Supabase search across name/business/email, exact summary counts, responsive desktop/mobile lead views, and a contextual detail panel.
+- Added immediate status updates with optimistic feedback and rollback, explicit notes saves, UK date formatting, loading/empty/error states, and accessible controls.
+- Added scoped SaaS dashboard styling without installing Tailwind and prevented public cookie controls from appearing on `/admin/` routes.
+- Added an unapplied migration that keeps anonymous lead inserts, denies anonymous reads/updates, permits admin reads, limits authenticated updates to `status`, `notes`, and `updated_at`, and adds the six-status check constraint without scanning legacy rows.
+
+### Validation
+
+- `npm run lint`, `npm run build`, `npm run check`, the Supabase/Resend workflow checker, and `git diff --check` passed.
+- The export contains `out/admin/leads/index.html`; the admin route is noindex/nofollow and the sitemap remains unchanged at 21 public URLs.
+- Playwright fallback QA with local mocked Supabase responses covered sign-in error, admin/non-admin sessions, sign-out, summary counts, search debounce, pagination, status updates, notes saves, empty/error states, desktop detail layout, and the 390px full-screen mobile detail sheet.
+- The in-app Browser was unavailable. Deno was not installed, so the unchanged Edge Function test was not rerun in this task.
+- Production RLS/Auth checks remain blocked until the migration is applied and an admin account is provisioned; no production migration, account creation, lead mutation, or Hostinger deployment was performed.
+
+### Next Task
+
+Review and apply the migration, provision the trusted admin Auth user, then validate real read/update permissions before deploying the refreshed `out/` contents.
+
 ## 2026-06-14 - Implement Resend lead emails
 
 ### Files Changed

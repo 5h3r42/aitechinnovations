@@ -1,6 +1,6 @@
 # Project Status
 
-Date: 2026-06-14
+Date: 2026-07-10
 
 ## Current Phase
 
@@ -8,6 +8,16 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## Completed Work
 
+- Polished the homepage consultation form on 2026-07-10 with a balanced desktop grid, consistent field alignment, controlled form-card width, and cleaner mobile stacking. Replaced vague pricing cards with five detailed packages, starting prices, inclusion lists, relevant strategy-call CTAs, and scope/results caveats. Lint, tests, the 21-route checker, production build, desktop/mobile browser checks, CTA routing and no-horizontal-overflow checks passed.
+- Implemented the Week 1 conversion foundation on 2026-07-10: rewrote the homepage around websites and lead systems, standardised primary CTAs to a free 20-minute strategy call, added reassurance and founder-led trust, reduced required form fields to four, made calendar booking primary, added the call agenda and ownership/support FAQs, and clarified live-demo positioning. Lint, tests, the 21-route checker, production build and desktop/390px browser checks passed with no horizontal overflow.
+- Replaced the homepage generic sample systems with a “Sample systems” live-demo showcase: five responsive new-tab demo links, benefit badges, and a “Your business here” strategy-call CTA. Verified no old cards/modal remain, all demo domains and the strategy-call route return `200`, the static build passes, and desktop/390px browser checks show no horizontal overflow.
+- Activated and retested the FormSubmit fallback on 2026-06-15. A clearly labelled fallback-only request from the live-site origin returned `HTTP 200` with `success: true`; it bypassed Supabase, Resend, Google Sheets, and all customer workflows. Direct inbox inspection remains unavailable because the connected Gmail app still requires reauthentication.
+- Launched the separate outbound acquisition workspace on 2026-06-15: added admin-only `prospects` and immutable `prospect_activities` storage, CSV and manual entry/editing, duplicate-domain validation, filters, pagination, draft storage, archive/restore, activity logging, and responsive inbound/outbound tabs. Researched and imported 100 public-business prospects across Kent and London with 100 research activities, a broad seven-sector mix, public source/contact routes, three website findings, fit scoring, and draft-only email/contact-form copy. Added the approved-evidence case-study intake checklist, deployed only `out/` to Hostinger, and kept outbound records out of inbound lead counts and Resend.
+- Launched the actionable inbound lead workflow on 2026-06-15: replaced the summary-first dashboard with UK-local Overdue, Due Today, and Upcoming queues; added editable next actions and contact/proposal cadence suggestions; added status/service/source/due/archive filters; created an immutable `lead_activities` audit timeline; added atomic activity, archive, and restore RPCs; and deployed the static Hostinger dashboard. Production checks covered anonymous/non-admin/admin permissions, protected columns, activity immutability, session restoration, activity logging, archive/restore, responsive desktop/390px layouts, noindex/sitemap exclusion, and final test-record archiving.
+- Fixed and deployed admin password recovery on 2026-06-15: changed the Supabase Auth Site URL and redirect allow list from `http://localhost:3000` to the live `/admin/leads/` route, revoked the recovery session whose tokens were shared in chat, added a forgot-password action and `PASSWORD_RECOVERY` password form, and completed a controlled live reset/login test at 390px before restoring the existing password and revoking the temporary session.
+- Launched the private lead dashboard at `https://www.aitechinnovations.com/admin/leads/` on 2026-06-15: applied the production RLS/column-privilege migration, preserved anonymous insert-only form access, disabled public Auth sign-up, created the confirmed `support@aitechinnovations.com` account with trusted `app_metadata.role = "admin"`, normalized the Supabase Auth base URL, and deployed the static route to Hostinger. Live desktop/mobile validation covered all four production leads, search, 50-row pagination with a cleaned-up temporary dataset, status and notes persistence/restoration, session restoration, sign-out, unauthorised handling, noindex metadata, sitemap exclusion, and protected-field rejection.
+- Repaired and deployed the production Resend workflow on 2026-06-15 after confirming the morning submission never reached Supabase: cache-busted the immutable shared script, placed the quote handler on the Supabase-first path, added bounded browser and provider retries, and added deterministic idempotency keys. Controlled lead `55ab4e4f-32f7-440b-939b-c8f56eb338c5` returned `201` from Supabase, `200` from the Edge Function, two distinct Resend IDs, and `200` with `ok: true` from Google Sheets; a duplicate invocation returned the same IDs.
+- Built and locally validated the private `/admin/leads/` dashboard on 2026-06-14: static-export-compatible Supabase Auth, trusted admin-role gating, newest-first 50-row pagination, database-backed search and summary counts, optimistic status updates with rollback, explicit notes saves, desktop/mobile lead detail views, noindex metadata, and scoped SaaS styling.
 - Deployed the Resend-enabled static export to Hostinger on 2026-06-14 and completed a controlled production test using lead `745afcc6-1178-463d-a91b-375da9e1a3c1`: Supabase returned `201`, the Edge Function returned `200`, Resend accepted separate admin and customer emails, and Google Sheets returned `200` with `ok: true`.
 - Completed the Resend infrastructure setup on 2026-06-14: verified the sending domain, added `RESEND_API_KEY` to the linked Supabase project, deployed `send-lead-email`, confirmed successful CORS preflight, and confirmed an authenticated request reaches function validation without sending an email.
 - Implemented the Resend-based strategy lead email workflow locally on 2026-06-14: the browser now saves all structured lead fields and a client-generated UUID to Supabase, invokes the authenticated `send-lead-email` Edge Function, and continues to Google Sheets/FormSubmit even when email delivery fails; the function reloads the saved row server-side and sends the required admin and customer emails through Resend.
@@ -101,20 +111,20 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## In Progress
 
-- The www Search Console property and updated 21-URL sitemap still need to be submitted.
-- Google Ads still needs account sign-in, conversion import, billing review and creation of the paused campaign documented in `ADS_LAUNCH_PLAN.md`; no advertising spend has been activated.
+- The www Search Console property has the updated sitemap submitted and currently reports `Couldn't fetch`; independent checks confirm valid XML, `200` responses over IPv4/IPv6 and Googlebot access to all 21 URLs, so it is awaiting Google's retry.
+- Google Ads still needs account sign-in, conversion import, auto-tagging and creation of the paused campaign documented in `ADS_LAUNCH_PLAN.md`; no advertising spend has been activated.
 - Chatbot deployment can work without `OPENAI_API_KEY` for scripted answers; configuring the key is optional for unmatched AI-generated responses.
-- FormSubmit fallback needs email activation before it can be relied on.
+- The 100 outbound records are draft-only. Initial outreach and follow-up scheduling remain intentionally unsent pending manual review and approval.
 - Portfolio examples are still demo concepts until real client screenshots are available.
 
 ## Known Issues
 
-- FormSubmit returned an activation-required response on 2026-05-01 and sent an activation email to `support@aitechinnovations.com`.
+- The connected Gmail app still requires reauthentication, so automated inbox inspection is unavailable.
 
 ## Next 5 Logical Tasks
 
-1. Submit the updated 21-URL `https://www.aitechinnovations.com/sitemap.xml` in the www Search Console property.
-2. Sign in to Google Ads, import `generate_lead` as the primary conversion and `calendar_booking_click` as secondary, then create the paused Kent Search campaign from `ADS_LAUNCH_PLAN.md`.
-3. Build the first 100-account prospect list and begin the 30-day outreach campaign.
-4. Activate and retest the FormSubmit fallback.
+1. Monitor the submitted www sitemap until Search Console reports `Success`.
+2. Review and approve the highest-scoring outbound drafts before manually contacting any prospect.
+3. Reauthenticate the connected Gmail app so future mailbox delivery can be verified directly.
+4. Configure the paused Kent Google Ads campaign when account-browser access is available.
 5. Replace sample work with approved client case studies as pilot projects complete.

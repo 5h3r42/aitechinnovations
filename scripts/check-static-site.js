@@ -103,7 +103,7 @@ for (const [route, file, type] of pages) {
   if (internalLinks < 3) fail(`${file} should contain at least three internal links.`);
 
   if (type === "service") {
-    for (const section of ["Problem", "Solution", "Benefits", "Use cases", "FAQ", "Book a Free Strategy Call"]) {
+    for (const section of ["Problem", "Solution", "Benefits", "Use cases", "FAQ", "Book a free 20-minute strategy call"]) {
       if (!new RegExp(section, "i").test(html)) fail(`${file} is missing service section: ${section}`);
     }
     if (wordCount(html) < 550) fail(`${file} is too thin; expected at least 550 rendered words.`);
@@ -190,7 +190,7 @@ for (const marker of [
   'data-form-name="homepage_strategy_form"',
   'data-lead-source="homepage_form"',
   'data-analytics-location="homepage_form"',
-  "Request your free strategy call.",
+  "Book your free 20-minute strategy call.",
 ]) {
   if (!homepage.includes(marker)) fail(`Homepage strategy form is missing: ${marker}`);
 }

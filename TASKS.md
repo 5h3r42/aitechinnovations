@@ -2,13 +2,12 @@
 
 ## Today
 
-- Submit `https://www.aitechinnovations.com/sitemap.xml` in the www Google Search Console property.
+- Monitor the submitted www sitemap until Google changes `Couldn't fetch` to `Success`; the live XML and all 21 URLs validate correctly.
 - Sign in to Google Ads, import `generate_lead` as the primary conversion, enable auto-tagging, and build the paused Kent Search campaign from `ADS_LAUNCH_PLAN.md`.
-- Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
 
 ## This Week
 
-- Build the first 100 qualified UK service-business prospect list and begin 10-15 personalised contacts per working day.
+- Review and approve the strongest outbound drafts, then manually record any initial contact before scheduling follow-ups.
 - Replace demo work with real portfolio screenshots when client work is available.
 - Add an approved founder photo when available.
 
@@ -21,6 +20,16 @@
 
 ## Done
 
+- Polished the homepage consultation form and replaced the vague pricing cards with five detailed starting-price packages, clear inclusions, package-specific strategy-call CTAs, and honest scope notes. Verified desktop/390px layouts and no horizontal overflow.
+- Implemented the Week 1 conversion foundation: clearer homepage positioning, standard 20-minute strategy-call CTAs, founder-led trust block, lower-friction forms, calendar-first strategy-call page, call agenda, ownership/support FAQs, and clearer live-demo positioning.
+- Replaced the homepage generic sample systems with a responsive “Sample systems” live-demo showcase for Canterbury Smile Studio, Luxe Aesthetics Studio, Canterbury Home Repairs, Canterbury & Coast Property, and Canterbury Ledger & Tax, plus the “Your business here” strategy-call CTA.
+- Activated the FormSubmit fallback for `support@aitechinnovations.com` and verified a controlled fallback-only hosted-origin submission returned `HTTP 200` with `success: true`, without creating a Supabase lead, invoking Resend, or updating Google Sheets.
+- Launched the separate Outbound Prospects workspace: admin-only Supabase tables and append-only activities, CSV/manual workflows, 100 researched Kent and London service-business prospects, personalised email/contact-form drafts, production import, responsive Hostinger deployment, and an approved-evidence case-study intake checklist. No outreach was sent.
+- Launched the actionable lead follow-up workflow: UK-time Overdue/Due Today/Upcoming queues, editable next actions with suggested cadence, structured append-only activity timelines, quick contact logging, active/archived filters, restore support, admin-only atomic workflow RPCs, production deployment, and cleanup of controlled test records.
+- Fixed admin password recovery by replacing the localhost Supabase Site URL with the live admin route, adding an explicit forgot-password action and recovery form, revoking the exposed recovery session, and validating a real live password change and login before restoring the existing password.
+- Launched `/admin/leads/` in production: applied admin-only RLS and column privileges, disabled public Auth sign-up, provisioned `support@aitechinnovations.com` with trusted admin metadata, fixed Supabase Auth URL normalization, deployed to Hostinger, and verified real lead access, search, pagination, status/notes updates, session restoration, sign-out, unauthorised handling, and responsive layouts.
+- Repaired and deployed Resend form delivery by cache-busting the immutable browser script, moving the quote handler onto the Supabase-first workflow, adding bounded retries and provider idempotency, and validating Supabase, two Resend messages, Google Sheets, and duplicate-safe retries with a controlled production lead.
+- Built the statically exported `/admin/leads/` dashboard with Supabase email/password Auth, admin-role access handling, newest-first paginated leads, server-side search, summary counts, status updates, editable notes, responsive detail views, scoped SaaS styling, and an unapplied RLS/column-privilege migration.
 - Deployed the refreshed 21-route static export to Hostinger and completed a controlled production lead test: Supabase saved the lead, the Edge Function returned success, Resend accepted the admin and customer emails, and Google Sheets accepted the backup payload.
 - Verified the AITech Innovations sending domain in Resend, added `RESEND_API_KEY` to Supabase, deployed `send-lead-email`, and confirmed its live CORS and publishable-key request handling.
 - Implemented Resend delivery for saved strategy-call leads through a Supabase Edge Function, including admin and customer emails, server-side lead lookup, non-blocking email failure handling, and retention of Google Sheets and FormSubmit backups.
