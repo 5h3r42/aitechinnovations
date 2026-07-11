@@ -130,6 +130,7 @@ for (const marker of [
   "RewriteRule ^about\\.html$ /about/",
   "Strict-Transport-Security",
   "Content-Security-Policy",
+  "https://app.aitechinnovations.com",
   "https://*.supabase.co",
   "api/knowledge",
 ]) {
@@ -148,6 +149,12 @@ for (const feature of ["/api/chatbot.php", "aitech_cookie_consent", "aitech_camp
 for (const feature of [
   "window.aitechSupabaseConfig",
   "validateLeadForm",
+  "AI_PLATFORM_API_URL",
+  "submitAiPlatformEnquiry",
+  "http://localhost:3000/api/public/enquiries",
+  "https://app.aitechinnovations.com/api/public/enquiries",
+  'businessSlug: "aitech-innovations"',
+  'data?.status !== "submitted"',
   "insertLeadIntoSupabase",
   "invokeLeadEmailFunction",
   "/rest/v1/leads",
@@ -162,17 +169,17 @@ for (const feature of [
 
 const strategyHandler = script.slice(script.indexOf('strategyForm?.addEventListener("submit"'));
 const validationIndex = strategyHandler.indexOf("validateLeadForm");
-const supabaseIndex = strategyHandler.indexOf("await insertLeadIntoSupabase");
-const emailIndex = strategyHandler.indexOf("await invokeLeadEmailFunction");
-const sheetsIndex = strategyHandler.indexOf("await fetch(GOOGLE_SHEETS_ENDPOINT");
+const aiPlatformSubmitIndex = strategyHandler.indexOf("await submitAiPlatformEnquiry");
+if (validationIndex < 0 || aiPlatformSubmitIndex < 0 || validationIndex >= aiPlatformSubmitIndex) {
+  fail("Strategy form must validate before submitting the enquiry to AI Platform.");
+}
 if (
-  validationIndex < 0 ||
-  supabaseIndex < 0 ||
-  emailIndex < 0 ||
-  sheetsIndex < 0 ||
-  !(validationIndex < supabaseIndex && supabaseIndex < emailIndex && emailIndex < sheetsIndex)
+  strategyHandler.includes("await insertLeadIntoSupabase") ||
+  strategyHandler.includes("await invokeLeadEmailFunction") ||
+  strategyHandler.includes("await fetch(GOOGLE_SHEETS_ENDPOINT") ||
+  strategyHandler.includes("fetch(FORM_ENDPOINT)")
 ) {
-  fail("Strategy form must validate, insert into Supabase, invoke lead email, then continue to Google Sheets in that order.");
+  fail("Strategy form must not use the legacy Supabase, email, Google Sheets, or FormSubmit workflow.");
 }
 
 const landing = readOutput("website-design-for-service-businesses/index.html");
@@ -181,6 +188,9 @@ for (const text of ["Turn more website visitors into useful enquiries", "From £
 }
 
 const homepage = readOutput("index.html");
+if (!homepage.includes("/script.js?v=20260711-ai-platform-enquiries")) {
+  fail("Homepage is missing the current shared-script cache key.");
+}
 if (!homepage.includes("window.aitechSupabaseConfig")) {
   fail("Homepage is missing the static Supabase browser configuration.");
 }

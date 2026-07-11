@@ -14,6 +14,11 @@ const CHATBOT_API_ENDPOINT = "/api/chatbot.php";
 const COOKIE_CONSENT_KEY = "aitech_cookie_consent";
 const CAMPAIGN_STORAGE_KEY = "aitech_campaign_attribution";
 const CLARITY_PROJECT_ID = "x1bt97hjsh";
+// Static-site deployment configuration. Update the production URL here if the platform host changes.
+const AI_PLATFORM_API_URL =
+  window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://localhost:3000/api/public/enquiries"
+    : "https://app.aitechinnovations.com/api/public/enquiries";
 
 const GOOGLE_SHEETS_ENDPOINT =
   "https://script.google.com/macros/s/AKfycbwsi2ZxS5UzS-Cioi5Ll-1IHSiU3LJGoc6HdVK_J2h3_YhWMDhKP0wUdcyCXtj5qYn0/exec";
@@ -431,6 +436,29 @@ function validateLeadForm(form) {
   if (form.checkValidity()) return true;
   form.reportValidity();
   return false;
+}
+
+async function submitAiPlatformEnquiry({ name, email, phone, message }) {
+  const response = await fetch(AI_PLATFORM_API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      businessSlug: "aitech-innovations",
+      name: String(name),
+      email: String(email),
+      phone: String(phone),
+      message: String(message),
+    }),
+  });
+
+  let body = null;
+  try {
+    body = await response.json();
+  } catch {}
+
+  if (response.status !== 201 || body?.success !== true || body?.data?.status !== "submitted") {
+    throw new Error(`AI Platform enquiry submission failed with status ${response.status}`);
+  }
 }
 
 async function insertLeadIntoSupabase({
@@ -1027,48 +1055,17 @@ strategyForm?.addEventListener("submit", async (event) => {
   const leadSource = strategyForm.dataset.leadSource || "website_form";
   const analyticsLocation = strategyForm.dataset.analyticsLocation || "strategy_form";
   const message = [
-    "Hi AITech Innovations, I would like to request a free strategy call.",
+    `Business name: ${data.get("business") || ""}`,
     "",
-    `Name: ${data.get("name") || ""}`,
-    `Business: ${data.get("business") || ""}`,
-    `Email: ${data.get("email") || ""}`,
-    `Phone: ${data.get("phone") || ""}`,
     `Service interest: ${serviceInterest}`,
-    `Primary goal: ${data.get("goal") || ""}`,
     `Current website: ${data.get("website") || ""}`,
     `Budget: ${data.get("budget") || ""}`,
-    `Preferred timeline: ${data.get("timeline") || ""}`,
-  ].join("\n");
-  const subject = `Strategy call request - ${data.get("business") || data.get("name") || "New lead"}`;
-  const sheetPayload = {
-    name: data.get("name") || "",
-    email: data.get("email") || "",
-    website: data.get("website") || "",
-    businessType: data.get("business") || "",
-    mainGoal: `${serviceInterest}: ${data.get("goal") || "Strategy call"}`,
-    notes: [
-      `Phone: ${data.get("phone") || "-"}`,
-      `Budget: ${data.get("budget") || "-"}`,
-      `Timeline: ${data.get("timeline") || "-"}`,
-      getCampaignLeadNotes(),
-    ].join("\n"),
-  };
-  const payload = new FormData();
-  payload.append("_subject", subject);
-  payload.append("_template", "table");
-  payload.append("_captcha", "false");
-  payload.append("_honey", data.get("_honey") || "");
-  payload.append("Name", data.get("name") || "");
-  payload.append("Business", data.get("business") || "");
-  payload.append("Email", data.get("email") || "");
-  payload.append("Phone", data.get("phone") || "");
-  payload.append("Service interest", serviceInterest);
-  payload.append("Primary goal", data.get("goal") || "");
-  payload.append("Current website", data.get("website") || "");
-  payload.append("Budget", data.get("budget") || "");
-  payload.append("Preferred timeline", data.get("timeline") || "");
-  payload.append("Campaign attribution", getCampaignLeadNotes() || "Direct / not available");
-  payload.append("Full message", message);
+    `Timeline: ${data.get("timeline") || ""}`,
+    `Primary business goal: ${data.get("goal") || ""}`,
+    getCampaignLeadNotes(),
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const submitButton = strategyForm.querySelector("button[type='submit']");
   submitButton.disabled = true;
@@ -1084,69 +1081,24 @@ strategyForm?.addEventListener("submit", async (event) => {
     });
   };
 
-  let savedLead;
   try {
-    savedLead = await insertLeadIntoSupabase({
+    await submitAiPlatformEnquiry({
       name: data.get("name") || "",
-      business: data.get("business") || "",
       email: data.get("email") || "",
       phone: data.get("phone") || "",
-      service: serviceInterest,
-      website: data.get("website") || "",
-      budget: data.get("budget") || "",
-      timeline: data.get("timeline") || "",
-      source: leadSource,
       message,
-      notes: [`Primary goal: ${data.get("goal") || "-"}`, getCampaignLeadNotes()].filter(Boolean).join("\n"),
     });
     trackStrategyLead();
   } catch (error) {
-    console.error("Supabase lead save failed:", error);
+    console.error("AI Platform enquiry submission failed:", error);
     strategyFormStatus.textContent = "We could not save your request. Please try again. Your form has not been cleared.";
     submitButton.disabled = false;
     return;
   }
 
-  strategyFormStatus.textContent = "Sending your strategy call request...";
-
   try {
-    await invokeLeadEmailFunction(savedLead);
-  } catch (error) {
-    console.error("Lead confirmation email failed:", error);
-  }
-
-  try {
-    if (!GOOGLE_SHEETS_ENDPOINT) throw new Error("Google Sheets endpoint is not configured");
-    await fetch(GOOGLE_SHEETS_ENDPOINT, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(sheetPayload),
-    });
     strategyForm.reset();
-    strategyFormStatus.textContent = "Thanks. We will follow up within one business day.";
-  } catch {
-    try {
-      const response = await fetch(FORM_ENDPOINT, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: payload,
-      });
-      if (!response.ok) throw new Error("Form service failed");
-      strategyForm.reset();
-      strategyFormStatus.textContent = "Thanks. We will follow up within one business day.";
-    } catch {
-      const whatsappUrl = buildWhatsAppUrl(message);
-      if (whatsappUrl) {
-        window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-        strategyForm.reset();
-        strategyFormStatus.textContent = "Thanks. Your request was saved. Backup sending was unavailable, so WhatsApp opened as an extra contact option.";
-      } else {
-        window.location.href = buildEmailUrl(subject, message);
-        strategyForm.reset();
-        strategyFormStatus.textContent = "Thanks. Your request was saved. Backup sending was unavailable, so your email app opened as an extra contact option.";
-      }
-    }
+    strategyFormStatus.textContent = "Thanks, your enquiry has been received. We will contact you shortly.";
   } finally {
     submitButton.disabled = false;
   }

@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-07-11 - Connect AITech website enquiries to AI Platform
+
+### Files Changed
+
+- Updated `public/script.js`, `public/.htaccess`, `app/layout.tsx`, and `scripts/check-static-site.js`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+- Updated the AI Platform public enquiries endpoint to allow AITech's approved website origins
+
+### Summary
+
+- Replaced the homepage strategy-call form's legacy lead-delivery chain with one AI Platform `POST /api/public/enquiries` request for `aitech-innovations`.
+- Preserved every existing form value in the API `message`, retained validation/loading/error states, and clear the form only after the documented `201` success response.
+- Added production/local endpoint configuration, static-site CSP permission, and restricted API CORS support. The quote form and chatbot delivery paths remain unchanged.
+
+### Validation
+
+- AI Platform `npm run build` passed.
+- AITech `npm run build`, `npm run lint`, `npm test`, `npm run check`, and `git diff --check` passed.
+- A browser submission from `http://localhost:3001` returned `201 { success: true, data: { status: "submitted" } }`, cleared the form, and showed the required confirmation. No legacy delivery request was made.
+
+### Next Task
+
+Deploy the updated AI Platform API and AITech `out/` directory, then archive the clearly labelled local integration test enquiries from `/dashboard/enquiries`.
+
 ## 2026-07-11 - Create sales documentation foundation
 
 ### Files Changed
