@@ -20,6 +20,7 @@
 
 ## Done
 
+- Created the sales documentation foundation: structured CRO, sales, industry, outreach, CRM, and client-record templates under `docs/`, including an empty prospect tracker and documented pipeline stages. No website, application, Supabase, or AI Platform changes were made.
 - Top-aligned the homepage strategy-call columns on desktop by removing vertical centring from the left content/form grid. Verified the eyebrow and form top edges align at 1440px, mobile remains stacked at 390px, and there is no horizontal overflow.
 - Standardised website pricing to the canonical three-package model: Website Starter from £499, Lead Generation Website from £995, and Industry Demo-Style Website from £1,495. Removed conflicting homepage prices, aligned directly conflicting service/location pages and pricing knowledge, and verified one homepage pricing section with three cards and no mobile overflow.
 - Polished the homepage consultation form and replaced the vague pricing cards with five detailed starting-price packages, clear inclusions, package-specific strategy-call CTAs, and honest scope notes. Verified desktop/390px layouts and no horizontal overflow.

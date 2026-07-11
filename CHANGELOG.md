@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-07-11 - Create sales documentation foundation
+
+### Files Changed
+
+- Added `docs/README.md` and the CRO, SALES, INDUSTRIES, OUTREACH, CRM, and CLIENTS documentation structure
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Added reusable templates for website audits, optimisation plans, experiments, discovery calls, proposals, pricing, objection handling, onboarding, follow-up, and multi-channel outreach.
+- Added five industry research templates, CRM pipeline definitions, a header-only prospect tracker, and a safe per-prospect/client record structure.
+- No website, application, Supabase, or AI Platform files were changed.
+
+### Validation
+
+- `git diff --check` passed.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
 ## 2026-07-10 - Align consultation section columns
 
 ### Files Changed
