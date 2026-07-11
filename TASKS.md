@@ -20,6 +20,7 @@
 
 ## Done
 
+- Fixed the AI Platform strategy-form false failure state: analytics is now non-critical and cannot move a successfully submitted `201` enquiry into the error path. Browser regression testing forced analytics to throw while confirming one successful API submission, form reset, and the required success message.
 - Connected the homepage strategy-call form to AI Platform: the form now submits one `aitech-innovations` enquiry to `/api/public/enquiries`, includes every collected field in the message, clears only after the verified `201` response, and no longer invokes the legacy Supabase, Resend, Google Sheets, FormSubmit, WhatsApp, or mailto submission workflow. Added cross-origin API/CSP support and verified the real browser submission locally.
 - Created the sales documentation foundation: structured CRO, sales, industry, outreach, CRM, and client-record templates under `docs/`, including an empty prospect tracker and documented pipeline stages. No website, application, Supabase, or AI Platform changes were made.
 - Top-aligned the homepage strategy-call columns on desktop by removing vertical centring from the left content/form grid. Verified the eyebrow and form top edges align at 1440px, mobile remains stacked at 390px, and there is no horizontal overflow.

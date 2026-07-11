@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-07-11 - Fix enquiry success handling after AI Platform submission
+
+### Files Changed
+
+- Updated `public/script.js`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Separated analytics tracking from the critical AI Platform submission path so a tracking exception cannot report a valid `201` enquiry as failed.
+- The strategy form now resets and shows the required confirmation immediately after the documented successful API response; analytics failures are logged as warnings only.
+
+### Validation
+
+- `npm run build`, `npm run check`, `npm run lint`, `npm test`, and `git diff --check` passed.
+- Browser regression test forced `gtag` to throw after the API returned `201 { success: true, data: { status: "submitted" } }`; the form made one enquiry request, reset, and showed the success message.
+
+### Next Task
+
+Deploy the updated AITech `out/` directory, then archive the clearly labelled local integration test enquiries from `/dashboard/enquiries`.
+
 ## 2026-07-11 - Connect AITech website enquiries to AI Platform
 
 ### Files Changed

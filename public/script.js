@@ -1088,7 +1088,6 @@ strategyForm?.addEventListener("submit", async (event) => {
       phone: data.get("phone") || "",
       message,
     });
-    trackStrategyLead();
   } catch (error) {
     console.error("AI Platform enquiry submission failed:", error);
     strategyFormStatus.textContent = "We could not save your request. Please try again. Your form has not been cleared.";
@@ -1099,6 +1098,11 @@ strategyForm?.addEventListener("submit", async (event) => {
   try {
     strategyForm.reset();
     strategyFormStatus.textContent = "Thanks, your enquiry has been received. We will contact you shortly.";
+    try {
+      trackStrategyLead();
+    } catch (error) {
+      console.warn("Strategy enquiry analytics tracking failed:", error);
+    }
   } finally {
     submitButton.disabled = false;
   }
