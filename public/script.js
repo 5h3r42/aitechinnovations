@@ -1,3 +1,6 @@
+if (!window.__aitechWebsiteScriptLoaded) {
+window.__aitechWebsiteScriptLoaded = true;
+
 const CONTACT_SETTINGS = {
   email: "support@aitechinnovations.com",
   whatsappNumber: "447882111810",
@@ -73,11 +76,19 @@ function sanitizeCampaignValue(value = "") {
     .replace(/[^a-zA-Z0-9 _.-]/g, "");
 }
 
-function captureCampaignAttribution() {
-  if (typeof window === "undefined") return {};
+function safeReferrer() {
+  if (!document.referrer) return "";
+  try {
+    const url = new URL(document.referrer);
+    return `${url.origin}${url.pathname}`.slice(0, 500);
+  } catch {
+    return "";
+  }
+}
 
+function currentCampaignTouch() {
   const params = new URLSearchParams(window.location.search);
-  const campaign = {
+  return {
     utm_source: sanitizeCampaignValue(params.get("utm_source")),
     utm_medium: sanitizeCampaignValue(params.get("utm_medium")),
     utm_campaign: sanitizeCampaignValue(params.get("utm_campaign")),
@@ -85,46 +96,52 @@ function captureCampaignAttribution() {
     utm_term: sanitizeCampaignValue(params.get("utm_term")),
     gclid: sanitizeCampaignValue(params.get("gclid")),
     landing_page: window.location.pathname || "/",
+    referrer: safeReferrer(),
   };
+}
 
-  const hasCampaignData = Object.entries(campaign).some(([key, value]) => key !== "landing_page" && value);
-  if (hasCampaignData) {
-    try {
-      sessionStorage.setItem(CAMPAIGN_STORAGE_KEY, JSON.stringify(campaign));
-    } catch {}
-    return campaign;
-  }
-
+function captureCampaignAttribution() {
+  if (typeof window === "undefined") return {};
+  const currentTouch = currentCampaignTouch();
+  const hasCampaignData = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid"]
+    .some((key) => currentTouch[key]);
   try {
-    const storedCampaign = JSON.parse(sessionStorage.getItem(CAMPAIGN_STORAGE_KEY) || "{}");
-    return storedCampaign && typeof storedCampaign === "object" ? storedCampaign : campaign;
+    const stored = JSON.parse(sessionStorage.getItem(CAMPAIGN_STORAGE_KEY) || "{}");
+    const firstTouch = stored?.first_touch && typeof stored.first_touch === "object" ? stored.first_touch : currentTouch;
+    const latestTouch = hasCampaignData ? currentTouch : stored?.latest_touch || currentTouch;
+    const attribution = { first_touch: firstTouch, latest_touch: latestTouch };
+    sessionStorage.setItem(CAMPAIGN_STORAGE_KEY, JSON.stringify(attribution));
+    return attribution;
   } catch {
-    return campaign;
+    return { first_touch: currentTouch, latest_touch: currentTouch };
   }
 }
 
 const campaignAttribution = captureCampaignAttribution();
 
 function getCampaignAnalyticsParameters() {
+  const latestTouch = campaignAttribution.latest_touch || {};
   return {
-    campaign_source: campaignAttribution.utm_source || "",
-    campaign_medium: campaignAttribution.utm_medium || "",
-    campaign_name: campaignAttribution.utm_campaign || "",
-    campaign_content: campaignAttribution.utm_content || "",
-    campaign_term: campaignAttribution.utm_term || "",
-    landing_page: campaignAttribution.landing_page || "",
+    utm_source: latestTouch.utm_source || "",
+    utm_medium: latestTouch.utm_medium || "",
+    utm_campaign: latestTouch.utm_campaign || "",
+    utm_content: latestTouch.utm_content || "",
+    utm_term: latestTouch.utm_term || "",
+    gclid_present: Boolean(latestTouch.gclid),
+    landing_page: latestTouch.landing_page || "",
   };
 }
 
 function getCampaignLeadNotes() {
+  const latestTouch = campaignAttribution.latest_touch || {};
   const entries = [
-    ["Landing page", campaignAttribution.landing_page],
-    ["UTM source", campaignAttribution.utm_source],
-    ["UTM medium", campaignAttribution.utm_medium],
-    ["UTM campaign", campaignAttribution.utm_campaign],
-    ["UTM content", campaignAttribution.utm_content],
-    ["UTM term", campaignAttribution.utm_term],
-    ["Google click ID", campaignAttribution.gclid],
+    ["Landing page", latestTouch.landing_page],
+    ["UTM source", latestTouch.utm_source],
+    ["UTM medium", latestTouch.utm_medium],
+    ["UTM campaign", latestTouch.utm_campaign],
+    ["UTM content", latestTouch.utm_content],
+    ["UTM term", latestTouch.utm_term],
+    ["Google click ID", latestTouch.gclid],
   ].filter(([, value]) => value);
 
   return entries.map(([label, value]) => `${label}: ${value}`).join("\n");
@@ -257,9 +274,23 @@ function trackEvent(eventName, parameters = {}) {
     return false;
   }
 
+  try {
+    if (localStorage.getItem(COOKIE_CONSENT_KEY) !== "accepted") {
+      if (debugMode) console.debug("[analytics] consent not granted", eventName);
+      return false;
+    }
+  } catch {
+    return false;
+  }
+
   window.gtag("event", eventName, eventParameters);
   return true;
 }
+
+window.aitechAnalytics = {
+  trackEvent,
+  getAttribution: () => campaignAttribution,
+};
 
 function getSafeLinkUrl(linkUrl) {
   if (!linkUrl || typeof window === "undefined") return "";
@@ -289,7 +320,7 @@ function getSafePhoneTarget(phoneTarget = "") {
 }
 
 function trackWhatsappClick(location, linkUrl, serviceInterest = "general") {
-  return trackEvent("whatsapp_click", {
+  return trackEvent("click_whatsapp", {
     location,
     link_url: getSafeLinkUrl(linkUrl),
     service_interest: serviceInterest,
@@ -304,14 +335,14 @@ function trackBookingClick(location, linkUrl) {
 }
 
 function trackPhoneClick(location, phoneTarget) {
-  return trackEvent("phone_click", {
+  return trackEvent("click_phone", {
     location,
     phone_target: getSafePhoneTarget(phoneTarget),
   });
 }
 
 function trackEmailClick(location, emailTarget) {
-  return trackEvent("email_click", {
+  return trackEvent("click_email", {
     location,
     email_target: getSafeEmailTarget(emailTarget),
   });
@@ -334,10 +365,6 @@ function trackGenerateLead({ formName, leadType, leadSource, serviceInterest, lo
     service_interest: normalizeServiceInterest(serviceInterest),
     location,
   });
-}
-
-function trackChatbotOpened() {
-  return trackEvent("chatbot_opened");
 }
 
 function trackChatbotLead() {
@@ -413,6 +440,12 @@ function trackLinkClick(link, event) {
     return;
   }
 
+  if (link.hostname.endsWith(".aitechinnovations.com") && !["www.aitechinnovations.com", "app.aitechinnovations.com"].includes(link.hostname)) {
+    const industry = link.hostname.split(".")[0];
+    trackInteractionOnce(event, () => trackEvent("view_demo", { industry, location }));
+    return;
+  }
+
   if (link.hasAttribute("data-analytics-cta")) {
     const ctaType = link.getAttribute("data-analytics-cta");
     const eventName = ctaType === "pricing" ? "pricing_cta_click" : "quote_cta_click";
@@ -438,7 +471,7 @@ function validateLeadForm(form) {
   return false;
 }
 
-async function submitAiPlatformEnquiry({ name, email, phone, message }) {
+async function submitAiPlatformEnquiry({ name, email, phone, message, source = "website" }) {
   const response = await fetch(AI_PLATFORM_API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -448,6 +481,8 @@ async function submitAiPlatformEnquiry({ name, email, phone, message }) {
       email: String(email),
       phone: String(phone),
       message: String(message),
+      source,
+      attribution: campaignAttribution,
     }),
   });
 
@@ -809,7 +844,6 @@ window.addEventListener(
 );
 setHeaderState();
 hydrateContactLinks();
-setChatbotActions();
 createCookieControls();
 
 chatbotOpenButton?.addEventListener("click", openChatbot);
@@ -905,6 +939,19 @@ document.addEventListener("click", (event) => {
   openPreview(previewName, trigger);
 });
 
+document.addEventListener("focusin", (event) => {
+  if (!(event.target instanceof Element)) return;
+  const form = event.target.closest("[data-quote-form], [data-strategy-form]");
+  if (!(form instanceof HTMLFormElement) || form.dataset.analyticsStarted === "true") return;
+  form.dataset.analyticsStarted = "true";
+  trackEvent("form_started", {
+    form_name: form.dataset.formName || (form.hasAttribute("data-quote-form") ? "quote_form" : "strategy_call_form"),
+    lead_type: form.dataset.leadType || (form.hasAttribute("data-quote-form") ? "website_enquiry" : "strategy_call"),
+    lead_source: form.dataset.leadSource || "website_form",
+    location: form.dataset.analyticsLocation || "form",
+  });
+});
+
 previewModal?.addEventListener("click", (event) => {
   if (!(event.target instanceof Element)) return;
   const closeTarget = event.target.closest("[data-preview-close]");
@@ -946,29 +993,19 @@ quoteForm?.addEventListener("submit", async (event) => {
     `Project notes: ${data.get("notes") || ""}`,
   ].join("\n");
 
-  const whatsappUrl = buildWhatsAppUrl(message);
-  const subject = `Website and content enquiry - ${data.get("business") || data.get("name") || "New lead"}`;
-  const sheetPayload = {
-    name: data.get("name") || "",
-    email: data.get("email") || "",
-    website: data.get("website") || "",
-    businessType: data.get("type") || data.get("business") || "",
-    mainGoal: data.get("package") || data.get("budget") || "Website enquiry",
-    notes: [
-      `Business name: ${data.get("business") || "-"}`,
-      `Phone / WhatsApp: ${data.get("phone") || "-"}`,
-      `Budget: ${data.get("budget") || "-"}`,
-      "",
-      `Message: ${data.get("notes") || "-"}`,
-      getCampaignLeadNotes(),
-    ].join("\n"),
-  };
-
   const submitButton = quoteForm.querySelector("button[type='submit']");
-  let leadEventTracked = false;
-  const trackLeadOnce = () => {
-    if (leadEventTracked) return;
-    leadEventTracked = true;
+  submitButton.disabled = true;
+  formStatus.textContent = "Saving your enquiry...";
+  try {
+    await submitAiPlatformEnquiry({
+      name: data.get("name") || "",
+      email: data.get("email") || "",
+      phone: data.get("phone") || "",
+      message,
+      source: "website",
+    });
+    quoteForm.reset();
+    formStatus.textContent = "Thanks. Your enquiry has been received.";
     trackGenerateLead({
       formName: "quote_form",
       leadType: "website_enquiry",
@@ -976,63 +1013,9 @@ quoteForm?.addEventListener("submit", async (event) => {
       serviceInterest: "website_content",
       location: "quote_form",
     });
-  };
-
-  submitButton.disabled = true;
-  formStatus.textContent = "Sending your enquiry...";
-
-  const payload = new FormData();
-  payload.append("_subject", subject);
-  payload.append("_template", "table");
-  payload.append("_captcha", "false");
-  payload.append("_honey", data.get("_honey") || "");
-  payload.append("Name", data.get("name") || "");
-  payload.append("Business", data.get("business") || "");
-  payload.append("Email", data.get("email") || "");
-  payload.append("Phone / WhatsApp", data.get("phone") || "");
-  payload.append("Current website", data.get("website") || "");
-  payload.append("Business type", data.get("type") || "");
-  payload.append("Package", data.get("package") || "");
-  payload.append("Budget", data.get("budget") || "");
-  payload.append("Project notes", data.get("notes") || "");
-  payload.append("Campaign attribution", getCampaignLeadNotes() || "Direct / not available");
-  payload.append("Full message", message);
-
-  try {
-    if (!GOOGLE_SHEETS_ENDPOINT) throw new Error("Google Sheets endpoint is not configured");
-
-    await fetch(GOOGLE_SHEETS_ENDPOINT, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(sheetPayload),
-    });
-
-    quoteForm.reset();
-    formStatus.textContent = "Thanks. Your enquiry has been sent.";
-    trackLeadOnce();
-  } catch {
-    try {
-      const response = await fetch(FORM_ENDPOINT, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: payload,
-      });
-
-      if (!response.ok) throw new Error("Form service failed");
-
-      quoteForm.reset();
-      formStatus.textContent = "Thanks. Your enquiry has been sent.";
-      trackLeadOnce();
-    } catch {
-      if (whatsappUrl) {
-        window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-        formStatus.textContent = "Email sending was unavailable, so your enquiry opened in WhatsApp.";
-      } else {
-        window.location.href = buildEmailUrl(subject, message);
-        formStatus.textContent = "Email sending was unavailable, so your enquiry opened in your email app.";
-      }
-    }
+  } catch (error) {
+    console.error("AI Platform quote enquiry submission failed:", error);
+    formStatus.textContent = "We could not save your enquiry. Please try again. Your form has not been cleared.";
   } finally {
     submitButton.disabled = false;
   }
@@ -1087,6 +1070,7 @@ strategyForm?.addEventListener("submit", async (event) => {
       email: data.get("email") || "",
       phone: data.get("phone") || "",
       message,
+      source: "strategy_call",
     });
   } catch (error) {
     console.error("AI Platform enquiry submission failed:", error);
@@ -1107,3 +1091,4 @@ strategyForm?.addEventListener("submit", async (event) => {
     submitButton.disabled = false;
   }
 });
+}

@@ -3,7 +3,7 @@
 ## Today
 
 - Monitor the submitted www sitemap until Google changes `Couldn't fetch` to `Success`; the live XML and all 21 URLs validate correctly.
-- Sign in to Google Ads, import `generate_lead` as the primary conversion, enable auto-tagging, and build the paused Kent Search campaign from `ADS_LAUNCH_PLAN.md`.
+- Apply the AI Platform attribution migration, deploy both validated repositories, then complete the labelled production conversion QA before enabling Google Ads.
 
 ## This Week
 

@@ -5,6 +5,9 @@
   var BUSINESS_SLUG = "aitech-innovations";
   var VERSION = "aitech-web-1.0.0";
   var TOKEN_KEY = "aitech_ai_chat_token_v1";
+  var CHAT_STARTED_KEY = "aitech_ai_chat_started_v1";
+  var CHAT_LEAD_KEY = "aitech_ai_chat_lead_v1";
+  var BOOKING_REQUEST_KEY = "aitech_ai_booking_request_v1";
 
   if (window.__aitechAiChatLoaded) return;
   window.__aitechAiChatLoaded = true;
@@ -141,6 +144,24 @@
     try { sessionStorage.setItem(TOKEN_KEY, token); } catch {}
   }
 
+  function marketingAttribution() {
+    try {
+      return window.aitechAnalytics && typeof window.aitechAnalytics.getAttribution === "function"
+        ? window.aitechAnalytics.getAttribution()
+        : null;
+    } catch { return null; }
+  }
+
+  function trackOnce(storageKey, eventName, parameters) {
+    try {
+      if (sessionStorage.getItem(storageKey)) return false;
+      if (!window.aitechAnalytics || typeof window.aitechAnalytics.trackEvent !== "function") return false;
+      if (!window.aitechAnalytics.trackEvent(eventName, parameters)) return false;
+      sessionStorage.setItem(storageKey, "true");
+      return true;
+    } catch { return false; }
+  }
+
   function contactValue(name) {
     var field = form.elements.namedItem(name);
     return field && "value" in field ? field.value.trim() : "";
@@ -156,6 +177,11 @@
     event.preventDefault();
     var message = textarea.value.trim();
     if (!message || busy || handedOver) return;
+    trackOnce(CHAT_STARTED_KEY, "chat_started", {
+      business_slug: BUSINESS_SLUG,
+      widget_version: VERSION,
+      lead_source: "ai_receptionist"
+    });
     addMessage(message, "user");
     textarea.value = "";
     setBusy(true);
@@ -168,6 +194,7 @@
       message: message,
       widgetVersion: VERSION,
       pageUrl: window.location.href,
+      attribution: marketingAttribution(),
       website: contactValue("website"),
       contact: {
         name: contactValue("name") || undefined,
@@ -194,6 +221,23 @@
       if (!response.ok || data.status === "error") throw new Error(data.message || "Chat is unavailable right now.");
       saveToken(data.conversationToken);
       addMessage(data.responseText, data.shouldEscalate ? "status" : "");
+
+      if (data.leadOutcome === "created") {
+        trackOnce(CHAT_LEAD_KEY, "chat_qualified_lead", {
+          business_slug: BUSINESS_SLUG,
+          widget_version: VERSION,
+          lead_source: "ai_receptionist",
+          lead_type: "qualified_enquiry"
+        });
+      }
+      if (data.bookingOutcome === "accepted") {
+        trackOnce(BOOKING_REQUEST_KEY, "booking_request", {
+          business_slug: BUSINESS_SLUG,
+          widget_version: VERSION,
+          lead_source: "ai_receptionist",
+          lead_type: "booking_review"
+        });
+      }
 
       if (data.intent === "booking_request") {
         bookingFields.classList.add("show");
