@@ -163,7 +163,7 @@ for (const marker of [
 if (/no-store/i.test(htaccess)) fail(".htaccess should not use no-store for HTML pages.");
 
 const script = readOutput("script.js");
-for (const eventName of ["whatsapp_click", "email_click", "calendar_booking_click", "quote_cta_click", "generate_lead"]) {
+for (const eventName of ["click_whatsapp", "click_email", "click_phone", "calendar_booking_click", "view_demo", "form_started", "quote_cta_click", "generate_lead"]) {
   if (!script.includes(eventName)) fail(`script.js is missing analytics event: ${eventName}`);
 }
 for (const feature of ["/api/chatbot.php", "aitech_cookie_consent", "aitech_campaign_attribution", "data-cookie-accept", "data-cookie-reject"]) {
@@ -223,7 +223,7 @@ for (const text of ["Turn more website visitors into useful enquiries", "From £
 }
 
 const homepage = readOutput("index.html");
-if (!homepage.includes("/script.js?v=20260711-ai-platform-enquiries")) {
+if (!homepage.includes("/script.js?v=20260714-client-acquisition-analytics")) {
   fail("Homepage is missing the current shared-script cache key.");
 }
 if (!homepage.includes("window.aitechSupabaseConfig")) {
