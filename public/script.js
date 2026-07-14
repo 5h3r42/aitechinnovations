@@ -70,7 +70,8 @@ let chatbotLeadStepIndex = 0;
 let chatbotLeadData = {};
 
 function sanitizeCampaignValue(value = "") {
-  return String(value)
+  if (typeof value !== "string") return "";
+  return value
     .trim()
     .slice(0, 120)
     .replace(/[^a-zA-Z0-9 _.-]/g, "");
@@ -100,15 +101,27 @@ function currentCampaignTouch() {
   };
 }
 
+function compactCampaignTouch(touch) {
+  return Object.fromEntries(
+    Object.entries(touch).filter(([, value]) => typeof value === "string" && value && value !== "null"),
+  );
+}
+
 function captureCampaignAttribution() {
   if (typeof window === "undefined") return {};
-  const currentTouch = currentCampaignTouch();
+  const currentTouch = compactCampaignTouch(currentCampaignTouch());
   const hasCampaignData = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid"]
     .some((key) => currentTouch[key]);
   try {
     const stored = JSON.parse(sessionStorage.getItem(CAMPAIGN_STORAGE_KEY) || "{}");
-    const firstTouch = stored?.first_touch && typeof stored.first_touch === "object" ? stored.first_touch : currentTouch;
-    const latestTouch = hasCampaignData ? currentTouch : stored?.latest_touch || currentTouch;
+    const storedFirstTouch = stored?.first_touch && typeof stored.first_touch === "object"
+      ? compactCampaignTouch(stored.first_touch)
+      : null;
+    const storedLatestTouch = stored?.latest_touch && typeof stored.latest_touch === "object"
+      ? compactCampaignTouch(stored.latest_touch)
+      : null;
+    const firstTouch = Object.keys(storedFirstTouch || {}).length > 0 ? storedFirstTouch : currentTouch;
+    const latestTouch = hasCampaignData ? currentTouch : Object.keys(storedLatestTouch || {}).length > 0 ? storedLatestTouch : currentTouch;
     const attribution = { first_touch: firstTouch, latest_touch: latestTouch };
     sessionStorage.setItem(CAMPAIGN_STORAGE_KEY, JSON.stringify(attribution));
     return attribution;
