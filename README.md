@@ -40,6 +40,21 @@ Deploy the contents of `out/` directly into Hostinger `public_html`. Do not uplo
 
 The site remains a static Hostinger deployment. Next.js and React run at build time and in the browser; no Node.js production server is required. Hostinger continues to execute `out/api/chatbot.php` as PHP.
 
+### GitHub Actions deployment
+
+`.github/workflows/deploy-hostinger-static.yml` builds and validates the static export on pushes to `main` and manual dispatch, then uploads the contents of `out/` by SFTP. It intentionally does not delete remote files: set `HOSTINGER_REMOTE_PATH` only after verifying the live static serving directory in hPanel.
+
+Configure these GitHub repository secrets before enabling a production upload:
+
+- `HOSTINGER_HOST`
+- `HOSTINGER_PORT` (normally `22`)
+- `HOSTINGER_USERNAME`
+- `HOSTINGER_SSH_PRIVATE_KEY`
+- `HOSTINGER_SSH_KNOWN_HOSTS` (the verified server host-key entry)
+- `HOSTINGER_REMOTE_PATH` (the confirmed site root, for example `public_html` only when hPanel verifies it)
+
+The previous successful `main` commit remains the Git rollback target. Before the first automated upload, take a Hostinger file backup and retain the archive outside the deployment directory.
+
 After deployment verify:
 
 1. Non-www redirects once to `https://www.aitechinnovations.com`.
