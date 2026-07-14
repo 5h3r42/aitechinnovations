@@ -21,7 +21,7 @@ const CLARITY_PROJECT_ID = "x1bt97hjsh";
 const AI_PLATFORM_API_URL =
   window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
     ? "http://localhost:3000/api/public/enquiries"
-    : "https://app.aitechinnovations.com/api/public/enquiries";
+    : "https://ai-platform-topaz-nine.vercel.app/api/public/enquiries";
 
 const GOOGLE_SHEETS_ENDPOINT =
   "https://script.google.com/macros/s/AKfycbwsi2ZxS5UzS-Cioi5Ll-1IHSiU3LJGoc6HdVK_J2h3_YhWMDhKP0wUdcyCXtj5qYn0/exec";
