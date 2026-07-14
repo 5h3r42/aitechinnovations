@@ -1,5 +1,1818 @@
 # Changelog
 
+## 2026-07-14 - Improve pricing card spacing
+
+### Files Changed
+
+- Updated `content/pages/index.html`, `content/pages/ai-automation-services.html`, `styles.css`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Widened the pricing-only container and increased card padding, header-to-price spacing, feature-list rhythm and readable line-height without changing approved prices, offer structures, CRM lead types, CTA destinations, analytics, consent handling or attribution.
+- Condensed feature bullets, applied restrained recommended-card emphasis, and added a flexible card spacer so desktop CTA bottoms align while the cards remain equal height.
+- Kept three cards at desktop widths and changed the shared pricing layout to a single column at tablet and mobile widths to prevent cramped or orphaned cards.
+
+### Validation
+
+- Focused pricing and accountant tests, TypeScript, ESLint, production build, static route checks, and `git diff --check` passed.
+- Browser QA at 1440px, 768px and 390px confirmed no horizontal overflow, aligned desktop CTA bottoms, readable spacing and no console errors. Checked the homepage, AI automation, accountant and website-design routes.
+
+### Next Task
+
+Deploy the validated `out/` directory through the existing Hostinger workflow, then complete live form, attribution, consent and GA4 conversion QA.
+
+## 2026-07-14 - Refine founding client pricing
+
+### Files Changed
+
+- Updated the homepage, AI automation service, accountant landing page, website enquiry budget options, focused tests, static checks and project tracking files
+
+### Summary
+
+- Repositioned the £495 setup / £149 monthly existing-website service as a limited Founding Client AI Receptionist Pilot, with a 30-day, one-website, one-location, 10-service, 25-FAQ and one-user standard scope.
+- Clarified that the £1,995 Website + Managed AI price is only for a tightly scoped standard website and that typical projects are £2,995–£3,995; raised the client-owned entry point to £5,000 with typical £6,000–£10,000+ projects.
+- Kept the existing CRM, attribution, consent-gated PII-safe analytics and package lead types unchanged.
+
+### Validation
+
+- Focused tests, TypeScript, lint, production build, static route checks, `git diff --check`, and 390px local browser QA passed. No console errors or horizontal overflow were found locally.
+
+### Next Task
+
+Deploy the validated `out/` directory through the existing Hostinger workflow, then complete live form, attribution, consent and GA4 conversion QA.
+
+## 2026-07-14 - Add website and AI receptionist pricing
+
+### Files Changed
+
+- Updated homepage, AI automation, accountant, website-service and location pages; shared form metadata; responsive styles; focused tests and static checks
+
+### Summary
+
+- Added three consistent offers: AI Receptionist Pilot on an existing website (£495 setup, then £149/month), Website + Managed AI Receptionist (£1,995–£3,995 setup, then £199–£299/month), and a Fully Client-Owned Website and AI System (£4,000–£8,000+ with optional £250–£750/month support).
+- Made the accountant route’s 30-day, one-website managed pilot the primary offer; added concise ownership, fair-use, included-service and exclusion wording, plus a secondary route to the full comparison.
+- Reused the existing AI Platform CRM path, campaign attribution and consent-gated PII-safe analytics. Pricing CTAs now select the `ai_receptionist_existing_website`, `website_managed_ai`, or `client_owned_ai_system` lead type without introducing a new lead store.
+
+### Validation
+
+- Focused Node tests, `npx tsc --noEmit`, `npm run lint`, `npm run build`, `npm run check`, `git diff --check`, and local desktop/390px browser QA passed. The pricing comparison and accountant primary offer had no horizontal overflow or browser console errors locally.
+
+### Next Task
+
+Deploy the validated `out/` directory through the existing Hostinger workflow, then complete labelled production form, attribution, consent and GA4 conversion QA.
+
+## 2026-07-14 - Add accountant AI receptionist landing page
+
+### Files Changed
+
+- Added `content/pages/ai-receptionist-for-accountants.html` and `tests/accountant-ai-receptionist.test.mjs`
+- Updated static route, sitemap, export validation, shared CRM form metadata, mobile chat clearance, styles, and project tracking files
+
+### Summary
+
+- Added the static `/ai-receptionist-for-accountants/` campaign page for UK accountancy practices, with accountancy-specific benefits, workflow, safeguards, 30-day pilot, comparison, FAQ, accountant demo CTAs, and consultation form.
+- Reused the existing AI-Platform submission, attribution, consent and analytics implementation. The form sends `source: website`, records page-specific lead metadata, emits `form_started` once on real interaction and emits `generate_lead` only after the documented successful CRM response.
+- Added accurate Service, FAQPage and BreadcrumbList schema; preserved the standalone accountant demo as a tracked secondary destination; and moved the mobile chat launcher above the page’s fixed action bar.
+
+### Validation
+
+- Focused Node tests (including the existing TypeScript suites with Node type stripping), `npx tsc --noEmit`, `npm run lint`, `npm run build`, `npm run check`, and `git diff --check` passed.
+- Browser QA at 1440px and 390px confirmed the canonical URL, responsive CTA hierarchy, no horizontal overflow, visible demo action, chat availability, chat/mobile-bar clearance, no console errors, and accountant demo new-tab destination.
+
+### Next Task
+
+Deploy the generated `out/` directory through the existing Hostinger workflow, then run labelled production CRM, attribution, GA4 and consent QA before outreach.
+
+## 2026-07-11 - Fix enquiry success handling after AI Platform submission
+
+### Files Changed
+
+- Updated `public/script.js`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Separated analytics tracking from the critical AI Platform submission path so a tracking exception cannot report a valid `201` enquiry as failed.
+- The strategy form now resets and shows the required confirmation immediately after the documented successful API response; analytics failures are logged as warnings only.
+
+### Validation
+
+- `npm run build`, `npm run check`, `npm run lint`, `npm test`, and `git diff --check` passed.
+- Browser regression test forced `gtag` to throw after the API returned `201 { success: true, data: { status: "submitted" } }`; the form made one enquiry request, reset, and showed the success message.
+
+### Next Task
+
+Deploy the updated AITech `out/` directory, then archive the clearly labelled local integration test enquiries from `/dashboard/enquiries`.
+
+## 2026-07-11 - Connect AITech website enquiries to AI Platform
+
+### Files Changed
+
+- Updated `public/script.js`, `public/.htaccess`, `app/layout.tsx`, and `scripts/check-static-site.js`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+- Updated the AI Platform public enquiries endpoint to allow AITech's approved website origins
+
+### Summary
+
+- Replaced the homepage strategy-call form's legacy lead-delivery chain with one AI Platform `POST /api/public/enquiries` request for `aitech-innovations`.
+- Preserved every existing form value in the API `message`, retained validation/loading/error states, and clear the form only after the documented `201` success response.
+- Added production/local endpoint configuration, static-site CSP permission, and restricted API CORS support. The quote form and chatbot delivery paths remain unchanged.
+
+### Validation
+
+- AI Platform `npm run build` passed.
+- AITech `npm run build`, `npm run lint`, `npm test`, `npm run check`, and `git diff --check` passed.
+- A browser submission from `http://localhost:3001` returned `201 { success: true, data: { status: "submitted" } }`, cleared the form, and showed the required confirmation. No legacy delivery request was made.
+
+### Next Task
+
+Deploy the updated AI Platform API and AITech `out/` directory, then archive the clearly labelled local integration test enquiries from `/dashboard/enquiries`.
+
+## 2026-07-11 - Create sales documentation foundation
+
+### Files Changed
+
+- Added `docs/README.md` and the CRO, SALES, INDUSTRIES, OUTREACH, CRM, and CLIENTS documentation structure
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Added reusable templates for website audits, optimisation plans, experiments, discovery calls, proposals, pricing, objection handling, onboarding, follow-up, and multi-channel outreach.
+- Added five industry research templates, CRM pipeline definitions, a header-only prospect tracker, and a safe per-prospect/client record structure.
+- No website, application, Supabase, or AI Platform files were changed.
+
+### Validation
+
+- `git diff --check` passed.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
+## 2026-07-10 - Align consultation section columns
+
+### Files Changed
+
+- Updated `styles.css`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Removed desktop vertical centring from the homepage strategy-call two-column layout.
+- Top-aligned the left eyebrow, copy and CTAs with the form card while preserving desktop column widths and the mobile stacked layout.
+
+### Validation
+
+- `npm run lint`, `npm run check`, `npm test`, `npm run build`, and `git diff --check` passed.
+- At 1440px, the left eyebrow and form card top edges differed by 1px; at 390px the layout remained stacked and the document stayed within the viewport.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
+## 2026-07-10 - Standardise website pricing to three packages
+
+### Files Changed
+
+- Updated `content/pages/index.html`, the directly conflicting website/location/ads pages, and pricing knowledge content in `public/api/`
+- Updated `styles.css` and `scripts/check-static-site.js`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Reduced the homepage to one canonical `STARTING PACKAGES` section with exactly three cards: Website Starter, Lead Generation Website, and Industry Demo-Style Website.
+- Kept the middle Lead Generation Website package featured and aligned all package CTAs to the strategy-call route.
+- Removed legacy homepage package prices and aligned directly conflicting £899, £1,499 and £399 references across visible service/location pages, forms and pricing guidance. Ads and advanced automation remain custom-quoted outside the three website packages.
+
+### Validation
+
+- `npm run lint`, `npm run check`, `npm test`, `npm run build`, and `git diff --check` passed.
+- Desktop and 390px browser checks confirmed one homepage pricing section, three cards, one featured card, working CTA destinations and no horizontal overflow.
+- Static and source scans found no remaining visible £399, £899 or £1,499 legacy pricing references.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
+## 2026-07-10 - Polish consultation form and pricing section
+
+### Files Changed
+
+- Updated `content/pages/index.html` and `styles.css`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Rebalanced the homepage consultation section with a cleaner two-column layout, aligned form grid, controlled card width, and consistent CTA/reassurance spacing.
+- Replaced the vague pricing cards with Website Starter, Lead Generation Website, Industry Demo-Style Website, Automation / Ads Setup, and Combined Growth System packages.
+- Added detailed package inclusions, starting-price language, relevant strategy-call CTAs, and a clear final-scope/results caveat.
+
+### Validation
+
+- `npm run lint`, `npm run check`, `npm test`, `npm run build`, and `git diff --check` passed.
+- Browser checks passed at desktop and 390px mobile widths; five pricing cards were present, all package CTAs routed to `/free-strategy-call/`, and no horizontal overflow was reported.
+- The homepage form required only name, business, email and primary goal; the calendar CTA, demo new-tab attributes, and reassurance text were verified.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
+## 2026-07-10 - Improve homepage conversion foundation
+
+### Files Changed
+
+- Updated `content/pages/index.html`, `content/pages/free-strategy-call.html`, and sitewide primary CTA copy in `content/pages/*.html`
+- Updated `styles.css` and `scripts/check-static-site.js`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Rewrote the homepage hero around websites and lead systems for UK service businesses.
+- Standardised primary CTAs to “Book a free 20-minute strategy call” and added the requested reassurance line.
+- Added founder-led trust messaging, lower-friction strategy forms, a calendar-first call page, call agenda, ownership/support FAQs, and clearer Sample systems positioning.
+
+### Validation
+
+- `npm run lint`, `npm run check`, `npm test`, `npm run build`, and `git diff --check` passed.
+- Browser checks passed at desktop and 390px mobile widths; homepage and strategy-call pages reported zero horizontal overflow.
+- Homepage and strategy-call forms now require only name, business, email and primary goal; budget and timeline are optional.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
+## 2026-07-10 - Replace sample systems with live demo showcase
+
+### Files Changed
+
+- Updated `content/pages/index.html` and `styles.css`
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Removed the old generic three-card sample systems section and preview modal from the homepage.
+- Added five live demo cards with the exact demo names, URLs, copy, new-tab attributes, and “View live demo” CTAs.
+- Added the requested benefit badges and the “Your business here” free strategy-call CTA.
+
+### Validation
+
+- `npm run lint`, `npm run check`, `npm test`, and `npm run build` passed.
+- Browser checks passed at desktop and 390px mobile widths with no horizontal overflow; all five demo links use `target="_blank"` and `rel="noopener noreferrer"`.
+- All five demo domains and `/free-strategy-call/` returned HTTP 200.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
+## 2026-06-15 - Activate and verify FormSubmit fallback
+
+### Files Changed
+
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Activated FormSubmit for `support@aitechinnovations.com` through the mailbox confirmation message.
+- Ran a clearly labelled fallback-only test from the live website origin.
+- Kept the primary Supabase, Resend and Google Sheets workflow untouched and created no sales lead.
+
+### Validation
+
+- FormSubmit returned `HTTP 200` with `success: true` after activation.
+- The connected Gmail app still requires reauthentication, so direct inbox receipt was not independently inspected by Codex.
+
+### Next Task
+
+Review and approve the highest-scoring outbound prospect drafts before any manual outreach.
+
+## 2026-06-15 - Launch outbound prospect acquisition workspace
+
+### Files Changed
+
+- Added `components/admin/prospect-dashboard.tsx`, `prospect-types.ts`, `prospect-import.ts`, and `prospect-import.test.ts`
+- Added `supabase/migrations/20260615123000_outbound_prospects.sql` and `20260615150000_seed_outbound_prospects.sql`
+- Added `scripts/build-prospect-research.mjs`, `data/outbound-prospects-2026-06-15.csv`, and `CASE_STUDY_INTAKE_CHECKLIST.md`
+- Updated `components/admin/lead-dashboard.tsx`, `styles.css`, `package.json`, `scripts/check-static-site.js`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Added top-level Inbound Leads and Outbound Prospects workspaces without mixing outbound records into inbound queues, counts, conversions, forms, or Resend.
+- Added admin-only prospect storage, immutable activities, atomic workflow RPCs, CSV/manual workflows, duplicate-domain checks, filters, pagination, drafts, and archive/restore.
+- Researched and imported 100 public service-business websites across Kent and London, with a broad clinic, legal, accountancy, property, care, consultancy, and trades mix.
+- Stored three website findings, opportunity scoring, source/contact routes, and personalised email and contact-form drafts as `Draft Ready`; no outreach or follow-up was sent.
+- Added a case-study intake checklist and retained all existing demonstration labels and claims.
+
+### Validation
+
+- Production RLS checks confirmed anonymous and non-admin access is blocked, admin inserts work, atomic activity logging works, and activities cannot be changed after creation.
+- The CSV passed importer validation with 100 unique domains: 59 Kent, 41 London, 65 public emails, 80 public phones, and 92 public contact routes.
+- Production table statistics report 100 prospects and 100 prospect activities, separate from seven inbound leads.
+- All 13 tests, ESLint, TypeScript, the static build, and the 21-route checker passed.
+- Hostinger serves `/admin/leads/` at `200` with `noindex`; the route remains absent from the sitemap and the deployed bundle contains the responsive outbound workspace at 1440px and 390px.
+- Search Console, Google Ads, and FormSubmit account changes were not made because the in-app browser was unavailable and the Gmail connector required reauthentication. Advertising remained paused and no outreach was sent.
+
+### Next Task
+
+Reauthenticate the account sessions, submit the sitemap, complete the paused Google Ads setup, and activate/test FormSubmit.
+
+## 2026-06-15 - Launch actionable lead follow-up workflow
+
+### Files Changed
+
+- Updated `components/admin/admin-icons.tsx`, `lead-collection.tsx`, `lead-dashboard.tsx`, `lead-detail-panel.tsx`, and `lead-types.ts`
+- Added `components/admin/lead-workflow.ts`, `lead-workflow.test.ts`, `supabase/migrations/20260615090000_actionable_lead_workflow.sql`, and `20260615111500_lead_activity_actor_retention.sql`
+- Updated `styles.css`, `package.json`, `tsconfig.json`, `scripts/check-static-site.js`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Replaced the summary-first admin screen with Overdue, Due Today, and Upcoming sales queues using Europe/London calendar boundaries.
+- Added editable next-action type/date/time, three-day first-contact and proposal suggestions, four-day second follow-up suggestions, and active lead filters for status, service, source, and due state.
+- Added append-only call, email, WhatsApp, meeting, note, proposal, status, archive, restore, and next-action timeline records with atomic admin RPCs.
+- Added quick contact actions, structured outcome logging, active/archived views, archive reasons, restoration, and exclusion of archived leads from active queues and counts.
+- Backfilled existing active leads as Review lead due immediately and archived three clearly labelled historical test records plus the controlled release records.
+
+### Validation
+
+- `npm test`, TypeScript, ESLint, static export build, and the 21-route static checker passed.
+- Anonymous insert remained available while anonymous reads/updates were blocked; non-admin users received no lead or activity rows; protected lead columns rejected admin updates; timeline updates/deletes were blocked.
+- Desktop and 390px mocked browser checks passed without horizontal overflow, including the full-screen mobile lead workspace.
+- Live browser validation passed session restoration, activity logging with status/next action, archive, archived lookup, restore, final archive, and sign-out with no page errors.
+- Hostinger serves the new workflow at `https://www.aitechinnovations.com/admin/leads/` with `200`, `noindex,nofollow`, and no admin sitemap entry.
+
+### Next Task
+
+Submit the updated sitemap in the www Google Search Console property, then continue the paused Google Ads setup.
+
+## 2026-06-15 - Fix admin password recovery redirect
+
+### Files Changed
+
+- Updated `components/admin/lead-dashboard.tsx`, `styles.css`, `scripts/check-static-site.js`, `ADMIN_LEADS_SETUP.md`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+- Updated the production Supabase Auth Site URL and redirect allow list
+
+### Summary
+
+- Replaced the default `http://localhost:3000` recovery destination with `https://www.aitechinnovations.com/admin/leads/`.
+- Added an admin sign-in “Forgot password?” action using an explicit production `redirectTo` value.
+- Added a responsive recovery form that detects `PASSWORD_RECOVERY`, validates matching 12-character passwords, calls `updateUser({ password })`, signs out, and returns to the normal sign-in screen.
+- Revoked the recovery session whose access and refresh tokens were shared in chat.
+
+### Validation
+
+- Supabase Auth reports the live admin URL for both `site_url` and `uri_allow_list`, with public sign-up still disabled.
+- A controlled recovery link redirected to the live admin route, displayed the password form at 390px without overflow, updated the password, and allowed login with the new password.
+- The temporary test session was globally revoked, the previous password was restored, and login with it returned `200`.
+- `npm run lint`, `npm run build`, `npm run check`, regression markers, and `git diff --check` passed.
+
+### Next Task
+
+Use the live admin page’s “Forgot password?” action to choose a private replacement password, then store it in a password manager.
+
+## 2026-06-15 - Launch admin lead dashboard
+
+### Files Changed
+
+- Updated `lib/supabase.ts`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+- Applied `supabase/migrations/20260614_admin_leads_rls.sql` to production Supabase
+- Deployed the existing admin dashboard export and assets to Hostinger
+
+### Summary
+
+- Preserved anonymous insert-only access for public lead forms while restricting reads and workflow-field updates to authenticated users with trusted `app_metadata.role = "admin"`.
+- Disabled public Supabase Auth sign-up and created the confirmed `support@aitechinnovations.com` administrator account.
+- Fixed the admin Auth client to normalize configured `/rest/v1` URLs to the Supabase project base URL before calling `createClient`.
+- Deployed `/admin/leads/` as a static, noindex route without adding it to the 21-URL public sitemap.
+
+### Validation
+
+- Anonymous insert returned `201`; anonymous read/update returned `401`; non-admin reads returned no rows; public sign-up returned `signup_disabled`; protected-field admin updates returned `403`.
+- The real admin account loaded all four production leads and passed search, status update/restoration, notes save/restoration, session restoration, sign-out, unauthorised-account handling, and 390px mobile validation.
+- A temporary 51-row dataset verified 50-row pagination across two pages and was fully removed afterward.
+- `npm run lint`, `npm run build`, `npm run check`, Deno email tests, JavaScript syntax checking, migration parity, URL-normalization checks, and `git diff --check` passed.
+- Live `/admin/leads/` returns `200`, contains `noindex,nofollow`, remains absent from the sitemap, loads four leads on desktop/mobile, and reports no browser errors or horizontal overflow.
+
+### Next Task
+
+Submit the updated sitemap in the www Google Search Console property, then continue the paused Google Ads setup.
+
+## 2026-06-15 - Repair Resend form delivery
+
+### Files Changed
+
+- Updated `app/layout.tsx`, `public/script.js`, `supabase/functions/send-lead-email/index.ts`, `scripts/check-static-site.js`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Confirmed the morning submission did not create a Supabase lead, so it never entered the Resend workflow; the shared script was also served with a 30-day immutable cache under an unchanged URL.
+- Added a new shared-script cache key so browsers load the repaired delivery workflow immediately.
+- Moved the website-and-content quote handler onto the same validation, Supabase insert, Resend, Google Sheets, and FormSubmit sequence as the strategy forms.
+- Added three bounded browser retries with request timeouts and three Resend retries for transient network, `429`, and `5xx` failures.
+- Added deterministic Resend idempotency keys so retries and repeated function calls do not send duplicate admin or customer emails.
+- Deployed Edge Function version 9 and the scoped static export to Hostinger; the unfinished `/admin/leads/` route was excluded and remains unavailable in production.
+
+### Validation
+
+- The Supabase/Resend workflow checker, `npm run lint`, `npm run build`, `npm run check`, Deno tests/lint/type checking, JavaScript syntax checking, and `git diff --check` passed.
+- Live pages serve `/script.js?v=20260615-lead-delivery`, and the deployed script contains the retry, quote-form Supabase, and ID-only function-call changes.
+- Controlled production lead `55ab4e4f-32f7-440b-939b-c8f56eb338c5` returned `201` from Supabase and `200` from the Edge Function.
+- Resend accepted distinct admin and customer messages; repeating the function call returned the same provider IDs, confirming idempotency.
+- Google Sheets returned `200` with `ok: true`, and the controlled lead remains saved in Supabase.
+
+### Next Task
+
+Submit the updated sitemap in the www Google Search Console property, then continue the paused Google Ads setup.
+
+## 2026-06-14 - Build internal lead management dashboard
+
+### Files Changed
+
+- Added `app/admin/leads/page.tsx`, `components/admin/admin-icons.tsx`, `lead-collection.tsx`, `lead-dashboard.tsx`, `lead-detail-panel.tsx`, and `lead-types.ts`
+- Added `supabase/migrations/20260614_admin_leads_rls.sql` and `ADMIN_LEADS_SETUP.md`
+- Updated `styles.css`, `lib/supabase.ts`, `public/script.js`, `scripts/check-static-site.js`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Added a statically exported, noindex `/admin/leads/` route with Supabase email/password sign-in, session restoration, trusted `app_metadata.role = "admin"` gating, unauthorised-account handling, and sign-out.
+- Added newest-first 50-row pagination, debounced Supabase search across name/business/email, exact summary counts, responsive desktop/mobile lead views, and a contextual detail panel.
+- Added immediate status updates with optimistic feedback and rollback, explicit notes saves, UK date formatting, loading/empty/error states, and accessible controls.
+- Added scoped SaaS dashboard styling without installing Tailwind and prevented public cookie controls from appearing on `/admin/` routes.
+- Added an unapplied migration that keeps anonymous lead inserts, denies anonymous reads/updates, permits admin reads, limits authenticated updates to `status`, `notes`, and `updated_at`, and adds the six-status check constraint without scanning legacy rows.
+
+### Validation
+
+- `npm run lint`, `npm run build`, `npm run check`, the Supabase/Resend workflow checker, and `git diff --check` passed.
+- The export contains `out/admin/leads/index.html`; the admin route is noindex/nofollow and the sitemap remains unchanged at 21 public URLs.
+- Playwright fallback QA with local mocked Supabase responses covered sign-in error, admin/non-admin sessions, sign-out, summary counts, search debounce, pagination, status updates, notes saves, empty/error states, desktop detail layout, and the 390px full-screen mobile detail sheet.
+- The in-app Browser was unavailable. Deno was not installed, so the unchanged Edge Function test was not rerun in this task.
+- Production RLS/Auth checks remain blocked until the migration is applied and an admin account is provisioned; no production migration, account creation, lead mutation, or Hostinger deployment was performed.
+
+### Next Task
+
+Review and apply the migration, provision the trusted admin Auth user, then validate real read/update permissions before deploying the refreshed `out/` contents.
+
+## 2026-06-14 - Implement Resend lead emails
+
+### Files Changed
+
+- Updated `public/script.js`, `scripts/check-static-site.js`, `tsconfig.json`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+- Updated `supabase/functions/send-lead-email/index.ts` and `deno.json`
+- Added `supabase/functions/send-lead-email/email-content.ts` and `email-content.test.ts`
+
+### Summary
+
+- Replaced the failed Deno SMTP dependency with direct Resend API calls from the Supabase Edge Function.
+- Added the required admin notification and customer confirmation email content, HTML escaping, plain-text alternatives, and Google Calendar booking link.
+- Expanded the Supabase insert to store the structured strategy-form fields, source, notes, full message, and a browser-generated UUID without requiring an anonymous select policy.
+- Authenticated Edge Function calls with the Supabase publishable key and reloaded each saved lead through the server-side Supabase client before sending email.
+- Kept Google Sheets and FormSubmit unchanged as secondary delivery paths and made email failures non-destructive to saved leads.
+- Kept the Next.js build static by excluding Deno Edge Function files from the site TypeScript program.
+
+### Validation
+
+- Email-content tests passed for all required fields, customer copy, booking link, signature, and HTML escaping.
+- Deno type checking and lint passed for the Edge Function.
+- `npm run lint`, `npm run build`, `npm run check`, `node --check public/script.js`, and `git diff --check` passed.
+- Static checks confirm the order is validation, Supabase insert, Edge Function email attempt, then Google Sheets backup.
+- The Resend sending domain is verified, `RESEND_API_KEY` is configured in Supabase, and `send-lead-email` is deployed.
+- Live checks confirmed successful CORS preflight and publishable-key authentication; a request without a lead ID returned the expected `400` validation response without sending email.
+- Deployed the refreshed `out/` static export to Hostinger; all 21 live routes returned `200`, the new browser workflow was present, HSTS/CSP remained active, and the PHP chatbot returned a scripted response.
+- Controlled production lead `745afcc6-1178-463d-a91b-375da9e1a3c1` returned `201` from Supabase and `200` from the Edge Function; Resend accepted separate admin and customer emails with distinct IDs.
+- The matching Google Sheets backup returned `200` with `ok: true` and `emailStatus: SENT`.
+
+### Next Task
+
+Submit the updated sitemap in the www Google Search Console property, then continue the paused Google Ads setup.
+
+## 2026-06-14 - Make Supabase the primary strategy lead database
+
+### Files Changed
+
+- Updated `app/layout.tsx`, `public/script.js`, `scripts/check-static-site.js`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Added static-exported Supabase browser configuration using the public URL and publishable key.
+- Normalized both project-root and existing `/rest/v1/` Supabase URL formats before building the leads endpoint.
+- Allowed HTTPS connections to Supabase in the deployed Content Security Policy.
+- Added native form validation and a required `public.leads` insert before any secondary delivery step.
+- Stored `name`, `email`, `phone`, the full strategy-call message, and `status = New`.
+- Retained the Google Sheets, FormSubmit, WhatsApp, and email fallback workflow after a successful Supabase insert.
+- Kept form values intact and displayed a clear retry message when Supabase fails.
+- Deployed the generated static export to Hostinger after correcting and verifying the Supabase CSP allowance.
+
+### Validation
+
+- `npm run build`, `npm run check`, `npm run lint`, and `git diff --check` passed.
+- Static checks confirm validation, Supabase, and Google Sheets run in the required order and no service-role key is exported.
+- Live Hostinger checks confirmed the Supabase CSP allowance, all 21 sitemap routes at `200`, the canonical redirect, chatbot response, and protected knowledge files.
+- Interactive browser validation was unavailable because the in-app browser was not available in this session.
+
+### Next Task
+
+Verify the `public.leads` insert-only RLS policy and submit one controlled live strategy-call test lead after deployment.
+
+## 2026-06-14 - Complete GA4 Admin configuration
+
+### Files Changed
+
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+- Updated GA4 property `540147140` directly in Google Analytics Admin
+
+### Summary
+
+- Marked `generate_lead` and `calendar_booking_click` as the business key events.
+- Removed key-event status from `quote_cta_click`, `whatsapp_click`, `email_click`, `chatbot_lead_submitted`, `close_convert_lead`, and `qualify_lead`.
+- Registered event-scoped custom dimensions for `lead_source`, `lead_type`, `service_interest`, `form_name`, and `location`.
+- Activated the `Internal Traffic` exclusion filter for `traffic_type=internal` after validating it in Testing mode.
+
+### Validation
+
+- The GA4 key-events table shows `generate_lead` and `calendar_booking_click`; the remaining `purchase` row is Google's disabled system default with no stream data.
+- The custom-definitions table shows all five lead dimensions with the correct event parameters.
+- The Data API showed the testing filter matched 49 events from 2 internal users before activation.
+- The data-filter table shows `Internal Traffic`, operation `Exclude`, state `Active`.
+
+### Next Task
+
+Import the GA4 conversions into Google Ads and create the documented Kent Search campaign in paused state.
+
+## 2026-06-14 - Add homepage strategy form and align chatbot launcher
+
+### Files Changed
+
+- Updated the homepage content, shared styles, static validation and project tracking files
+
+### Summary
+
+- Added the full strategy-call enquiry form to the homepage before the final CTA.
+- Reused the existing Google Sheets, FormSubmit, WhatsApp and email fallback workflow.
+- Added homepage-specific `form_name`, `lead_source` and analytics location values without introducing duplicate lead events.
+- Moved the Ask us launcher closer to the right edge and corrected its internal alignment on desktop and mobile.
+
+### Validation
+
+- Production build, static SEO checks, ESLint and `git diff --check` passed
+- Browser checks confirmed all ten form controls, live status region and homepage tracking attributes
+- Desktop and 375px mobile checks passed without horizontal overflow
+- Ask us launcher alignment was verified at the right edge on desktop and mobile
+
+### Next Task
+
+Complete the GA4 Admin and Google Ads account setup before activating advertising spend.
+
+## 2026-06-14 - Migrate production website to Next.js
+
+### Files Changed
+
+- Added the Next.js App Router, shared page renderer, route data, TypeScript configuration, ESLint configuration and Hostinger output preparation script
+- Moved browser assets, analytics behavior and the PHP chatbot under `public/`
+- Moved the existing production page markup under `content/pages/` for build-time rendering
+- Updated package dependencies, static validation, sitemap, Hostinger rewrites, README, project instructions and tracking files
+
+### Summary
+
+- Migrated all 21 public routes to Next.js 16, React 19 and TypeScript without redesigning or reducing the existing acquisition content.
+- Added per-route Next metadata, Hostinger-native trailing-slash canonicals, static generation and JSON-LD preservation.
+- Kept Hostinger shared hosting through `output: "export"`; the generated `out/` directory includes the PHP chatbot endpoint and all public assets.
+- Preserved Consent Mode v2, GA4 events, UTM/GCLID attribution, forms, contextual WhatsApp messages, cookie controls and portfolio popouts.
+- Standardized the former About and location `.html` URLs on clean routes with permanent redirects.
+- Deployed the generated static export to Hostinger.
+
+### Validation
+
+- `npm run build`, `npm run check` and `npm run lint` passed
+- `npm audit --omit=dev` reported zero vulnerabilities
+- PHP syntax and `git diff --check` passed
+- All 21 routes returned `200` locally and live with Next.js assets and matching canonicals
+- Desktop and 375px mobile browser checks passed without horizontal overflow or console warnings
+- Cookie controls, mobile navigation, sample preview popout, strategy form structure and chatbot endpoint were verified
+- Live non-www and former `.html` redirects, sitemap, security headers and protected knowledge files were verified
+
+### Next Task
+
+Complete the GA4 Admin and Google Ads account configuration, then launch the documented Kent Search campaign only after reviewing billing and budget.
+
+## 2026-06-12 - Prepare website for paid customer acquisition
+
+### Files Changed
+
+- Added `website-design-for-service-businesses.html` and `ADS_LAUNCH_PLAN.md`
+- Updated shared analytics, consent, forms, styles, privacy wording, chatbot security, route generation, static validation, sitemap, Hostinger rules, deployment documentation, and project tracking files
+
+### Summary
+
+- Added a focused website-design landing page for UK service businesses with a single consultation offer, clear starting prices, qualification form and honest early-stage proof.
+- Implemented Google Consent Mode v2 with denied defaults, equal accept/reject controls, persistent reversible choices, and consent-gated Microsoft Clarity loading.
+- Preserved UTM parameters and Google click IDs for the browser session and attached campaign context to delivered form and chatbot leads without sending personal form data to GA4.
+- Added the initial £15/day Kent Google Search campaign structure, keywords, negatives, responsive search advert copy, tracking template, launch gates and stop rules.
+- Added HSTS, CSP, clickjacking, MIME, referrer and permissions headers; protected chatbot knowledge files; and added chatbot origin, size and rate controls.
+- Deployed the final static package to Hostinger.
+
+### Validation
+
+- `npm run generate:seo`
+- `npm run check` passed for 21 public routes
+- JavaScript and PHP syntax checks passed
+- Mobile browser check passed at 375px with no horizontal overflow
+- Cookie acceptance loaded Clarity; withdrawal and rejection prevented Clarity loading
+- Local chatbot checks returned `200` for an allowed origin, `403` for an untrusted origin and `413` for an oversized request
+- Live landing page and all discovery/security checks passed; chatbot knowledge now returns `403`
+- Live internal test lead delivered successfully and appeared once as `generate_lead` in GA4 Realtime
+
+### Next Task
+
+Sign in to GA4 and Google Ads to complete the account-level conversion configuration and create the campaign in paused state before approving any spend.
+
+## 2026-06-12 - Clean up GA4 conversion tracking
+
+### Files Changed
+
+- Updated `script.js`, all 20 public HTML pages, the SEO page generator, static validation, README, and project tracking files
+
+### Summary
+
+- Replaced duplicate lead aliases with one `generate_lead` event after successful strategy-form, quote-form, or chatbot delivery.
+- Replaced duplicate booking aliases with one `calendar_booking_click` event.
+- Standardized `lead_source`, `lead_type`, `service_interest`, `form_name`, and `location` without sending personal form data to GA4.
+- Added persistent `?internal=1` and `?internal=0` browser controls that send `traffic_type=internal` from the initial page view onward.
+- Kept WhatsApp, email, CTA, chatbot-open and portfolio-preview events as supporting engagement signals.
+- Deployed the updated static package to Hostinger.
+
+### Validation
+
+- `npm run generate:seo`
+- `npm run check` passed for 20 public routes
+- JavaScript syntax and `git diff --check` passed
+- Local browser tests confirmed one calendar event, one successful strategy-form lead event, and one successful chatbot lead event.
+- Lead parameters contained only normalized, non-personal values; synthetic test submissions were marked as internal tests.
+- Live HTTP checks confirmed the canonical redirect, `200` responses, current cache key, canonical events, and absence of legacy aliases.
+- Live browser testing confirmed the deployed CTA event includes `traffic_type=internal`.
+
+### Next Task
+
+Complete the documented one-time GA4 Admin setup for key events, custom dimensions, and the internal-traffic data filter.
+
+## 2026-06-12 - Remove homepage founder section
+
+### Files Changed
+
+- Updated `index.html`, `styles.css`, `scripts/check-static-site.js`, and project tracking files
+
+### Summary
+
+- Removed the founder-led delivery block and oversized company-logo panel from the homepage.
+- Removed the now-unused founder grid and logo-panel CSS.
+- Bumped the homepage stylesheet cache key.
+- Deployed the updated homepage and stylesheet to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Confirmed the homepage no longer contains the founder section or related CSS selectors.
+- Live HTTP checks confirmed the founder section is absent and the new stylesheet cache key is active.
+
+### Next Task
+
+Continue the Search Console and GA4 account setup work.
+
+## 2026-06-12 - Improve sample systems cards and popouts
+
+### Files Changed
+
+- Updated `index.html`, `styles.css`, `scripts/check-static-site.js`, and project tracking files
+
+### Summary
+
+- Replaced tall stretched sample screenshots with compact 16:9 preview cards.
+- Shortened and aligned the card content while keeping each example clearly labelled as a demonstration concept.
+- Restored accessible full-size popouts for the clinic, solicitor and trade-business samples.
+- Deployed the updated homepage and stylesheet to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Desktop and mobile browser checks confirmed equal image ratios, no horizontal overflow, correct sample selection, close-button behaviour and Escape-key closing.
+- Live HTTP checks confirmed the new stylesheet cache key and all three preview triggers and panels are deployed.
+
+### Next Task
+
+Continue the Search Console and GA4 account setup work.
+
+## 2026-06-12 - Rebuild site for client acquisition
+
+### Files Changed
+
+- Rebuilt `index.html`, shared styles and client-side lead/tracking behaviour
+- Added `website-content-services.html`, `ads-setup-services.html`, `free-strategy-call.html`, `CLIENT_ACQUISITION_PLAN.md`, and strategy-call chatbot knowledge
+- Updated service, blog, legal, location, chatbot, sitemap, robots, redirect, validation and deployment files
+- Replaced three large portfolio PNG files with optimized WebP assets
+
+### Summary
+
+- Repositioned AITech Innovations as a founder-led digital growth systems agency for UK service businesses.
+- Organized the offer into Website & Content, Ads & Lead Generation, and Automation & Chatbots with clear starting prices and one primary Free Strategy Call CTA.
+- Added contextual WhatsApp messages, a complete strategy-call form workflow, honest sample systems, paid pilot positioning, and the 30-day outreach playbook.
+- Standardized the canonical hostname on `https://www.aitechinnovations.com` and expanded discovery files to 20 public URLs.
+- Deployed the rebuilt static package to Hostinger.
+
+### Validation
+
+- `npm run generate:seo`
+- `npm run check` passed for 20 public routes
+- JavaScript and PHP syntax checks passed
+- All 20 pages plus sitemap and robots returned `200` locally
+- Browser checks passed on desktop and mobile with no horizontal overflow and correct WhatsApp contexts
+- Lighthouse: Performance 93, Accessibility 100, Best Practices 96, SEO 100, LCP 2.6s, CLS 0
+- Live non-www redirects once to www; all 20 routes return `200` with matching self-canonicals
+- Live sitemap and robots return `200`; WebP assets, chatbot responses and required analytics event names were verified
+
+### Next Task
+
+Submit the www sitemap in Google Search Console, then verify and mark the lead events in GA4.
+
+## 2026-06-11 - Deploy SEO landing pages to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a clean Hostinger archive containing only production static files, assets, server rewrites, sitemap, robots, and the chatbot API.
+- Deployed the SEO landing pages and clean URL structure to `aitechinnovations.com` through Hostinger.
+- Kept the canonical site on the non-www hostname.
+
+### Validation
+
+- All 13 requested public routes return `200` on the live domain.
+- Live `sitemap.xml` and `robots.txt` return `200`, and the sitemap contains 13 public URLs.
+- `www.aitechinnovations.com` returns a `301` redirect to `https://aitechinnovations.com`.
+- Live service metadata, self-canonical URLs, homepage internal links, cache-busted CSS/JavaScript, and required GA4 event names were confirmed.
+- Live chatbot endpoint returns a scripted pricing response with status `200`.
+- Desktop and mobile browser checks confirmed responsive rendering and no horizontal overflow.
+
+### Next Task
+
+Resubmit `https://aitechinnovations.com/sitemap.xml` in Google Search Console and request indexing for representative URLs.
+
+## 2026-06-11 - Add crawlable SEO landing pages and clean routes
+
+### Files Changed
+
+- Added five automation service pages, `free-ai-audit.html`, `blog.html`, and three blog article HTML files
+- Added `sitemap.xml`, `robots.txt`, `public/sitemap.xml`, and `public/robots.txt`
+- Added `scripts/generate-seo-pages.js` and `scripts/dev-server.js`
+- Updated `.htaccess`, `index.html`, legal/location pages, `styles.css`, `script.js`, validation, deployment docs, and tracking files
+
+### Summary
+
+- Added 13 crawlable public routes with unique titles, descriptions, H1s, self-canonicals, internal links, and audit CTAs.
+- Added substantive, distinct problem, solution, benefits, use case, FAQ, and related-service content to each automation service page.
+- Standardized the canonical hostname on `https://aitechinnovations.com` and added clean Hostinger rewrites without hash routing.
+- Preserved current GA4 tracking and added compatibility events for `calendar_booking_click` and `chatbot_lead_submitted`.
+
+### Validation
+
+- `node --check script.js`
+- `node --check scripts/generate-seo-pages.js`
+- `node --check scripts/check-static-site.js`
+- `npm run generate:seo`
+- `npm run check`
+- Local route check confirmed `200` for all 13 public routes, `sitemap.xml`, and `robots.txt`.
+- Browser checks confirmed desktop metadata/sections, mobile article rendering, working mobile navigation, and no horizontal overflow.
+
+### Next Task
+
+Deploy the SEO files to Hostinger, verify the live clean routes, then resubmit the sitemap in Google Search Console.
+
+## 2026-06-07 - Deploy GA4 lead tracking update to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a clean Hostinger `public_html` archive containing the updated static pages, `.htaccess`, `assets/`, and `api/`.
+- Deployed the GA4 lead event tracking update to `aitechinnovations.com` through Hostinger.
+- Kept the deployment static and Hostinger-ready.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage returns the new `script.js?v=20260607-ga4-leads` cache key.
+- Live `script.js` contains `generate_lead`, `form_submit`, `submit_form`, `contact_submit`, `lead_generated`, `whatsapp_click`, `book_appointment_click`, `phone_click`, `email_click`, and `chatbot_lead`.
+- Live About, privacy, terms, Maidstone, Kent, and London pages return `200`.
+- Live chatbot endpoint returns a scripted pricing response for a POST request.
+
+### Next Task
+
+Verify the deployed lead events in GA4 DebugView, then mark the required events as Key Events.
+
+## 2026-06-07 - Add GA4 quote form event aliases
+
+### Files Changed
+
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added `form_submit`, `submit_form`, `contact_submit`, and `lead_generated` as success-only aliases for the existing quote form `generate_lead` event.
+- Kept all form lead events on the successful submission path, not the submit-button click path.
+- Reused the existing safe lead parameters: `form_name`, `lead_type`, `page_path`, `page_title`, and debug mode where applicable.
+
+### Validation
+
+- `node --check script.js`
+- `npm run check`
+- Local Chrome automation with mocked successful form delivery confirmed `generate_lead`, `form_submit`, `submit_form`, `contact_submit`, and `lead_generated` fire together.
+- Local Chrome automation with a honeypot submission confirmed the form lead events do not fire for spam-filtered submissions.
+
+### Next Task
+
+Deploy the GA4 lead event tracking update to Hostinger, then verify all lead and form alias events in GA4 DebugView.
+
+## 2026-06-07 - Update GA4 lead event tracking
+
+### Files Changed
+
+- Updated `script.js`
+- Updated `index.html`
+- Updated `about.html`
+- Updated `privacy.html`
+- Updated `terms.html`
+- Updated `website-design-maidstone.html`
+- Updated `website-design-kent.html`
+- Updated `website-design-london.html`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Replaced the old analytics wrapper with a reusable `trackEvent()` helper that safely exits when `gtag` is unavailable, adds page context, and supports debug console output on localhost or `?debug_analytics=1`.
+- Added lead-focused GA4 helpers for WhatsApp clicks, calendar booking clicks, phone clicks, email clicks, quote form leads, chatbot opens, and chatbot leads.
+- Replaced legacy event names including `calendar_booking_click`, `chatbot_open`, `chatbot_lead_submitted`, and reserved `form_submit` with the approved event contract.
+- Kept contact click parameters PII-safe by avoiding raw email addresses, phone numbers, and WhatsApp number URLs in GA4 payloads.
+- Normalized CTA location values and bumped the script cache key to `20260607-ga4-leads`.
+
+### Validation
+
+- `npm run check`
+- Local Chrome automation with `?debug_analytics=1` confirmed `whatsapp_click`, `book_appointment_click`, `email_click`, and `chatbot_opened` debug output.
+- Local GA stub test confirmed successful quote form submission fires `generate_lead` only after the mocked success path.
+- Local GA stub test confirmed completed chatbot lead capture fires `chatbot_lead`.
+- Local no-gtag fallback check confirmed click tracking does not throw browser errors when `window.gtag` is unavailable.
+
+### Next Task
+
+Deploy the GA4 lead event tracking update to Hostinger, then verify the events in GA4 DebugView and mark the required events as Key Events.
+
+## 2026-06-06 - Deploy homepage conversion update to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a clean Hostinger `public_html` archive from the committed static site files.
+- Deployed the homepage conversion flow and positioning update to `aitechinnovations.com`.
+- Kept the deployment static and Hostinger-ready.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage returns `200` and includes `Websites and AI automation that bring in better enquiries`, `Free AI Automation Audit`, the Google Calendar booking URL, JSON-LD schema, and `styles.css?v=20260606-conversion` / `script.js?v=20260606-conversion`.
+- Live `script.js` contains `calendar_booking_click`, `pricing_cta_click`, `form_submit`, `chatbot_open`, and `whatsapp_click`.
+- Live About, privacy, terms, Maidstone, Kent, and London pages return `200`.
+- Live chatbot endpoint returns a scripted pricing response for a POST request.
+
+### Next Task
+
+Verify the new GA4 conversion events in DebugView on the live domain.
+
+## 2026-06-06 - Update homepage conversion flow and positioning
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated static HTML asset cache keys in `about.html`, `privacy.html`, `terms.html`, `website-design-maidstone.html`, `website-design-kent.html`, and `website-design-london.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Repositioned the homepage around websites, booking systems, and AI automations for professional service businesses.
+- Added the hero `Book Free AI Audit` CTA and moved the AI audit offer into its own standalone section before the quote form.
+- Kept the quote form focused on website project enquiries.
+- Updated chatbot intro text and quick actions for website quote, AI audit booking, pricing, and WhatsApp.
+- Added homepage JSON-LD for Organization, LocalBusiness, Service, and FAQPage.
+- Added requested GA4 event names for booking, form submit, chatbot open, pricing CTA, and WhatsApp interactions while preserving existing conversion events.
+
+### Validation
+
+- `node scripts/check-static-site.js`
+- Local desktop and mobile browser checks confirmed the hero CTA order, standalone AI audit section, quote form separation, chatbot intro/actions, booking/WhatsApp URLs, and no horizontal overflow.
+- Local GA stub check confirmed `chatbot_open`, `calendar_booking_click`, `pricing_cta_click`, `whatsapp_click`, `form_submit`, and existing `generate_lead` events fire safely.
+
+### Next Task
+
+Deploy and verify the homepage conversion flow, AI audit booking CTA, chatbot quick actions, and GA4 events on the live domain.
+
+## 2026-06-04 - Deploy no-AI chatbot fallback to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a clean Hostinger `public_html` archive containing the updated static files, `.htaccess`, assets, `api/chatbot.php`, and `api/knowledge/`.
+- Deployed the archive to `aitechinnovations.com` through Hostinger.
+- Confirmed the no-AI scripted chatbot works live without an OpenAI API key.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage returns `200` and includes `styles.css?v=20260604-emailmove`, `script.js?v=20260604-emailmove`, and chatbot markup.
+- Live `https://www.aitechinnovations.com/api/chatbot.php` returns a scripted pricing answer for a POST request.
+- Live browser test confirmed the chatbot opens, sends “How much does a website cost?”, receives the scripted pricing response, fires chatbot open/message events, and has no horizontal overflow.
+- Live About, privacy, terms, Maidstone, Kent, and London pages return `200`.
+
+### Next Task
+
+Verify chatbot lead capture, WhatsApp, booking, and GA4 chatbot events on the live domain.
+
+## 2026-06-04 - Add no-AI chatbot fallback mode
+
+### Files Changed
+
+- Updated `api/chatbot.php`
+- Updated `scripts/check-static-site.js`
+- Updated `README.md`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added scripted chatbot answers for common services, pricing, AI audit, booking, WhatsApp, email, Hostinger, WordPress, timeline, automation, and chatbot questions.
+- Made OpenAI optional: the backend now tries scripted answers first, then uses OpenAI only for unmatched questions when `OPENAI_API_KEY` is configured.
+- Kept regulated-advice guardrails ahead of scripted and AI responses.
+- Updated docs to explain that an API key is optional and only needed for unmatched AI-generated answers.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local no-key API tests for services, website pricing, free AI audit, WhatsApp, tax-advice refusal, and unknown-question fallback.
+- Local mobile browser test confirmed scripted answer rendering, AI audit lead capture, WhatsApp/booking events, and no horizontal overflow.
+
+### Next Task
+
+Deploy the chatbot endpoint, knowledge base, and updated static files to Hostinger, then verify scripted answers and GA4 events on the live domain.
+
+## 2026-06-04 - Restore floating Ask us and move footer email
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `about.html`
+- Updated `privacy.html`
+- Updated `terms.html`
+- Updated `website-design-maidstone.html`
+- Updated `website-design-kent.html`
+- Updated `website-design-london.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Removed the Company-column footer Ask us button.
+- Restored the floating Ask us chatbot launcher behavior.
+- Moved the footer support email under the copyright line and left-aligned it so the floating launcher no longer covers it.
+- Bumped CSS and JS cache keys to `20260604-emailmove`.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local 615px browser check confirmed the floating Ask us launcher is back, the support email is left-aligned under the copyright line, the footer button hook is gone, and there is no overlap or horizontal overflow.
+
+### Next Task
+
+Configure `OPENAI_API_KEY` in Hostinger and deploy the chatbot endpoint, knowledge base, and updated static files.
+
+## 2026-06-04 - Add footer Ask us button
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `about.html`
+- Updated `privacy.html`
+- Updated `terms.html`
+- Updated `website-design-maidstone.html`
+- Updated `website-design-kent.html`
+- Updated `website-design-london.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added an `Ask us` button to the right side of the Company footer heading.
+- Wired the footer button to open the existing chatbot panel.
+- Bumped CSS and JS cache keys to `20260604-footerask`.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local 727px browser check confirmed the footer button sits to the right of the Company heading, has no horizontal overflow, loads fresh CSS/JS, and opens the chatbot.
+
+### Next Task
+
+Configure `OPENAI_API_KEY` in Hostinger and deploy the chatbot endpoint, knowledge base, and updated static files.
+
+## 2026-06-04 - Fix chatbot footer overlap
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `about.html`
+- Updated `privacy.html`
+- Updated `terms.html`
+- Updated `website-design-maidstone.html`
+- Updated `website-design-kent.html`
+- Updated `website-design-london.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Changed the mobile/tablet collapsed chatbot launcher to a compact circular AI button so it does not cover the footer email.
+- Added footer visibility handling so the collapsed chatbot hides while the footer is visible.
+- Bumped shared CSS and JS cache keys to `20260604-chatfooter` so browsers load the updated layout and behavior.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local 615px browser check confirmed the updated CSS/JS cache keys load, the launcher is 54px wide, the `Ask us` label is hidden, footer visibility class is applied, and there is no email overlap or horizontal overflow.
+
+### Next Task
+
+Configure `OPENAI_API_KEY` in Hostinger and deploy the chatbot endpoint, knowledge base, and updated static files.
+
+## 2026-06-04 - Fix chatbot font styling
+
+### Files Changed
+
+- Updated `styles.css`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added an explicit Plus Jakarta Sans font rule across the chatbot widget so message bubbles, inputs, buttons, links, and header text match the website font.
+- Bumped the shared stylesheet cache key to `styles.css?v=20260604-chatfont` across all HTML pages so browsers load the updated CSS.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local browser computed-style check confirmed `.chatbot-message` uses `Plus Jakarta Sans` and the homepage loads `styles.css?v=20260604-chatfont`.
+
+### Next Task
+
+Configure `OPENAI_API_KEY` in Hostinger and deploy the chatbot endpoint, knowledge base, and updated static files.
+
+## 2026-06-04 - Add AI support chatbot
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `privacy.html`
+- Updated `README.md`
+- Updated `scripts/check-static-site.js`
+- Added `api/chatbot.php`
+- Added `api/knowledge/services.json`
+- Added `api/knowledge/pricing.json`
+- Added `api/knowledge/ai-audit.json`
+- Added `api/knowledge/contact.json`
+- Added `api/knowledge/faqs.json`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added a bottom-right AITech Assistant chatbot with desktop/mobile responsive UI, accessible controls, and smooth open/close behavior.
+- Added a Hostinger PHP chatbot API endpoint that reads `OPENAI_API_KEY` server-side, loads a local JSON knowledge base, calls OpenAI `gpt-5.4-mini`, and refuses regulated-advice topics.
+- Added AI audit lead capture after chatbot interaction, reusing the existing Google Sheets/FormSubmit/WhatsApp/email lead handoff pattern.
+- Added GA4 chatbot events for open, message sent, lead started, lead submitted, WhatsApp click, and booking click.
+- Updated privacy and README documentation for chatbot data handling and deployment setup.
+
+### Validation
+
+- `npm run check`
+- `php -l api/chatbot.php`
+- Local desktop browser verification of chatbot open/close, message send fallback, GA4 events, and no horizontal overflow.
+- Local mobile browser verification at 390px width for panel fit, visible input, and no horizontal overflow.
+- Local lead capture verification for AI audit flow and chatbot GA4 events.
+- Direct API checks for regulated-advice refusal and no-key server response.
+
+### Next Task
+
+Configure `OPENAI_API_KEY` in Hostinger and deploy the chatbot endpoint, knowledge base, and updated static files.
+
+## 2026-06-04 - Deploy booking audit CTA order
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Deployed the homepage quote section order update to `aitechinnovations.com`.
+- Verified the live homepage serves the booking audit card before the support email and WhatsApp enquiry CTAs.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage markup contains `.booking-cta` before `.contact-options`.
+- Live homepage, About, privacy, terms, Maidstone, Kent, and London pages return `200`.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain.
+
+## 2026-06-04 - Move booking audit CTA above contact CTAs
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Reordered the homepage quote section so the `Book Your Free AI Automation Audit` card appears above the support email and WhatsApp enquiry CTAs.
+- Preserved the existing booking, email, WhatsApp, analytics, and form behavior.
+
+### Validation
+
+- `npm run check`
+- Local browser verification of the quote section order and horizontal overflow.
+
+### Next Task
+
+Deploy the booking audit CTA order update to Hostinger if it should go live immediately.
+
+## 2026-06-04 - Deploy footer company number line break
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Deployed the footer company number line-break update to `aitechinnovations.com`.
+- Verified the live homepage serves `Registered in England & Wales.`, `Company No: 15076403.`, and `VAT No: GB498138444.` on separate markup lines.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage, Maidstone, Kent, and London pages return `200`.
+- Live homepage and Kent landing page contain the updated footer registration line breaks.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain.
+
+## 2026-06-04 - Footer company number line break
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `website-design-maidstone.html`
+- Updated `website-design-kent.html`
+- Updated `website-design-london.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Moved `Company No: 15076403.` onto its own footer line.
+- Kept `VAT No: GB498138444.` on the next line and preserved all footer copy, links, and styling.
+
+### Validation
+
+- `npm run check`
+- Local browser verification of the homepage footer registration text and horizontal overflow.
+
+### Next Task
+
+Deploy the footer line-break update to Hostinger if it should go live immediately.
+
+## 2026-06-04 - Deploy Google Calendar booking CTA
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Deployed the homepage Google Calendar booking CTA update to `aitechinnovations.com`.
+- Redeployed with a cache-busted `script.js?v=20260604-booking` reference so the live booking link is not hidden by the older cached script.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage contains `Book Your Free AI Automation Audit`, `Book Free AI Audit`, the Google Calendar booking URL, and the existing WhatsApp enquiry CTA.
+- Live `script.js?v=20260604-booking` contains the configured `bookingUrl` and `rel="noopener noreferrer"` hydration.
+- Live About, privacy, terms, Maidstone, Kent, and London pages return `200`.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain.
+
+## 2026-06-04 - Add Google Calendar booking CTA
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added a `Book Your Free AI Automation Audit` CTA block directly under the homepage quote section contact/WhatsApp options.
+- Added the Google Calendar booking link as the central `CONTACT_SETTINGS.bookingUrl`.
+- Kept the existing WhatsApp enquiry CTA, quote form, email link, and mobile sticky contact bar unchanged.
+
+### Validation
+
+- `npm run check`
+- Local browser verification of `index.html#quote` for the WhatsApp CTA, booking CTA, Google Calendar URL, and mobile/desktop layout.
+
+### Next Task
+
+Deploy the booking CTA update to Hostinger and verify the live homepage.
+
+## 2026-06-04 - Deploy location landing pages
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Built a Hostinger static deployment archive from the committed location landing page update.
+- Deployed the updated homepage, shared styles, three location landing pages, existing static pages, and assets to `aitechinnovations.com`.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage serves the `Areas we serve` section, the three internal location links, and `styles.css?v=20260604-locations`.
+- Live `website-design-maidstone.html`, `website-design-kent.html`, and `website-design-london.html` return `200` and contain their expected titles, canonical URLs, H1s, CTAs, stylesheet, and analytics script.
+- Live `about.html`, `privacy.html`, and `terms.html` return `200`.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain.
+
+## 2026-06-04 - Add location landing pages
+
+### Files Changed
+
+- Added `website-design-maidstone.html`
+- Added `website-design-kent.html`
+- Added `website-design-london.html`
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created unique Maidstone, Kent, and London website design landing pages with location-specific hero copy, benefits, audience sections, process steps, pricing cards, FAQs, and final CTAs.
+- Added unique page titles, meta descriptions, canonical URLs, and Open Graph title/description metadata for each new page.
+- Added a homepage `Areas We Serve` section linking to all three landing pages.
+- Added footer text for Maidstone, Kent, London, and UK service coverage.
+- No sitemap was updated because the project does not currently include a `sitemap.xml`.
+
+### Validation
+
+- `npm run check`
+- Local browser checks confirmed the three new pages and homepage load at 375px, 390px, 430px, 768px, 1024px, and 1440px without horizontal overflow.
+- Browser checks confirmed each new page has one H1, the expected title/canonical/OG metadata, working quote links, hydrated WhatsApp links, and the updated stylesheet cache tag.
+
+### Next Task
+
+Deploy the location landing pages to Hostinger and verify the live URLs.
+
+## 2026-06-04 - Deploy GA4 conversion tracking
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a Hostinger static deployment archive from the current committed site files.
+- Deployed the GA4 conversion tracking update to `aitechinnovations.com`.
+
+### Validation
+
+- Hostinger static deployment accepted.
+- Live homepage serves `script.js?v=20260604-analytics`.
+- Live `script.js` contains `trackAnalyticsEvent`, `generate_lead`, `whatsapp_click`, `email_click`, `quote_cta_click`, and `portfolio_preview_opened`.
+- Live privacy and terms pages return `200`.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain.
+
+## 2026-06-04 - Add GA4 conversion tracking
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added reusable GA4 event helpers with local and query-string DebugView support.
+- Added explicit analytics location attributes for hero, pricing, contact, footer, mobile, and sticky contact actions.
+- Tracked quote CTA clicks, WhatsApp clicks, email clicks, portfolio preview opens, and successful quote form submissions.
+- Kept the existing GA4 tag, Clarity snippet, form delivery, links, and static Hostinger setup unchanged.
+
+### Validation
+
+- `npm run check`
+- Local automated browser test with GA stub and blocked external requests confirmed: `quote_cta_click` 7, `whatsapp_click` 3, `email_click` 1, `portfolio_preview_opened` 3, and `generate_lead` 1.
+- Form test used a stubbed `fetch`, so no real external lead was submitted.
+
+### Next Task
+
+Verify GA4 custom events in DebugView on the live domain after the next Hostinger upload.
+
+## 2026-06-03 - Fix example work popout clicks
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `script.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Changed example work popout handling to delegated card click detection so clicks on the image, title, text, or card open the preview.
+- Bumped the homepage script query string so the live site loads the corrected JavaScript.
+- Deployed the fix to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Local browser check confirmed the clinic, solicitor, and roofing cards each open the correct preview modal.
+- Hostinger static deployment accepted
+- Live homepage references `script.js?v=20260603-popoutfix` and the live script contains delegated `[data-preview-trigger]` click handling.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Fix example work card image clipping
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added explicit clipping to the example work card image placeholders.
+- Forced preview images to render as block-level fitted images inside the placeholder.
+- Bumped the homepage stylesheet query string so the live page loads the corrected CSS.
+- Deployed the fix to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Local browser check confirmed the card images load, the `Demo concept` text is absent, image containers clip overflow, and card titles sit below the image placeholders.
+- Hostinger static deployment accepted
+- Live homepage references `styles.css?v=20260603-popoutfix` and the live stylesheet contains the corrected `.work-preview` clipping rules.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Deploy About page and footer update
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Built a clean Hostinger static deployment archive from the current site files.
+- Deployed the new About page, homepage navigation/footer updates, footer VAT line break, and preview card images to `aitechinnovations.com`.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- Live homepage contains the About links and the footer VAT line break
+- Live `about.html` returns `200` and contains the About page heading plus analytics snippets
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Add About Us page
+
+### Files Changed
+
+- Added `about.html`
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `scripts/check-static-site.js`
+- Updated `README.md`
+- Updated `AGENTS.md`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added a static About Us page matching the existing site style.
+- Linked the page from the homepage navigation and footer.
+- Updated static deployment documentation and checks to include `about.html`.
+
+### Validation
+
+- `npm run check`
+- Local browser check confirmed `about.html` loads, has no horizontal scroll on mobile width, and the homepage About links point to `about.html`.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Fix example work card popouts
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Removed the `Demo concept` text from the example work cards.
+- Kept the card images, card titles, descriptions, and existing popout modal behavior intact.
+- Deployed the fix to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Local browser check confirmed all three card images load and the clinic, solicitor, and roofing cards each open the correct popout preview.
+- Hostinger static deployment accepted
+- Live homepage no longer contains the example work card `Demo concept` text and still includes the three `data-preview-trigger` card buttons.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Deploy example work images to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Built a clean Hostinger static deployment archive from the current static site files.
+- Deployed the homepage, stylesheet, script, legal pages, `.htaccess`, and assets to `aitechinnovations.com`.
+- Verified the live homepage serves the new example work card image references.
+
+### Validation
+
+- Hostinger static deployment accepted
+- Live homepage contains `assets/preview-clinic-popout.png`, `assets/preview-solicitor-popout.png`, and `assets/preview-roofing-popout.png`
+- Live image assets return `200`
+- `https://aitechinnovations.com/` redirects to `https://www.aitechinnovations.com/`
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Add example work popout images
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Added `assets/preview-clinic-popout.png`
+- Added `assets/preview-solicitor-popout.png`
+- Added `assets/preview-roofing-popout.png`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added captured popout preview images into the existing example work card image areas.
+- Kept the section copy, cards, links, and modal preview behavior unchanged.
+
+### Validation
+
+- `npm run check`
+- Local browser check confirmed all three preview images load and the clinic card still opens the existing popout modal.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Responsive UI audit and polish
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Tightened shared section spacing, heading scale, card padding, button sizing, form spacing, footer alignment, and responsive grid gaps.
+- Reduced the fixed mobile contact bar to the two core actions: free quote and WhatsApp.
+- Improved mobile spacing for cards, hero actions, process rows, demo previews, and modal content while preserving the existing visual style and copy.
+
+### Validation
+
+- `npm run check`
+- Local browser validation at 375px, 390px, 430px, 768px, 1024px, and 1440px confirmed no horizontal scrolling.
+- Verified mobile navigation opens, the clinic demo preview modal opens and closes, quote form fields remain aligned, and privacy/terms pages still fit on mobile.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Fix WhatsApp enquiry links
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Changed WhatsApp enquiry anchors from placeholder `#` links to the direct WhatsApp quote URL in the static HTML.
+- Kept centralized JavaScript hydration in place while making the links work even if JavaScript loads late.
+- Added a static check to prevent WhatsApp links from shipping with placeholder href values again.
+
+### Validation
+
+- `npm run check`
+- Searched public files for placeholder WhatsApp links, WhatsApp `mailto:` misuse, and `tel:` links.
+- Live browser verification confirmed the hero WhatsApp enquiry button points to the required WhatsApp URL.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Deploy professional service repositioning
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Created a clean Hostinger static deployment archive from the committed `codex/b2b-repositioning` branch.
+- Deployed the homepage, stylesheet, script, legal pages, assets, and `.htaccess` to `aitechinnovations.com`.
+- Verified the live homepage serves the new professional service positioning and demo examples.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- Live homepage contains the new B2B hero copy and clinic, solicitor, and roofing demo titles
+- Live browser check confirmed the new dropdown options, WhatsApp URL, modal opening, scroll lock, and ESC close
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Reposition for professional service clients
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `styles.css`
+- Updated `script.js`
+- Updated `scripts/check-static-site.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Repositioned homepage copy for dentists, private clinics, solicitors, accountants, builders, roofing companies, estate agents, and care providers.
+- Replaced old demo examples with clickable Private Clinic, Solicitor, and Roofing Company website concepts.
+- Added accessible in-page modal previews with distinct clinic, legal, and roofing visual treatments.
+- Updated the quote form business type dropdown for the new target industries.
+- Preserved centralized WhatsApp Click-to-Chat behavior and kept public phone-number text out of the page.
+
+### Validation
+
+- `npm run check`
+- Local browser verification of desktop and mobile homepage layout, demo preview open/close behavior, ESC close, outside-click close, focus return, scroll lock, dropdown options, and WhatsApp CTA URLs.
+- Searched public files for public phone-number display, `tel:` links, old demo niche copy, and WhatsApp `mailto:` misuse.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Add WhatsApp Click-to-Chat links
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `script.js`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added the final WhatsApp Click-to-Chat number to centralized contact settings.
+- Updated all WhatsApp CTAs to open the quote enquiry link in a new tab with the required pre-filled message.
+- Replaced public call CTAs with WhatsApp/free quote CTAs and kept the phone number out of visible page text.
+- Deployed the updated static site package to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- Searched public files for WhatsApp `mailto:` fallbacks, public phone-number text, `tel:` links, and remaining call CTA labels.
+- Local browser verification of hero, contact section, and mobile contact bar WhatsApp links.
+- Live homepage serves the updated WhatsApp CTAs with the required URL, `target`, and `rel` values.
+
+### Next Task
+
+Activate FormSubmit from the email sent to `support@aitechinnovations.com`, then retest the fallback delivery path.
+
+## 2026-06-03 - Install Microsoft Clarity
+
+### Files Changed
+
+- Updated `index.html`
+- Updated `privacy.html`
+- Updated `terms.html`
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Added the Microsoft Clarity tracking snippet for project ID `x1bt97hjsh`.
+- Installed the snippet in the `<head>` of the homepage, privacy page, and terms page.
+- Deployed the updated static site package to Hostinger.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- Live homepage, privacy page, and terms page return the Clarity snippet
+- `https://www.clarity.ms/tag/x1bt97hjsh` returns `200`
+
+### Next Task
+
+Verify live domain, SSL, favicon, and key page routing after upload.
+
+## 2026-06-03 - Verify Google tag firing
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Tested the live Google tag script directly and confirmed Google returns the configured tag JavaScript for `G-LTL4JXMYP2`.
+- Loaded the live homepage in Chromium and inspected browser network requests.
+- Confirmed GA4 `page_view` collection requests are sent for `tid=G-LTL4JXMYP2`.
+
+### Validation
+
+- Google Tag Manager script returned `200`
+- Live homepage returned the Google tag snippet
+- Browser network showed `region1.google-analytics.com/g/collect` `page_view` requests returning `204`
+
+### Next Task
+
+Verify live domain, SSL, favicon, and key page routing after upload.
+
+## 2026-06-03 - Deploy Google tag to Hostinger
+
+### Files Changed
+
+- Updated `PROJECT_STATUS.md`
+- Updated `TASKS.md`
+- Updated `CHANGELOG.md`
+
+### Summary
+
+- Built a clean static deployment archive containing only the Hostinger-ready site files.
+- Uploaded the static package to Hostinger for `aitechinnovations.com`.
+- Verified the live homepage, privacy page, and terms page serve Google tag `G-LTL4JXMYP2`.
+
+### Validation
+
+- `npm run check`
+- Hostinger static deployment accepted
+- `https://www.aitechinnovations.com/` returns the Google tag and current static homepage marker
+- `https://www.aitechinnovations.com/privacy.html` returns the Google tag
+- `https://www.aitechinnovations.com/terms.html` returns the Google tag
+
+### Next Task
+
+Verify live domain, SSL, favicon, and key page routing after upload.
+
 ## 2026-06-03 - Install Google tag
 
 ### Files Changed

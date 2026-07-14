@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About Us | AITech Innovations</title>
+    <meta name="description" content="Meet AITech Innovations, a founder-led UK agency building websites, content, advertising setup, chatbots and automation for service businesses." />
+    <link rel="canonical" href="https://www.aitechinnovations.com/about.html" />
+    <meta property="og:title" content="About Us | AITech Innovations" />
+    <meta property="og:description" content="Founder-led websites, content, advertising setup, chatbots and automation for UK service businesses." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.aitechinnovations.com/about.html" />
+    <!-- Google tag (gtag.js) -->
+    <script>
+      window.aitechAnalyticsParameters = {};
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500
+      });
+      try {
+        const analyticsUrl = new URL(window.location.href);
+        const internalSetting = analyticsUrl.searchParams.get('internal');
+        if (internalSetting === '1') localStorage.setItem('aitech_internal_traffic', '1');
+        if (internalSetting === '0') localStorage.removeItem('aitech_internal_traffic');
+        if (internalSetting !== null) {
+          analyticsUrl.searchParams.delete('internal');
+          history.replaceState(null, '', analyticsUrl.pathname + analyticsUrl.search + analyticsUrl.hash);
+        }
+        if (localStorage.getItem('aitech_internal_traffic') === '1') {
+          window.aitechAnalyticsParameters.traffic_type = 'internal';
+        }
+        if (localStorage.getItem('aitech_cookie_consent') === 'accepted') {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        }
+      } catch (error) {}
+      gtag('js', new Date());
+      gtag('config', 'G-LTL4JXMYP2', window.aitechAnalyticsParameters);
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
+    <link rel="icon" href="assets/logo.webp" />
+    <link rel="stylesheet" href="styles.css?v=20260612-ads-ready" />
+  </head>
+  <body>
+    <header class="site-header simple">
+      <a class="brand" href="/">
+        <img src="assets/logo.webp" alt="" width="34" height="34" />
+        <span>AITech Innovations</span>
+      </a>
+      <nav class="site-nav static-nav">
+        <a href="/website-content-services">Website &amp; Content</a>
+        <a href="/ads-setup-services">Ads Setup</a>
+        <a href="/ai-automation-services">Automation</a>
+        <a href="/blog">Blog</a>
+        <a class="nav-cta" href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="header">Book a free 20-minute strategy call</a>
+      </nav>
+    </header>
+
+    <main class="legal-page about-page">
+      <div class="container narrow">
+        <p class="eyebrow">About us</p>
+        <h1>Founder-led growth systems for UK service businesses.</h1>
+        <p>AITech Innovations Ltd helps service businesses improve how they attract and handle enquiries through websites, content, advertising setup, chatbots and practical automation.</p>
+
+        <h2>What we do</h2>
+        <p>We design websites and landing pages, write clear website content, set up Google or Meta campaigns, and connect enquiry journeys to chatbots, booking tools, CRM workflows and follow-up automation.</p>
+
+        <h2>How we work</h2>
+        <p>Every project is scoped and delivered directly with founder Sheraz Khalid. We agree the commercial goal, customer journey, deliverables and launch requirements before work starts, then keep the system straightforward to run.</p>
+
+        <h2>What matters to us</h2>
+        <div class="about-points">
+          <div><strong>Clear positioning</strong><span>Prospects should quickly understand who you help, what you offer and why the next step is worth taking.</span></div>
+          <div><strong>Connected enquiry routes</strong><span>Websites, adverts, forms, WhatsApp, booking and follow-up should work as one clear journey.</span></div>
+          <div><strong>Direct accountability</strong><span>The founder remains involved from the first strategy call through planning, build and launch.</span></div>
+        </div>
+
+        <h2>Contact</h2>
+        <p>Email <a href="#" data-email-link data-analytics-location="legal_content">support@aitechinnovations.com</a> or <a href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="legal_content">book a free strategy call</a> to discuss your website, content, advertising or automation priorities.</p>
+      </div>
+    </main>
+
+    <script src="script.js?v=20260612-ads-ready"></script>
+  </body>
+</html>

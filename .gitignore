@@ -6,7 +6,7 @@ node_modules/
 .DS_Store
 *.pem
 
-# Generated or legacy build output
+# Generated build output
 _next/
 .next/
 out/
@@ -14,13 +14,14 @@ build/
 coverage/
 *.zip
 *.tsbuildinfo
-next-env.d.ts
 
 # Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# Deployment/tooling
+# Deployment tooling
 .vercel/
+supabase/.temp/

@@ -2,27 +2,28 @@
 
 ## Project
 
-Static web design agency website for AITech Innovations.
+Statically exported Next.js agency website for AITech Innovations.
 
 ## Stack
 
-- HTML
-- CSS
-- Vanilla JavaScript
-- Hostinger static hosting
+- Next.js 16 App Router
+- React 19 and TypeScript
+- CSS and existing vanilla JavaScript conversion workflows
+- PHP chatbot endpoint
+- Hostinger static hosting via `output: "export"`
 
 ## Direction
 
 - Light, clean, modern agency theme
-- Clear small-business web design positioning
+- Clear UK service-business positioning across websites, content, ads setup, chatbots and automation
 - Avoid heavy AI jargon
-- Prioritize calls, WhatsApp enquiries, quote requests, and simple pricing
+- Prioritize the free strategy call, contextual WhatsApp enquiries and simple starting prices
 
 ## Development Notes
 
-- Keep the site static and Hostinger-ready.
-- Do not reintroduce Next.js or React unless the project grows into a web app.
-- Keep contact settings centralized in `script.js`.
+- Keep the Next.js output static and Hostinger-ready; do not introduce server-only Next.js runtime features.
+- Keep contact settings centralized in `public/script.js`.
+- Preserve all 22 public routes, self-referencing canonicals and static-export compatibility.
 - Keep pages fast, accessible, mobile-friendly, and easy to edit.
 - Use real portfolio screenshots when available; demo work must be labelled honestly.
 - Work only on one task at a time.
@@ -35,14 +36,9 @@ Static web design agency website for AITech Innovations.
 
 ## Deployment
 
-Deploy only the static site files to Hostinger `public_html`:
+Run `npm run build`, then deploy only the contents of `out/` to Hostinger `public_html`.
 
-- `index.html`
-- `styles.css`
-- `script.js`
-- `privacy.html`
-- `terms.html`
-- `assets/`
+Do not deploy source files, `node_modules/`, `.next/`, or `package.json` to `public_html`.
 
 ## Tracking Files
 

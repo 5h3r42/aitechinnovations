@@ -1,0 +1,10 @@
+{
+  "email": "support@aitechinnovations.com",
+  "whatsapp_number": "447882111810",
+  "whatsapp_use": "Use WhatsApp for contextual website and content, ads setup, automation or strategy-call enquiries.",
+  "booking_url": "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ29kmaaQThmrdewMfPksmL8AuJR67EUDytKmyhAuakCNeIRyHNRMQ8-gQc82hxmjMc2fl8jPZCr",
+  "booking_use": "Use the booking link for the free 30-minute digital strategy call.",
+  "response_time": "Manual follow-up within one business day.",
+  "company": {"name": "AITech Innovations Ltd", "founder": "Sheraz Khalid", "registered": "Registered in England & Wales", "company_number": "15076403", "vat_number": "GB498138444"},
+  "preferred_handoffs": ["Book a free strategy call.", "Submit the fallback strategy-call form.", "Use the relevant contextual WhatsApp enquiry link."]
+}

@@ -1,0 +1,24 @@
+{
+  "brand": "AITech Innovations",
+  "overview": "AITech Innovations is a founder-led UK digital growth systems agency for service businesses. It combines websites, content, advertising setup, chatbots and automation to help businesses generate and handle more enquiries.",
+  "service_pillars": [
+    {
+      "name": "Website & Content",
+      "starting_price": "From £499",
+      "services": ["Website design and redesign", "Landing pages", "Website copy and service content", "Basic SEO and GA4 tracking", "Hostinger-ready launch support"]
+    },
+    {
+      "name": "Ads & Lead Generation",
+      "starting_price": "Custom quote after strategy call",
+      "services": ["Google or Meta campaign setup", "Initial audience, location or keyword targeting", "Advert copy and creative guidance", "Landing page and conversion tracking", "Campaign launch and handover"],
+      "scope": "Setup and launch only. Ongoing monthly management is not included unless separately agreed. Results are not guaranteed."
+    },
+    {
+      "name": "Automation & Chatbots",
+      "starting_price": "Custom quote after strategy call",
+      "services": ["Website chatbots", "CRM and lead follow-up workflows", "Booking automation", "Business process automation", "Human handoff and exception planning"]
+    }
+  ],
+  "audience": ["Clinics", "Solicitors and professional firms", "Trades and home-service businesses", "Property and care providers", "Other UK service businesses"],
+  "positioning": ["Keep recommendations practical and commercially focused.", "Prioritise trust, enquiry quality, speed and clear contact routes.", "Do not invent customers, testimonials, performance claims or guaranteed outcomes.", "Combined systems receive a custom quote after a free strategy call."]
+}

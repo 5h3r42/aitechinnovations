@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Website Terms of Use | AITech Innovations</title>
+    <meta name="description" content="Terms governing use of the AITech Innovations website, service information, indicative pricing and third-party tools." />
+    <link rel="canonical" href="https://www.aitechinnovations.com/terms" />
+    <!-- Google tag (gtag.js) -->
+    <script>
+      window.aitechAnalyticsParameters = {};
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500
+      });
+      try {
+        const analyticsUrl = new URL(window.location.href);
+        const internalSetting = analyticsUrl.searchParams.get('internal');
+        if (internalSetting === '1') localStorage.setItem('aitech_internal_traffic', '1');
+        if (internalSetting === '0') localStorage.removeItem('aitech_internal_traffic');
+        if (internalSetting !== null) {
+          analyticsUrl.searchParams.delete('internal');
+          history.replaceState(null, '', analyticsUrl.pathname + analyticsUrl.search + analyticsUrl.hash);
+        }
+        if (localStorage.getItem('aitech_internal_traffic') === '1') {
+          window.aitechAnalyticsParameters.traffic_type = 'internal';
+        }
+        if (localStorage.getItem('aitech_cookie_consent') === 'accepted') {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        }
+      } catch (error) {}
+      gtag('js', new Date());
+      gtag('config', 'G-LTL4JXMYP2', window.aitechAnalyticsParameters);
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTL4JXMYP2"></script>
+    <link rel="icon" href="/assets/logo.webp" />
+    <link rel="stylesheet" href="/styles.css?v=20260612-ads-ready" />
+  </head>
+  <body>
+    <header class="site-header simple">
+      <a class="brand" href="/">
+        <img src="/assets/logo.webp" alt="" width="34" height="34" />
+        <span>AITech Innovations</span>
+      </a>
+      <nav class="site-nav static-nav">
+        <a href="/website-content-services">Website &amp; Content</a>
+        <a href="/ads-setup-services">Ads Setup</a>
+        <a href="/ai-automation-services">Automation</a>
+        <a href="/blog">Blog</a>
+        <a class="nav-cta" href="/free-strategy-call">Book a free 20-minute strategy call</a>
+      </nav>
+    </header>
+    <main class="legal-page">
+      <div class="container narrow">
+        <p class="eyebrow">Terms</p>
+        <h1>Terms of Use</h1>
+        <p>This website provides general information about AITech Innovations Ltd and our website, content, advertising setup, chatbot and automation services. By using the site, you agree to use it lawfully and responsibly.</p>
+        <h2>Quotes and pricing</h2>
+        <p>Prices shown on the website are starting prices. Final quotes depend on project scope, content, design requirements, features, revisions, and third-party costs.</p>
+        <h2>Third-party services</h2>
+        <p>Projects may involve third-party tools such as hosting providers, domain registrars, analytics, form tools, payment providers, or booking systems. Their own terms and charges may apply.</p>
+        <h2>Website content</h2>
+        <p>We aim to keep information accurate, but we do not guarantee that all website content is complete, current, or error-free.</p>
+        <h2>Contact</h2>
+        <p>For questions, email <a href="#" data-email-link data-analytics-location="legal_content">support@aitechinnovations.com</a>.</p>
+        <p class="small-note">Last updated: 11 June 2026.</p>
+        <section class="legal-cta"><h2>Explore our services</h2><p>View our <a href="/website-content-services">website and content services</a>, <a href="/ads-setup-services">ads setup</a>, <a href="/ai-automation-services">automation services</a>, or <a href="/free-strategy-call" data-analytics-cta="quote" data-analytics-location="legal_content">book a free strategy call</a>.</p></section>
+      </div>
+    </main>
+    <script src="/script.js?v=20260612-ads-ready"></script>
+  </body>
+</html>
