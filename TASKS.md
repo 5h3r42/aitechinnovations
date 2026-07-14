@@ -21,6 +21,7 @@
 
 ## Done
 
+- Improved the three-card website and AI receptionist pricing presentation: widened the shared pricing container, increased card padding and text rhythm, condensed feature bullets, added a flexible CTA spacer, aligned desktop CTA bottoms, and switched tablet/mobile pricing to one column. Validated at 1440px, tablet and 390px with no overflow; Hostinger deployment remains pending.
 - Refined the website and AI receptionist pricing for founding clients: £495 / £149 limited pilot, tightly scoped £1,995 website + managed AI entry point with typical £2,995–£3,995 projects, and £5,000 client-owned entry point with typical £6,000–£10,000+ deployments. Updated scope qualifiers, comparison, focused tests and local responsive QA; Hostinger deployment remains pending.
 - Added the three-tier website and AI receptionist pricing model: existing-website AI Receptionist Pilot, Website + Managed AI Receptionist, and Fully Client-Owned Website and AI System. Updated the accountant pilot, website/automation routes, package-specific CRM lead types, static checks and responsive QA; Hostinger deployment remains pending.
 - Built the static `/ai-receptionist-for-accountants/` landing page with controlled accountancy-specific messaging, a 30-day pilot offer, accountant demo CTAs, CRM lead capture, consent-gated GA4 events, attribution propagation, accurate Service/FAQ/Breadcrumb schema, and desktop/390px QA. No Google Ads were launched.

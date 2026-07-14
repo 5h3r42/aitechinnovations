@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-07-14 - Improve pricing card spacing
+
+### Files Changed
+
+- Updated `content/pages/index.html`, `content/pages/ai-automation-services.html`, `styles.css`, `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+
+### Summary
+
+- Widened the pricing-only container and increased card padding, header-to-price spacing, feature-list rhythm and readable line-height without changing approved prices, offer structures, CRM lead types, CTA destinations, analytics, consent handling or attribution.
+- Condensed feature bullets, applied restrained recommended-card emphasis, and added a flexible card spacer so desktop CTA bottoms align while the cards remain equal height.
+- Kept three cards at desktop widths and changed the shared pricing layout to a single column at tablet and mobile widths to prevent cramped or orphaned cards.
+
+### Validation
+
+- Focused pricing and accountant tests, TypeScript, ESLint, production build, static route checks, and `git diff --check` passed.
+- Browser QA at 1440px, 768px and 390px confirmed no horizontal overflow, aligned desktop CTA bottoms, readable spacing and no console errors. Checked the homepage, AI automation, accountant and website-design routes.
+
+### Next Task
+
+Deploy the validated `out/` directory through the existing Hostinger workflow, then complete live form, attribution, consent and GA4 conversion QA.
+
 ## 2026-07-14 - Refine founding client pricing
 
 ### Files Changed
