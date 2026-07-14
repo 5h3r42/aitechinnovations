@@ -2,12 +2,14 @@
   "use strict";
 
   var ENDPOINT = "https://ai-platform-topaz-nine.vercel.app/api/public/ai-receptionist/messages";
+  var BOOKING_ENDPOINT = "https://ai-platform-topaz-nine.vercel.app/api/public/bookings";
   var BUSINESS_SLUG = "aitech-innovations";
   var VERSION = "aitech-web-1.0.0";
   var TOKEN_KEY = "aitech_ai_chat_token_v1";
   var CHAT_STARTED_KEY = "aitech_ai_chat_started_v1";
   var CHAT_LEAD_KEY = "aitech_ai_chat_lead_v1";
   var BOOKING_REQUEST_KEY = "aitech_ai_booking_request_v1";
+  var BOOKING_SUBMISSION_KEY = "aitech_ai_booking_submitted_v1";
 
   if (window.__aitechAiChatLoaded) return;
   window.__aitechAiChatLoaded = true;
@@ -167,6 +169,38 @@
     return field && "value" in field ? field.value.trim() : "";
   }
 
+  function hasSubmittedBookingRequest() {
+    try { return sessionStorage.getItem(BOOKING_SUBMISSION_KEY) === "true"; } catch { return false; }
+  }
+
+  async function submitBookingRequest() {
+    if (hasSubmittedBookingRequest()) return false;
+
+    var response = await fetch(BOOKING_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        businessSlug: BUSINESS_SLUG,
+        customerName: contactValue("name"),
+        customerEmail: contactValue("email"),
+        customerPhone: contactValue("phone"),
+        preferredDate: contactValue("preferredDate"),
+        preferredTime: contactValue("preferredTime"),
+        notes: contactValue("requirement"),
+        attribution: marketingAttribution()
+      })
+    });
+
+    var data = null;
+    try { data = await response.json(); } catch {}
+    if (response.status !== 201 || data?.success !== true || data?.data?.status !== "requested") {
+      throw new Error("The booking request could not be submitted right now.");
+    }
+
+    try { sessionStorage.setItem(BOOKING_SUBMISSION_KEY, "true"); } catch {}
+    return true;
+  }
+
   function setBusy(value) {
     busy = value;
     textarea.disabled = value || handedOver;
@@ -222,7 +256,7 @@
       saveToken(data.conversationToken);
       addMessage(data.responseText, data.shouldEscalate ? "status" : "");
 
-      if (data.leadOutcome === "created") {
+      if (data.leadOutcome === "created" && data.intent !== "booking_request") {
         trackOnce(CHAT_LEAD_KEY, "chat_qualified_lead", {
           business_slug: BUSINESS_SLUG,
           widget_version: VERSION,
@@ -231,12 +265,20 @@
         });
       }
       if (data.bookingOutcome === "accepted") {
-        trackOnce(BOOKING_REQUEST_KEY, "booking_request", {
-          business_slug: BUSINESS_SLUG,
-          widget_version: VERSION,
-          lead_source: "ai_receptionist",
-          lead_type: "booking_review"
-        });
+        try {
+          var bookingSubmitted = await submitBookingRequest();
+          if (bookingSubmitted) {
+            trackOnce(BOOKING_REQUEST_KEY, "booking_request", {
+              business_slug: BUSINESS_SLUG,
+              widget_version: VERSION,
+              lead_source: "ai_receptionist",
+              lead_type: "booking_review"
+            });
+            addMessage("Your booking request has been sent for team review. Availability is not confirmed yet.", "status");
+          }
+        } catch (bookingError) {
+          addMessage("We could not submit the booking request right now. Please try again later.", "error");
+        }
       }
 
       if (data.intent === "booking_request") {
