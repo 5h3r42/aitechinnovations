@@ -11,11 +11,14 @@ const script = read("public/script.js");
 
 test("publishes the three agreed website and AI receptionist offers", () => {
   for (const marker of [
-    "Setup from £495",
-    "Then from £149/month",
-    "£1,995–£3,995 setup",
-    "Then £199–£299/month",
-    "From £4,000–£8,000+",
+    "Founding Client AI Receptionist Pilot",
+    "£495 setup",
+    "£149/month · 30-day pilot",
+    "Founding-client availability: first 3–5 clients",
+    "From £1,995",
+    "Typical projects £2,995–£3,995",
+    "From £5,000",
+    "Typical projects £6,000–£10,000+",
     "Optional support £250–£750/month",
     "AI Receptionist Pilot",
     "Website + Managed AI Receptionist",
@@ -28,14 +31,28 @@ test("publishes the three agreed website and AI receptionist offers", () => {
 
 test("states managed and client ownership clearly and keeps fair use bounded", () => {
   for (const marker of [
-    "AI receptionist hosting",
-    "OpenAI usage within fair-use limits",
-    "does not include unlimited AI usage",
+    "Managed AI Receptionist Service plans cover hosting",
+    "AI usage within fair-use limits",
+    "No plan includes unlimited AI usage",
     "Client-owned API configuration",
     "custom integrations",
   ]) {
     assert.ok(home.includes(marker) || automation.includes(marker), `missing pricing scope marker: ${marker}`);
   }
+});
+
+test("keeps the startup price points tied to their limited standard scopes", () => {
+  for (const marker of [
+    "approximately 5–7 core pages",
+    "client-provided content",
+    "one revision cycle",
+    "highly standardised deployment",
+    "without significant custom development",
+    "future standard pricing is expected to be higher",
+  ]) {
+    assert.ok(home.includes(marker) || automation.includes(marker), `missing pricing qualifier: ${marker}`);
+  }
+  assert.doesNotMatch(`${home}\n${automation}`, /£4,000–£8,000\+|£1,995–£3,995 setup/);
 });
 
 test("uses the existing CRM and consent-gated analytics path with safe pricing lead types", () => {

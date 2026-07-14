@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-07-14 - Refine founding client pricing
+
+### Files Changed
+
+- Updated the homepage, AI automation service, accountant landing page, website enquiry budget options, focused tests, static checks and project tracking files
+
+### Summary
+
+- Repositioned the £495 setup / £149 monthly existing-website service as a limited Founding Client AI Receptionist Pilot, with a 30-day, one-website, one-location, 10-service, 25-FAQ and one-user standard scope.
+- Clarified that the £1,995 Website + Managed AI price is only for a tightly scoped standard website and that typical projects are £2,995–£3,995; raised the client-owned entry point to £5,000 with typical £6,000–£10,000+ projects.
+- Kept the existing CRM, attribution, consent-gated PII-safe analytics and package lead types unchanged.
+
+### Validation
+
+- Focused tests, TypeScript, lint, production build, static route checks, `git diff --check`, and 390px local browser QA passed. No console errors or horizontal overflow were found locally.
+
+### Next Task
+
+Deploy the validated `out/` directory through the existing Hostinger workflow, then complete live form, attribution, consent and GA4 conversion QA.
+
 ## 2026-07-14 - Add website and AI receptionist pricing
 
 ### Files Changed

@@ -21,6 +21,7 @@
 
 ## Done
 
+- Refined the website and AI receptionist pricing for founding clients: £495 / £149 limited pilot, tightly scoped £1,995 website + managed AI entry point with typical £2,995–£3,995 projects, and £5,000 client-owned entry point with typical £6,000–£10,000+ deployments. Updated scope qualifiers, comparison, focused tests and local responsive QA; Hostinger deployment remains pending.
 - Added the three-tier website and AI receptionist pricing model: existing-website AI Receptionist Pilot, Website + Managed AI Receptionist, and Fully Client-Owned Website and AI System. Updated the accountant pilot, website/automation routes, package-specific CRM lead types, static checks and responsive QA; Hostinger deployment remains pending.
 - Built the static `/ai-receptionist-for-accountants/` landing page with controlled accountancy-specific messaging, a 30-day pilot offer, accountant demo CTAs, CRM lead capture, consent-gated GA4 events, attribution propagation, accurate Service/FAQ/Breadcrumb schema, and desktop/390px QA. No Google Ads were launched.
 - Fixed the AI Platform strategy-form false failure state: analytics is now non-critical and cannot move a successfully submitted `201` enquiry into the error path. Browser regression testing forced analytics to throw while confirming one successful API submission, form reset, and the required success message.

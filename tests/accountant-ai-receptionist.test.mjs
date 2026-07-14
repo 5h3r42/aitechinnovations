@@ -40,17 +40,19 @@ test("keeps the landing form on the shared AI Platform CRM path", () => {
 
 test("makes the priced managed pilot the primary accountant offer", () => {
   for (const marker of [
-    "AI Receptionist Pilot",
-    "Setup from £495",
-    "Then from £149/month",
-    "30-day pilot on one website, managed by AITech",
-    "Recommended for most small businesses",
+    "Founding Client AI Receptionist Pilot",
+    "£495 setup",
+    "£149/month · 30-day pilot",
+    "Limited availability: first 3–5 clients",
+    "One existing website, one AI receptionist and one business location",
+    "Up to 10 services, 25 FAQs and one staff user",
+    "Founding-client pricing is available to a limited number of early accountancy practices.",
     "Managed AI Receptionist Service",
     "Compare the three options",
   ]) {
     assert.ok(page.includes(marker), `missing accountant pilot pricing marker: ${marker}`);
   }
-  assert.ok(page.indexOf("AI Receptionist Pilot") < page.indexOf("Need a different ownership model?"));
+  assert.ok(page.indexOf("Founding Client AI Receptionist Pilot") < page.indexOf("Need a different ownership model?"));
 });
 
 test("keeps conversion analytics consent-gated and free of lead PII", () => {

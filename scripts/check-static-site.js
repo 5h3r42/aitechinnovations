@@ -235,10 +235,10 @@ if ((homepage.match(/id="pricing"/g) ?? []).length !== 1) fail("Homepage must co
 if ((homepagePricingSection.match(/<article class="detailed-price-card/g) ?? []).length !== 3) {
   fail("Homepage pricing must contain exactly three package cards.");
 }
-for (const marker of ["WEBSITE &amp; AI RECEPTIONIST PRICING", "AI Receptionist Pilot", "Setup from £495", "Then from £149/month", "Website + Managed AI Receptionist", "£1,995–£3,995 setup", "Fully Client-Owned Website and AI System", "From £4,000–£8,000+", "OpenAI usage within fair-use limits"]) {
+for (const marker of ["WEBSITE &amp; AI RECEPTIONIST PRICING", "Founding Client AI Receptionist Pilot", "£495 setup", "£149/month · 30-day pilot", "Founding-client availability: first 3–5 clients", "Website + Managed AI Receptionist", "From £1,995", "Typical projects £2,995–£3,995", "Fully Client-Owned Website and AI System", "From £5,000", "Typical projects £6,000–£10,000+", "No plan includes unlimited AI usage"]) {
   if (!homepagePricingSection.includes(marker)) fail(`Homepage pricing is missing: ${marker}`);
 }
-if (/Website Starter|Lead Generation Website|Industry Demo-Style Website|From £499|From £995|From £1,495/i.test(homepagePricingSection)) {
+if (/Website Starter|Lead Generation Website|Industry Demo-Style Website|From £499|From £995|From £1,495|£4,000–£8,000\+/i.test(homepagePricingSection)) {
   fail("Homepage pricing contains an outdated or conflicting package.");
 }
 
@@ -252,9 +252,10 @@ for (const marker of [
   'data-lead-source="website"',
   'data-submission-source="website"',
   "No automatic financial or tax advice",
-  "Setup from £495",
-  "Then from £149/month",
-  "Recommended for most small businesses",
+  "Founding Client AI Receptionist Pilot",
+  "£495 setup",
+  "£149/month · 30-day pilot",
+  "Limited availability: first 3–5 clients",
   "https://accountant.aitechinnovations.com",
 ]) {
   if (!accountantLanding.includes(marker)) fail(`Accountant receptionist landing page is missing: ${marker}`);
