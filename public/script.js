@@ -365,7 +365,7 @@ function normalizeServiceInterest(value = "") {
   const normalizedValue = String(value).trim().toLowerCase();
   if (normalizedValue.includes("website")) return "website_content";
   if (normalizedValue.includes("ads") || normalizedValue.includes("lead generation")) return "ads_lead_generation";
-  if (normalizedValue.includes("automation") || normalizedValue.includes("chatbot")) return "automation_chatbots";
+  if (normalizedValue.includes("automation") || normalizedValue.includes("chatbot") || normalizedValue.includes("receptionist")) return "automation_chatbots";
   if (normalizedValue.includes("connected")) return "connected_growth_system";
   return "general";
 }
@@ -1049,8 +1049,13 @@ strategyForm?.addEventListener("submit", async (event) => {
   const formName = strategyForm.dataset.formName || "strategy_call_form";
   const leadType = strategyForm.dataset.leadType || "strategy_call";
   const leadSource = strategyForm.dataset.leadSource || "website_form";
+  const submissionSource = strategyForm.dataset.submissionSource || "strategy_call";
   const analyticsLocation = strategyForm.dataset.analyticsLocation || "strategy_form";
   const message = [
+    `Form name: ${formName}`,
+    `Lead type: ${leadType}`,
+    `Lead source: ${leadSource}`,
+    "",
     `Business name: ${data.get("business") || ""}`,
     "",
     `Service interest: ${serviceInterest}`,
@@ -1083,7 +1088,7 @@ strategyForm?.addEventListener("submit", async (event) => {
       email: data.get("email") || "",
       phone: data.get("phone") || "",
       message,
-      source: "strategy_call",
+      source: submissionSource,
     });
   } catch (error) {
     console.error("AI Platform enquiry submission failed:", error);

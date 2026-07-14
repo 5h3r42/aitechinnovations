@@ -10,6 +10,7 @@ const pages = [
   ["/ads-setup-services/", "ads-setup-services/index.html", "service"],
   ["/ai-automation-services/", "ai-automation-services/index.html", "service"],
   ["/ai-chatbot-development/", "ai-chatbot-development/index.html", "service"],
+  ["/ai-receptionist-for-accountants/", "ai-receptionist-for-accountants/index.html", "accountant"],
   ["/ai-lead-generation-automation/", "ai-lead-generation-automation/index.html", "service"],
   ["/crm-automation-services/", "crm-automation-services/index.html", "service"],
   ["/appointment-booking-automation/", "appointment-booking-automation/index.html", "service"],
@@ -109,6 +110,29 @@ for (const [route, file, type] of pages) {
     if (wordCount(html) < 550) fail(`${file} is too thin; expected at least 550 rendered words.`);
   }
   if (type === "article" && wordCount(html) < 450) fail(`${file} is too thin; expected at least 450 rendered words.`);
+  if (type === "accountant") {
+    for (const marker of [
+      "Never miss another accountancy enquiry",
+      "A controlled route from website question to staff follow-up",
+      "How it works",
+      "Accountancy use cases",
+      "Safeguards and handover",
+      "AI receptionist pilot",
+      "Questions about an AI receptionist for accountants",
+      "data-strategy-form",
+      "data-form-name=\"accountant_ai_receptionist_landing\"",
+      "data-lead-type=\"accountant_ai_receptionist\"",
+      "data-lead-source=\"website\"",
+      "data-submission-source=\"website\"",
+      "https://accountant.aitechinnovations.com",
+    ]) {
+      if (!html.includes(marker)) fail(`${file} is missing accountant receptionist content: ${marker}`);
+    }
+    if (wordCount(html) < 900) fail(`${file} is too thin; expected at least 900 rendered words.`);
+    if ((html.match(/https:\/\/accountant\.aitechinnovations\.com/g) || []).length < 3) {
+      fail(`${file} should include the accountant demo CTA in each intended campaign location.`);
+    }
+  }
 }
 
 const sitemap = readOutput("sitemap.xml");
@@ -152,7 +176,7 @@ for (const feature of [
   "AI_PLATFORM_API_URL",
   "submitAiPlatformEnquiry",
   "http://localhost:3000/api/public/enquiries",
-  "https://app.aitechinnovations.com/api/public/enquiries",
+  "https://ai-platform-topaz-nine.vercel.app/api/public/enquiries",
   'businessSlug: "aitech-innovations"',
   'data?.status !== "submitted"',
   "insertLeadIntoSupabase",
@@ -181,6 +205,17 @@ if (
 ) {
   fail("Strategy form must not use the legacy Supabase, email, Google Sheets, or FormSubmit workflow.");
 }
+for (const feature of [
+  'const submissionSource = strategyForm.dataset.submissionSource || "strategy_call"',
+  "source: submissionSource",
+  "Lead type: ${leadType}",
+  "Lead source: ${leadSource}",
+]) {
+  if (!strategyHandler.includes(feature)) fail(`Strategy form is missing accountant-safe CRM metadata support: ${feature}`);
+}
+if (strategyHandler.indexOf("await submitAiPlatformEnquiry") > strategyHandler.lastIndexOf("trackStrategyLead();")) {
+  fail("Strategy form must not track a lead before a successful CRM submission.");
+}
 
 const landing = readOutput("website-design-for-service-businesses/index.html");
 for (const text of ["Turn more website visitors into useful enquiries", "From £499", "data-strategy-form", "paid_landing_page"]) {
@@ -205,6 +240,28 @@ for (const marker of ["STARTING PACKAGES", "Website Starter", "Lead Generation W
 }
 if (/Automation \/ Ads Setup|Combined Growth System|From £399|From £899|From £1,499|Custom quote/i.test(homepagePricingSection)) {
   fail("Homepage pricing contains an outdated or conflicting package.");
+}
+
+const accountantLanding = readOutput("ai-receptionist-for-accountants/index.html");
+for (const marker of [
+  "AI Receptionist for Accountants | AITech Innovations",
+  "https://www.aitechinnovations.com/ai-receptionist-for-accountants/",
+  'type="application/ld+json"',
+  'data-form-name="accountant_ai_receptionist_landing"',
+  'data-lead-type="accountant_ai_receptionist"',
+  'data-lead-source="website"',
+  'data-submission-source="website"',
+  "No automatic financial or tax advice",
+  "https://accountant.aitechinnovations.com",
+]) {
+  if (!accountantLanding.includes(marker)) fail(`Accountant receptionist landing page is missing: ${marker}`);
+}
+if ((accountantLanding.match(/href="https:\/\/accountant\.aitechinnovations\.com/g) || []).length !== 4) {
+  fail("Accountant receptionist landing page should include exactly four demo CTA links, including the mobile action.");
+}
+const generateLeadTracker = script.slice(script.indexOf("function trackGenerateLead"), script.indexOf("function trackChatbotLead"));
+if (/\b(?:email|phone|business|message)\b/i.test(generateLeadTracker)) {
+  fail("Strategy analytics handler must not add form PII to GA4 parameters.");
 }
 for (const marker of [
   'id="homepage-strategy-form"',

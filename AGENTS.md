@@ -23,7 +23,7 @@ Statically exported Next.js agency website for AITech Innovations.
 
 - Keep the Next.js output static and Hostinger-ready; do not introduce server-only Next.js runtime features.
 - Keep contact settings centralized in `public/script.js`.
-- Preserve all 21 public routes, self-referencing canonicals and static-export compatibility.
+- Preserve all 22 public routes, self-referencing canonicals and static-export compatibility.
 - Keep pages fast, accessible, mobile-friendly, and easy to edit.
 - Use real portfolio screenshots when available; demo work must be labelled honestly.
 - Work only on one task at a time.

@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-07-14 - Add accountant AI receptionist landing page
+
+### Files Changed
+
+- Added `content/pages/ai-receptionist-for-accountants.html` and `tests/accountant-ai-receptionist.test.mjs`
+- Updated static route, sitemap, export validation, shared CRM form metadata, mobile chat clearance, styles, and project tracking files
+
+### Summary
+
+- Added the static `/ai-receptionist-for-accountants/` campaign page for UK accountancy practices, with accountancy-specific benefits, workflow, safeguards, 30-day pilot, comparison, FAQ, accountant demo CTAs, and consultation form.
+- Reused the existing AI-Platform submission, attribution, consent and analytics implementation. The form sends `source: website`, records page-specific lead metadata, emits `form_started` once on real interaction and emits `generate_lead` only after the documented successful CRM response.
+- Added accurate Service, FAQPage and BreadcrumbList schema; preserved the standalone accountant demo as a tracked secondary destination; and moved the mobile chat launcher above the page’s fixed action bar.
+
+### Validation
+
+- Focused Node tests (including the existing TypeScript suites with Node type stripping), `npx tsc --noEmit`, `npm run lint`, `npm run build`, `npm run check`, and `git diff --check` passed.
+- Browser QA at 1440px and 390px confirmed the canonical URL, responsive CTA hierarchy, no horizontal overflow, visible demo action, chat availability, chat/mobile-bar clearance, no console errors, and accountant demo new-tab destination.
+
+### Next Task
+
+Deploy the generated `out/` directory through the existing Hostinger workflow, then run labelled production CRM, attribution, GA4 and consent QA before outreach.
+
 ## 2026-07-11 - Fix enquiry success handling after AI Platform submission
 
 ### Files Changed

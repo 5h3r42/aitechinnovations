@@ -32,7 +32,7 @@ npm run lint
 npm audit --omit=dev
 ```
 
-`npm run build` creates the complete Hostinger deployment in `out/`. The build contains 21 prerendered public routes, Next.js assets, sitemap, robots file, security rules, images, the shared browser script and the PHP chatbot API.
+`npm run build` creates the complete Hostinger deployment in `out/`. The build contains 22 prerendered public routes, Next.js assets, sitemap, robots file, security rules, images, the shared browser script and the PHP chatbot API.
 
 ## Hostinger Deployment
 
@@ -43,7 +43,7 @@ The site remains a static Hostinger deployment. Next.js and React run at build t
 After deployment verify:
 
 1. Non-www redirects once to `https://www.aitechinnovations.com`.
-2. All 21 sitemap URLs return `200`.
+2. All 22 sitemap URLs return `200`.
 3. Canonicals, schema, sitemap and robots use the www hostname and clean routes.
 4. Cookie consent, contextual WhatsApp, email, calendar and lead forms still work.
 5. The chatbot endpoint responds and `/api/knowledge/` remains blocked.

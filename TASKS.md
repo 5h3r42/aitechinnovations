@@ -2,7 +2,8 @@
 
 ## Today
 
-- Monitor the submitted www sitemap until Google changes `Couldn't fetch` to `Success`; the live XML and all 21 URLs validate correctly.
+- Deploy the validated accountant AI receptionist landing page through the existing Hostinger workflow, then complete the labelled production conversion QA before using it for outreach.
+- Monitor the submitted www sitemap until Google changes `Couldn't fetch` to `Success`; the live XML and all 22 URLs validate correctly.
 - Apply the AI Platform attribution migration, deploy both validated repositories, then complete the labelled production conversion QA before enabling Google Ads.
 
 ## This Week
@@ -20,6 +21,7 @@
 
 ## Done
 
+- Built the static `/ai-receptionist-for-accountants/` landing page with controlled accountancy-specific messaging, a 30-day pilot offer, accountant demo CTAs, CRM lead capture, consent-gated GA4 events, attribution propagation, accurate Service/FAQ/Breadcrumb schema, and desktop/390px QA. No Google Ads were launched.
 - Fixed the AI Platform strategy-form false failure state: analytics is now non-critical and cannot move a successfully submitted `201` enquiry into the error path. Browser regression testing forced analytics to throw while confirming one successful API submission, form reset, and the required success message.
 - Connected the homepage strategy-call form to AI Platform: the form now submits one `aitech-innovations` enquiry to `/api/public/enquiries`, includes every collected field in the message, clears only after the verified `201` response, and no longer invokes the legacy Supabase, Resend, Google Sheets, FormSubmit, WhatsApp, or mailto submission workflow. Added cross-origin API/CSP support and verified the real browser submission locally.
 - Created the sales documentation foundation: structured CRO, sales, industry, outreach, CRM, and client-record templates under `docs/`, including an empty prospect tracker and documented pipeline stages. No website, application, Supabase, or AI Platform changes were made.

@@ -67,7 +67,7 @@
       .privacy { margin:9px 2px 0; color:var(--muted); font-size:9.5px; line-height:1.45; }
       @keyframes arrive { from { opacity:0; transform:translateY(4px); } }
       @keyframes pulse { to { opacity:.25; transform:translateY(-2px); } }
-      @media (max-width: 480px) { .launcher { right:12px; bottom:12px; } .panel { right:12px; bottom:76px; height:min(610px, calc(100svh - 92px)); } }
+      @media (max-width: 480px) { .launcher { right:12px; bottom:84px; } .panel { right:12px; bottom:148px; height:min(610px, calc(100svh - 164px)); } }
       @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.01ms!important; transition-duration:.01ms!important; scroll-behavior:auto!important; } }
     </style>
     <div class="chat">
