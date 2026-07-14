@@ -276,7 +276,7 @@
             });
             addMessage("Your booking request has been sent for team review. Availability is not confirmed yet.", "status");
           }
-        } catch (bookingError) {
+        } catch {
           addMessage("We could not submit the booking request right now. Please try again later.", "error");
         }
       }
