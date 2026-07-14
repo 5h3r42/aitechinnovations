@@ -12,7 +12,7 @@ const widget = read("public/ai-chat-widget.js");
 
 test("registers the accountant receptionist route with its canonical metadata and schema", () => {
   assert.match(routes, /"ai-receptionist-for-accountants"/);
-  assert.match(page, /<title>AI Receptionist for Accountants \| AITech Innovations<\/title>/);
+  assert.match(page, /<title>AI Receptionist Pricing for Accountants UK \| AITech Innovations<\/title>/);
   assert.match(page, /https:\/\/www\.aitechinnovations\.com\/ai-receptionist-for-accountants/);
   assert.match(page, /"@type":"Service"/);
   assert.match(page, /"@type":"FAQPage"/);
@@ -27,7 +27,7 @@ test("uses the accountant demo as a tracked secondary destination", () => {
 
 test("keeps the landing form on the shared AI Platform CRM path", () => {
   assert.match(page, /data-form-name="accountant_ai_receptionist_landing"/);
-  assert.match(page, /data-lead-type="accountant_ai_receptionist"/);
+  assert.match(page, /data-lead-type="ai_receptionist_existing_website"/);
   assert.match(page, /data-lead-source="website"/);
   assert.match(page, /data-submission-source="website"/);
   assert.match(script, /const submissionSource = strategyForm\.dataset\.submissionSource \|\| "strategy_call"/);
@@ -36,6 +36,21 @@ test("keeps the landing form on the shared AI Platform CRM path", () => {
   assert.match(script, /if \(response\.status !== 201 \|\| body\?\.success !== true \|\| body\?\.data\?\.status !== "submitted"\)/);
   const strategyHandler = script.slice(script.indexOf('strategyForm?.addEventListener("submit"'));
   assert.ok(strategyHandler.indexOf("await submitAiPlatformEnquiry") < strategyHandler.lastIndexOf("trackStrategyLead();"));
+});
+
+test("makes the priced managed pilot the primary accountant offer", () => {
+  for (const marker of [
+    "AI Receptionist Pilot",
+    "Setup from £495",
+    "Then from £149/month",
+    "30-day pilot on one website, managed by AITech",
+    "Recommended for most small businesses",
+    "Managed AI Receptionist Service",
+    "Compare the three options",
+  ]) {
+    assert.ok(page.includes(marker), `missing accountant pilot pricing marker: ${marker}`);
+  }
+  assert.ok(page.indexOf("AI Receptionist Pilot") < page.indexOf("Need a different ownership model?"));
 });
 
 test("keeps conversion analytics consent-gated and free of lead PII", () => {

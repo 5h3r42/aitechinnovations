@@ -132,6 +132,42 @@ function captureCampaignAttribution() {
 
 const campaignAttribution = captureCampaignAttribution();
 
+const PRICING_ENQUIRY_OPTIONS = {
+  ai_receptionist_existing_website: {
+    formName: "pricing_ai_receptionist_existing_website",
+    leadType: "ai_receptionist_existing_website",
+    service: "AI Receptionist on Existing Website",
+  },
+  website_managed_ai: {
+    formName: "pricing_website_managed_ai",
+    leadType: "website_managed_ai",
+    service: "New Website + Managed AI Receptionist",
+  },
+  client_owned_ai_system: {
+    formName: "pricing_client_owned_ai_system",
+    leadType: "client_owned_ai_system",
+    service: "Fully Client-Owned Website and AI System",
+  },
+};
+
+function configurePricingEnquiry() {
+  if (!strategyForm || typeof window === "undefined") return;
+
+  const packageKey = new URLSearchParams(window.location.search).get("package") || "";
+  const option = PRICING_ENQUIRY_OPTIONS[packageKey];
+  if (!option) return;
+
+  strategyForm.dataset.formName = option.formName;
+  strategyForm.dataset.leadType = option.leadType;
+  strategyForm.dataset.leadSource = "pricing";
+  const serviceField = strategyForm.elements.namedItem("service");
+  if (serviceField instanceof HTMLSelectElement || serviceField instanceof HTMLInputElement) {
+    serviceField.value = option.service;
+  }
+}
+
+configurePricingEnquiry();
+
 function getCampaignAnalyticsParameters() {
   const latestTouch = campaignAttribution.latest_touch || {};
   return {

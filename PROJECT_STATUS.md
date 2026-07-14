@@ -1,6 +1,6 @@
 # Project Status
 
-Date: 2026-07-10
+Date: 2026-07-14
 
 ## Current Phase
 
@@ -8,6 +8,7 @@ Production deployment and first-client acquisition for the rebuilt digital growt
 
 ## Completed Work
 
+- Standardised website and AI receptionist pricing on 2026-07-14: added the £495 / £149 managed AI Receptionist Pilot, £1,995–£3,995 plus £199–£299/month Website + Managed AI Receptionist, and £4,000–£8,000+ client-owned deployment with optional £250–£750/month support. The accountant page now presents the managed pilot as the primary offer, with scoped ownership, fair-use, exclusions, and a secondary comparison path. Homepage, automation and directly conflicting website/location pricing now use the agreed model; package CTAs retain the AI Platform CRM path, attribution and consent-gated PII-safe analytics using distinct lead types. Local TypeScript, lint, build, static checks, focused tests and desktop/390px no-overflow QA passed. Deployment remains pending.
 - Built the static `/ai-receptionist-for-accountants/` landing page on 2026-07-14. It positions the offer as a controlled AI receptionist for UK accountancy practices, keeps the separate accountant demo as a secondary destination, includes a 30-day custom-scoped pilot, and provides the requested safeguards around approved answers, human escalation and no personalised tax, legal, financial or regulated advice. The page reuses the shared AI-Platform enquiry path with `source: website`, page-specific lead metadata and existing UTM/GCLID/landing-page/referrer attribution. Local static-export, consent/no-PII, 1440px and 390px checks passed; production deployment and live CRM/GA4 verification remain next.
 - Fixed the false strategy-form failure state after a successful AI Platform submission on 2026-07-11. The `201` API request is now isolated from analytics; the success state is rendered and the form reset before non-critical tracking runs in its own guarded block. A browser regression test forced tracking to throw, received the documented `201` payload, made one enquiry request, and still showed the required confirmation.
 - Connected the homepage strategy-call form to the AI Platform enquiry API on 2026-07-11. It submits the complete enquiry once with `businessSlug: aitech-innovations`, handles only the documented `201` success response, preserves form data on failure, and no longer uses the old direct Supabase, Resend, Google Sheets, FormSubmit, WhatsApp, or mailto path. Added production/local API configuration, Hostinger CSP permission, and AI Platform CORS support. AI Platform and website builds passed; the browser form test returned `201`, showed the confirmation, and emitted no legacy delivery requests.

@@ -117,11 +117,11 @@ for (const [route, file, type] of pages) {
       "How it works",
       "Accountancy use cases",
       "Safeguards and handover",
-      "AI receptionist pilot",
+      "AI Receptionist Pilot",
       "Questions about an AI receptionist for accountants",
       "data-strategy-form",
       "data-form-name=\"accountant_ai_receptionist_landing\"",
-      "data-lead-type=\"accountant_ai_receptionist\"",
+      "data-lead-type=\"ai_receptionist_existing_website\"",
       "data-lead-source=\"website\"",
       "data-submission-source=\"website\"",
       "https://accountant.aitechinnovations.com",
@@ -218,7 +218,7 @@ if (strategyHandler.indexOf("await submitAiPlatformEnquiry") > strategyHandler.l
 }
 
 const landing = readOutput("website-design-for-service-businesses/index.html");
-for (const text of ["Turn more website visitors into useful enquiries", "From £499", "data-strategy-form", "paid_landing_page"]) {
+for (const text of ["Turn more website visitors into useful enquiries", "Website and AI receptionist pricing", "data-strategy-form", "paid_landing_page"]) {
   if (!landing.includes(text)) fail(`Paid landing page is missing: ${text}`);
 }
 
@@ -235,23 +235,26 @@ if ((homepage.match(/id="pricing"/g) ?? []).length !== 1) fail("Homepage must co
 if ((homepagePricingSection.match(/<article class="detailed-price-card/g) ?? []).length !== 3) {
   fail("Homepage pricing must contain exactly three package cards.");
 }
-for (const marker of ["STARTING PACKAGES", "Website Starter", "Lead Generation Website", "Industry Demo-Style Website", "All prices are starting prices. Final scope is confirmed after your strategy call."]) {
+for (const marker of ["WEBSITE &amp; AI RECEPTIONIST PRICING", "AI Receptionist Pilot", "Setup from £495", "Then from £149/month", "Website + Managed AI Receptionist", "£1,995–£3,995 setup", "Fully Client-Owned Website and AI System", "From £4,000–£8,000+", "OpenAI usage within fair-use limits"]) {
   if (!homepagePricingSection.includes(marker)) fail(`Homepage pricing is missing: ${marker}`);
 }
-if (/Automation \/ Ads Setup|Combined Growth System|From £399|From £899|From £1,499|Custom quote/i.test(homepagePricingSection)) {
+if (/Website Starter|Lead Generation Website|Industry Demo-Style Website|From £499|From £995|From £1,495/i.test(homepagePricingSection)) {
   fail("Homepage pricing contains an outdated or conflicting package.");
 }
 
 const accountantLanding = readOutput("ai-receptionist-for-accountants/index.html");
 for (const marker of [
-  "AI Receptionist for Accountants | AITech Innovations",
+  "AI Receptionist Pricing for Accountants UK | AITech Innovations",
   "https://www.aitechinnovations.com/ai-receptionist-for-accountants/",
   'type="application/ld+json"',
   'data-form-name="accountant_ai_receptionist_landing"',
-  'data-lead-type="accountant_ai_receptionist"',
+  'data-lead-type="ai_receptionist_existing_website"',
   'data-lead-source="website"',
   'data-submission-source="website"',
   "No automatic financial or tax advice",
+  "Setup from £495",
+  "Then from £149/month",
+  "Recommended for most small businesses",
   "https://accountant.aitechinnovations.com",
 ]) {
   if (!accountantLanding.includes(marker)) fail(`Accountant receptionist landing page is missing: ${marker}`);

@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-07-14 - Add website and AI receptionist pricing
+
+### Files Changed
+
+- Updated homepage, AI automation, accountant, website-service and location pages; shared form metadata; responsive styles; focused tests and static checks
+
+### Summary
+
+- Added three consistent offers: AI Receptionist Pilot on an existing website (£495 setup, then £149/month), Website + Managed AI Receptionist (£1,995–£3,995 setup, then £199–£299/month), and a Fully Client-Owned Website and AI System (£4,000–£8,000+ with optional £250–£750/month support).
+- Made the accountant route’s 30-day, one-website managed pilot the primary offer; added concise ownership, fair-use, included-service and exclusion wording, plus a secondary route to the full comparison.
+- Reused the existing AI Platform CRM path, campaign attribution and consent-gated PII-safe analytics. Pricing CTAs now select the `ai_receptionist_existing_website`, `website_managed_ai`, or `client_owned_ai_system` lead type without introducing a new lead store.
+
+### Validation
+
+- Focused Node tests, `npx tsc --noEmit`, `npm run lint`, `npm run build`, `npm run check`, `git diff --check`, and local desktop/390px browser QA passed. The pricing comparison and accountant primary offer had no horizontal overflow or browser console errors locally.
+
+### Next Task
+
+Deploy the validated `out/` directory through the existing Hostinger workflow, then complete labelled production form, attribution, consent and GA4 conversion QA.
+
 ## 2026-07-14 - Add accountant AI receptionist landing page
 
 ### Files Changed
