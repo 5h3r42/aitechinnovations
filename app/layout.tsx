@@ -62,7 +62,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         />
         {children}
         <Script src="/script.js?v=20260714-client-acquisition-analytics-3" strategy="afterInteractive" />
-        <Script src="/ai-chat-widget.js?v=20260714-client-acquisition-analytics-2" strategy="afterInteractive" />
+        <Script src="/ai-chat-widget.js?v=20260714-client-acquisition-analytics-3" strategy="afterInteractive" />
       </body>
     </html>
   );
