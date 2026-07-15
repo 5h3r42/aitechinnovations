@@ -57,13 +57,16 @@ jobs:
           test -n "$HOSTINGER_SSH_PRIVATE_KEY"
           test -n "$HOSTINGER_SSH_KNOWN_HOSTS"
           test -n "$HOSTINGER_REMOTE_PATH"
+
           install -d -m 700 "$HOME/.ssh"
+
           printf '%s\n' "$HOSTINGER_SSH_PRIVATE_KEY" > "$HOME/.ssh/id_ed25519"
           chmod 600 "$HOME/.ssh/id_ed25519"
+
           printf '%s\n' "$HOSTINGER_SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
           chmod 600 "$HOME/.ssh/known_hosts"
 
-                 - name: Test SSH authentication
+      - name: Test SSH authentication
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
           HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
@@ -82,7 +85,9 @@ jobs:
           HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
           HOSTINGER_REMOTE_PATH: ${{ secrets.HOSTINGER_REMOTE_PATH }}
         run: |
-          sftp -b - -P "$HOSTINGER_PORT" -i "$HOME/.ssh/id_ed25519" \
+          sftp -b - \
+            -P "$HOSTINGER_PORT" \
+            -i "$HOME/.ssh/id_ed25519" \
             "$HOSTINGER_USERNAME@$HOSTINGER_HOST" <<SFTP
           cd $HOSTINGER_REMOTE_PATH
           put out/.htaccess .
