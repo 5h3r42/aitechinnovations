@@ -63,7 +63,7 @@ jobs:
           printf '%s\n' "$HOSTINGER_SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
           chmod 600 "$HOME/.ssh/known_hosts"
 
-        - name: Test SSH authentication
+                 - name: Test SSH authentication
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
           HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
