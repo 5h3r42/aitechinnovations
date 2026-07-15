@@ -2,7 +2,7 @@
 
 ## Today
 
-- Deploy the validated accountant AI receptionist landing page through the existing Hostinger workflow, then complete the labelled production conversion QA before using it for outreach.
+- Complete the labelled production conversion QA for form attribution and GA4 before using the accountant AI receptionist landing page for outreach.
 - Monitor the submitted www sitemap until Google changes `Couldn't fetch` to `Success`; the live XML and all 22 URLs validate correctly.
 - Apply the AI Platform attribution migration, deploy both validated repositories, then complete the labelled production conversion QA before enabling Google Ads.
 
@@ -21,6 +21,7 @@
 
 ## Done
 
+- Deployed the clean `origin/main` static export directly from the Mac to `/home/u372008833/domains/aitechinnovations.com/public_html` over SSH/rsync after creating a 321 MB rollback archive. Verified all required routes return 200, local/remote checksums match, pricing spacers and approved prices are live, desktop CTA bottoms align, cards stack at 768px and 390px, no horizontal overflow or console errors were found, assets load, and the PHP chatbot returns a scripted 200 response.
 - Improved the three-card website and AI receptionist pricing presentation: widened the shared pricing container, increased card padding and text rhythm, condensed feature bullets, added a flexible CTA spacer, aligned desktop CTA bottoms, and switched tablet/mobile pricing to one column. Validated at 1440px, tablet and 390px with no overflow; Hostinger deployment remains pending.
 - Refined the website and AI receptionist pricing for founding clients: £495 / £149 limited pilot, tightly scoped £1,995 website + managed AI entry point with typical £2,995–£3,995 projects, and £5,000 client-owned entry point with typical £6,000–£10,000+ deployments. Updated scope qualifiers, comparison, focused tests and local responsive QA; Hostinger deployment remains pending.
 - Added the three-tier website and AI receptionist pricing model: existing-website AI Receptionist Pilot, Website + Managed AI Receptionist, and Fully Client-Owned Website and AI System. Updated the accountant pilot, website/automation routes, package-specific CRM lead types, static checks and responsive QA; Hostinger deployment remains pending.

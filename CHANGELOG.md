@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-07-15 - Deploy pricing spacing update to Hostinger
+
+### Files Changed
+
+- Updated `TASKS.md`, `PROJECT_STATUS.md`, and `CHANGELOG.md`
+- Deployed the generated `out/` contents to Hostinger; no application source files were changed
+
+### Summary
+
+- Rebuilt current `origin/main` (`10ba846`) in the isolated `/private/tmp/aitech-pricing-deploy` worktree and deployed the complete static export directly over SSH/rsync.
+- Confirmed the authoritative live root as `/home/u372008833/domains/aitechinnovations.com/public_html`; the alternative `/home/u372008833/public_html` directory is empty.
+- Created a timestamped 321 MB server-side rollback archive before overlaying the export without a destructive remote delete or nested `out/` directory.
+
+### Validation
+
+- `npm ci`, `npx tsc --noEmit`, ESLint, 11 focused tests, `npm run build`, `npm run check`, and `git diff --check` passed; the export contains 22 public routes and `api/chatbot.php`.
+- All four priority production routes returned 200. Local/remote checksums matched for the homepage, chatbot and browser script.
+- Live browser QA confirmed three pricing spacers, approved £495 / £1,995 / £5,000 pricing, aligned desktop CTA bottoms, single-column cards at 768px and 390px, no horizontal overflow, no console errors and no broken images.
+- The PHP chatbot returned a scripted 200 response. Existing forms, lead metadata and the shared browser script remained present without submitting personal data.
+
+### Next Task
+
+Complete labelled production form attribution and GA4 conversion QA before using the accountant campaign for outreach.
+
 ## 2026-07-14 - Improve pricing card spacing
 
 ### Files Changed
