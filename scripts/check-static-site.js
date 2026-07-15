@@ -92,8 +92,8 @@ for (const [route, file, type] of pages) {
   const expectedCanonical = route === "/" ? `${siteUrl}/` : `${siteUrl}${route}`;
   if (canonical !== expectedCanonical) fail(`${file} canonical should be ${expectedCanonical}; found ${canonical}.`);
   if (/noindex/i.test(html)) fail(`${file} contains a noindex directive.`);
-  if (!html.includes("G-LTL4JXMYP2")) fail(`${file} is missing GA4.`);
-  if (!html.includes("aitech-consent-bootstrap")) fail(`${file} is missing Consent Mode bootstrap.`);
+  if (html.includes("googletagmanager.com/gtag/js")) fail(`${file} must not load GA4 before analytics consent.`);
+  if (html.includes("G-LTL4JXMYP2")) fail(`${file} must not expose a GA4 measurement ID before analytics consent.`);
   if (!html.includes("/script.js")) fail(`${file} is missing the shared browser script.`);
   if (!html.includes("/_next/static/")) fail(`${file} is missing Next.js assets.`);
 
@@ -163,11 +163,23 @@ for (const marker of [
 if (/no-store/i.test(htaccess)) fail(".htaccess should not use no-store for HTML pages.");
 
 const script = readOutput("script.js");
+if (!script.includes('const GA_MEASUREMENT_ID = "G-LTL4JXMYP2"')) {
+  fail("script.js is missing the GA4 measurement ID.");
+}
 for (const eventName of ["click_whatsapp", "click_email", "click_phone", "calendar_booking_click", "view_demo", "form_started", "quote_cta_click", "generate_lead"]) {
   if (!script.includes(eventName)) fail(`script.js is missing analytics event: ${eventName}`);
 }
 for (const feature of ["/api/chatbot.php", "aitech_cookie_consent", "aitech_campaign_attribution", "data-cookie-accept", "data-cookie-reject"]) {
   if (!script.includes(feature)) fail(`script.js is missing required feature: ${feature}`);
+}
+for (const feature of [
+  'const GA_MEASUREMENT_ID = "G-LTL4JXMYP2"',
+  "function initializeGoogleAnalytics()",
+  "window.__aitechGoogleAnalyticsConfigured",
+  "aitech-google-tag",
+  "https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}",
+]) {
+  if (!script.includes(feature)) fail(`script.js is missing deferred GA4 loading: ${feature}`);
 }
 
 for (const feature of [
@@ -223,7 +235,7 @@ for (const text of ["Turn more website visitors into useful enquiries", "Website
 }
 
 const homepage = readOutput("index.html");
-if (!homepage.includes("/script.js?v=20260714-client-acquisition-analytics")) {
+if (!homepage.includes("/script.js?v=20260715-strict-consent")) {
   fail("Homepage is missing the current shared-script cache key.");
 }
 if (!homepage.includes("window.aitechSupabaseConfig")) {

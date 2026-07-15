@@ -72,6 +72,8 @@ GA4 property: `540147140`
 
 Measurement ID: `G-LTL4JXMYP2`
 
+GA4 and Enhanced Measurement are deferred until a visitor explicitly accepts optional analytics. Before consent or after rejection, the site still captures first-party attribution for CRM delivery but does not load the Google tag.
+
 Mark only `generate_lead` and `calendar_booking_click` as GA4 key events. Use `?internal=1` to persist the internal traffic marker in a browser and `?internal=0` to clear it.
 
 ## Paid Ads

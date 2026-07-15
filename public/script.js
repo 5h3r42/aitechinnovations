@@ -17,6 +17,8 @@ const CHATBOT_API_ENDPOINT = "/api/chatbot.php";
 const COOKIE_CONSENT_KEY = "aitech_cookie_consent";
 const CAMPAIGN_STORAGE_KEY = "aitech_campaign_attribution";
 const CLARITY_PROJECT_ID = "x1bt97hjsh";
+const GA_MEASUREMENT_ID = "G-LTL4JXMYP2";
+const GOOGLE_TAG_SCRIPT_ID = "aitech-google-tag";
 // Static-site deployment configuration. Update the production URL here if the platform host changes.
 const AI_PLATFORM_API_URL =
   window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
@@ -68,6 +70,83 @@ let chatbotLeadPromptShown = false;
 let chatbotLeadActive = false;
 let chatbotLeadStepIndex = 0;
 let chatbotLeadData = {};
+
+function hasAnalyticsConsent() {
+  try {
+    return localStorage.getItem(COOKIE_CONSENT_KEY) === "accepted";
+  } catch {
+    return false;
+  }
+}
+
+function configureAnalyticsParameters() {
+  if (typeof window === "undefined") return;
+
+  window.aitechAnalyticsParameters = window.aitechAnalyticsParameters || {};
+  try {
+    const analyticsUrl = new URL(window.location.href);
+    const internalSetting = analyticsUrl.searchParams.get("internal");
+    if (internalSetting === "1") localStorage.setItem("aitech_internal_traffic", "1");
+    if (internalSetting === "0") localStorage.removeItem("aitech_internal_traffic");
+    if (internalSetting !== null) {
+      analyticsUrl.searchParams.delete("internal");
+      history.replaceState(null, "", analyticsUrl.pathname + analyticsUrl.search + analyticsUrl.hash);
+    }
+    if (localStorage.getItem("aitech_internal_traffic") === "1") {
+      window.aitechAnalyticsParameters.traffic_type = "internal";
+    }
+  } catch {}
+}
+
+function updateGoogleConsent(granted) {
+  if (typeof window.gtag !== "function") return;
+  const state = granted ? "granted" : "denied";
+  window.gtag("consent", "update", {
+    ad_storage: state,
+    ad_user_data: state,
+    ad_personalization: state,
+    analytics_storage: state,
+  });
+}
+
+function initializeGoogleAnalytics() {
+  if (typeof window === "undefined" || typeof document === "undefined" || !hasAnalyticsConsent()) return false;
+
+  configureAnalyticsParameters();
+  window.dataLayer = window.dataLayer || [];
+  if (typeof window.gtag !== "function") {
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
+    };
+  }
+
+  if (!window.__aitechGoogleAnalyticsConfigured) {
+    window.gtag("consent", "default", {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
+    });
+    updateGoogleConsent(true);
+    window.gtag("js", new Date());
+    window.gtag("config", GA_MEASUREMENT_ID, window.aitechAnalyticsParameters);
+    window.__aitechGoogleAnalyticsConfigured = true;
+  } else {
+    updateGoogleConsent(true);
+  }
+
+  if (!document.getElementById(GOOGLE_TAG_SCRIPT_ID)) {
+    const script = document.createElement("script");
+    script.id = GOOGLE_TAG_SCRIPT_ID;
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    document.head.append(script);
+  }
+
+  return true;
+}
+
+configureAnalyticsParameters();
 
 function sanitizeCampaignValue(value = "") {
   if (typeof value !== "string") return "";
@@ -208,17 +287,6 @@ function loadClarity() {
   document.head.append(script);
 }
 
-function updateGoogleConsent(granted) {
-  if (typeof window.gtag !== "function") return;
-  const state = granted ? "granted" : "denied";
-  window.gtag("consent", "update", {
-    ad_storage: state,
-    ad_user_data: state,
-    ad_personalization: state,
-    analytics_storage: state,
-  });
-}
-
 function clearTrackingCookies() {
   for (const cookieName of ["_ga", "_gid", "_gat", "_clck", "_clsk"]) {
     document.cookie = `${cookieName}=; Max-Age=0; path=/; SameSite=Lax`;
@@ -229,9 +297,13 @@ function clearTrackingCookies() {
 function setCookieConsent(choice) {
   localStorage.setItem(COOKIE_CONSENT_KEY, choice);
   const granted = choice === "accepted";
-  updateGoogleConsent(granted);
-  if (granted) loadClarity();
-  else clearTrackingCookies();
+  if (granted) {
+    initializeGoogleAnalytics();
+    loadClarity();
+  } else {
+    updateGoogleConsent(false);
+    clearTrackingCookies();
+  }
 }
 
 function createCookieControls() {
@@ -255,7 +327,10 @@ function createCookieControls() {
   const hideBanner = () => banner.setAttribute("hidden", "");
   const savedChoice = localStorage.getItem(COOKIE_CONSENT_KEY);
   if (savedChoice) hideBanner();
-  if (savedChoice === "accepted") loadClarity();
+  if (savedChoice === "accepted") {
+    initializeGoogleAnalytics();
+    loadClarity();
+  }
 
   banner.querySelector("[data-cookie-accept]")?.addEventListener("click", () => {
     setCookieConsent("accepted");

@@ -35,7 +35,7 @@ jobs:
         run: |
           npx tsc --noEmit
           npm run lint
-          node --test tests/website-ai-pricing.test.mjs tests/accountant-ai-receptionist.test.mjs
+          node --test tests/analytics-consent-loading.test.mjs tests/website-ai-pricing.test.mjs tests/accountant-ai-receptionist.test.mjs
           npm run build
           npm run check
           test -f out/index.html
