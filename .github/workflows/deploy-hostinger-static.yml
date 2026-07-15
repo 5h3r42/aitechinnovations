@@ -51,6 +51,7 @@ jobs:
           HOSTINGER_SSH_KNOWN_HOSTS: ${{ secrets.HOSTINGER_SSH_KNOWN_HOSTS }}
           HOSTINGER_REMOTE_PATH: ${{ secrets.HOSTINGER_REMOTE_PATH }}
         run: |
+          set -euo pipefail
           test -n "$HOSTINGER_HOST"
           test -n "$HOSTINGER_PORT"
           test -n "$HOSTINGER_USERNAME"
@@ -60,10 +61,12 @@ jobs:
 
           install -d -m 700 "$HOME/.ssh"
 
-          printf '%s\n' "$HOSTINGER_SSH_PRIVATE_KEY" > "$HOME/.ssh/id_ed25519"
+          printf '%s\n' "$HOSTINGER_SSH_PRIVATE_KEY" | tr -d '\r' > "$HOME/.ssh/id_ed25519"
           chmod 600 "$HOME/.ssh/id_ed25519"
+          ssh-keygen -y -f "$HOME/.ssh/id_ed25519" > "$HOME/.ssh/id_ed25519.pub"
+          ssh-keygen -lf "$HOME/.ssh/id_ed25519.pub"
 
-          printf '%s\n' "$HOSTINGER_SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          printf '%s\n' "$HOSTINGER_SSH_KNOWN_HOSTS" | tr -d '\r' > "$HOME/.ssh/known_hosts"
           chmod 600 "$HOME/.ssh/known_hosts"
 
       - name: Test SSH authentication
@@ -72,7 +75,9 @@ jobs:
           HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
           HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
         run: |
-          ssh -v \
+          ssh -vv \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
             -o StrictHostKeyChecking=yes \
             -p "$HOSTINGER_PORT" \
             -i "$HOME/.ssh/id_ed25519" \
@@ -85,7 +90,10 @@ jobs:
           HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
           HOSTINGER_REMOTE_PATH: ${{ secrets.HOSTINGER_REMOTE_PATH }}
         run: |
-          sftp -b - \
+          sftp \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -b - \
             -P "$HOSTINGER_PORT" \
             -i "$HOME/.ssh/id_ed25519" \
             "$HOSTINGER_USERNAME@$HOSTINGER_HOST" <<SFTP
