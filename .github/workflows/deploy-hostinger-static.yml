@@ -63,6 +63,18 @@ jobs:
           printf '%s\n' "$HOSTINGER_SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
           chmod 600 "$HOME/.ssh/known_hosts"
 
+                - name: Test SSH authentication
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+        run: |
+          ssh -v \
+            -o StrictHostKeyChecking=yes \
+            -p "$HOSTINGER_PORT" \
+            -i "$HOME/.ssh/id_ed25519" \
+            "$HOSTINGER_USERNAME@$HOSTINGER_HOST" "echo SSH_OK"
+
       - name: Upload static export contents over SFTP
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
