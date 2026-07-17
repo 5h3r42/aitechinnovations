@@ -293,7 +293,8 @@ p { margin-bottom: 0; color: var(--muted); line-height: 1.52; }
 .detailed-pricing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; align-items: stretch; }
 .detailed-price-card { display: flex; flex-direction: column; padding: 38px 36px 34px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 12px 32px rgba(31, 53, 79, 0.06); }
 .detailed-price-card.featured { border-color: rgba(22, 119, 255, 0.36); background: #fbfdff; box-shadow: 0 18px 42px rgba(22, 119, 255, 0.1); }
-.detailed-price-card .badge { margin-bottom: 20px; }
+.pricing-card__pill-row { display: flex; align-items: flex-start; min-height: 34px; margin-bottom: 20px; }
+.pricing-card__pill { display: inline-flex; width: fit-content; max-width: 100%; padding: 7px 10px; color: var(--accent-dark); background: #eaf3ff; border-radius: 999px; font-size: 0.78rem; font-weight: 900; line-height: 1.25; white-space: nowrap; }
 .detailed-price-card .demo-category { margin-bottom: 14px; }
 .detailed-price-card h3 { margin: 0 0 20px; font-size: clamp(1.45rem, 1.7vw, 1.7rem); line-height: 1.17; }
 .detailed-price-card .price { margin: 0 0 14px; font-size: clamp(2.25rem, 2.7vw, 2.75rem); line-height: 1.02; }
@@ -1039,7 +1040,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); box-sha
   .card-grid, .pricing-grid, .detailed-pricing-grid, .work-grid { gap: 16px; }
   .pricing-container { width: min(100% - 40px, 1240px); }
   .detailed-price-card { padding: 28px 24px; }
-  .detailed-price-card .badge { margin-bottom: 16px; }
+  .pricing-card__pill-row { min-height: 32px; margin-bottom: 16px; }
   .detailed-price-card h3 { margin-bottom: 16px; }
   .detailed-price-card .best-for { margin-top: 24px; }
   .detailed-price-card h4 { margin-top: 28px; }
@@ -1120,6 +1121,8 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); box-sha
 }
 
 @media (max-width: 520px) {
+  .pricing-card__pill-row { min-height: 50px; }
+  .pricing-card__pill { white-space: normal; }
   .container { width: min(100% - 28px, var(--max)); }
   .brand span { font-size: 0.95rem; }
   h1 { font-size: 2.35rem; }
